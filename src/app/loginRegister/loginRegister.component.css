@@ -1,0 +1,15 @@
+.container > * {
+    width: auto;
+    margin-left: 15px;
+    margin-right: 15px;
+}
+.clickable {
+    cursor: pointer;
+}
+.toggle-login-register {
+    margin-top: 20px;
+    text-align: center
+}
+.select-type {
+    width: 33vh;
+}
