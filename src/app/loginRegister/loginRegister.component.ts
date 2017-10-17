@@ -1,6 +1,8 @@
-import {Input, Component} from '@angular/core';
-import {FormControl, Validators} from '@angular/forms';
-import {MatDialog, MAT_DIALOG_DATA, MatDatepickerInputEvent} from '@angular/material';
+import { Input, Component } from '@angular/core';
+import { FormControl, Validators } from '@angular/forms';
+import { HttpErrorResponse } from '@angular/common/http';
+import { Router } from '@angular/router';
+import { MatDialog, MAT_DIALOG_DATA, MatDatepickerInputEvent } from '@angular/material';
 
 import {
     trigger,
@@ -11,10 +13,20 @@ import {
   } from '@angular/animations';
 
 import { AuthenticationService } from '../services/authentication.service';
+import { StorageService } from '../services/storage.services';
+import { NatalDatesService } from '../services/natalDates.service';
 import { ErrorDialogComponent } from '../errorDialog/errorDialog.component';
+
+import { User } from '../models/user';
+import { NatalDate } from '../models/natalDate';
 
 const EMAIL_REGEX = /^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
 const DATE_REGEX = /^\d{4}\-\d{1,2}\-\d{1,2}$/;
+
+interface Type {
+  id: string;
+  name: string;
+}
 
 @Component({
   selector: 'login-register',
@@ -29,11 +41,19 @@ const DATE_REGEX = /^\d{4}\-\d{1,2}\-\d{1,2}$/;
     ])
   ]
 })
-
 export class LoginRegisterComponent {
 
-  constructor(private authenticationService: AuthenticationService, public dialog: MatDialog) { }
-
+  constructor(private router: Router,
+    private authenticationService: AuthenticationService, 
+    private storageService: StorageService, 
+    private natalDatesService: NatalDatesService,
+    public dialog: MatDialog) { }
+  
+  types: Array<Type> = [
+    {id: 'male', name: "'Ανδρας"},
+    {id: 'female', name: "Γυναίκα"},
+    {id: 'freeSperit', name: "Ελεύθερη Ψυχή"}
+  ];
   //form fiels
   emailField: string = "";
   passwordField: string = "";
@@ -72,9 +92,7 @@ export class LoginRegisterComponent {
     if (this.isLogin && !this.hasValidationErrors([this.emailFormControl, this.passwordFormControl])) {
 
       this.showLoading(true);
-      this.authenticationService.login(this.emailField, this.passwordField)
-        .then(user => console.log(user))
-        .catch(error => this.handleError(error));
+      this.login(this.emailField, this.passwordField);
 
     } else if (!this.hasValidationErrors([this.emailFormControl, this.passwordFormControl,
       this.birthPlaceFormControl, this.birthDateFormControl, this.birthTimeFormControl])) {
@@ -82,10 +100,26 @@ export class LoginRegisterComponent {
       this.showLoading(true);
       this.authenticationService.register(this.emailField, this.passwordField,
         this.birthDateField, this.birthTimeField, this.birthPlaceField, this.typeField)
-        .then(user => console.log(user))
-        .catch(error => this.handleError(error));
-
+        .then(o => this.login(this.emailField, this.passwordField))
     }
+  }
+
+  login(username: string, password: string): Promise<any> {
+    const that = this;
+    return this.authenticationService.login(this.emailField, this.passwordField)
+      .then(function(user: User) {
+        return that.natalDatesService.getAll();
+      })
+      .then(function(natalDates: Array<NatalDate>) {
+        that.storageService.setNatalDates(natalDates);
+        return natalDates.filter(function(natalDate) {
+          return natalDate.primary;
+        })[0];
+      })
+      .then(function(natalDate: NatalDate) {
+        return that.router.navigate(['/daily/' + natalDate.name]);
+      })
+      .catch(error => that.handleError(error));
   }
 
   hasValidationErrors(controls: [FormControl]): boolean {
@@ -97,7 +131,7 @@ export class LoginRegisterComponent {
     return false;
   }
 
-  handleError(error) {
+  handleError(error: HttpErrorResponse) {
     var title: string = 'Προσοχή';
     var message: string;
     switch (error.status) {
@@ -105,7 +139,7 @@ export class LoginRegisterComponent {
         message = 'Το email ή ο κωδικός πρόσβασης δεν ειναι σωστα!';
         break;
       case 400:
-        const err = error.json().errors[0];
+        const err = JSON.parse(error.error).errors[0];
         if (err.type == 'timezone error' || err.path == 'location') {
           message = 'Δεν βρέθηκε ο τόπος γέννησης, παντα σύμφωνα με την google... :) ';
         } else if (err.path == 'email') {//err.type == 'unique violation'

@@ -4,18 +4,18 @@ import 'rxjs/add/operator/toPromise';
 
 import { User } from '../models/user';
 import { AuthorizationService } from '../services/authorization.service';
+import { Config } from '../config.module';
 
 @Injectable()
 export class AuthenticationService {
 
-  private baseUrl: string = 'http://localhost:3000/api/v1/auth/';
   private token: string;
   
-  constructor(private http: HttpClient, private authorizationService:AuthorizationService) { }
+  constructor(private config: Config, private http: HttpClient, private authorizationService:AuthorizationService) { }
 
   public login(email: string, password: string): Promise<User> {
     const body: any = {email: email, password: password};
-    return this.http.post<LoginResponse>(this.baseUrl + 'login', body)
+    return this.http.post<LoginResponse>(this.config.BASE_URL + '/auth/login', body)
       .toPromise()
       .then(json => {
         this.authorizationService.setToken(json.token);
@@ -32,7 +32,7 @@ export class AuthenticationService {
       birthLocation: location,
       type: type
     };
-    return this.http.post<boolean>(this.baseUrl + 'register', body)
+    return this.http.post<boolean>(this.config.BASE_URL + '/auth/register', body)
       .toPromise()
       .then(response => true)
       .catch(this.handleError);

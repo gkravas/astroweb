@@ -1,0 +1,42 @@
+<div class="wrapper">
+    <header class="header">
+        <mat-toolbar color="primary">
+            <span>Ημερήσιες Προβλέψεις</span>
+            <span class="spacer"></span>
+            <button mat-icon-button>
+                <mat-icon aria-label="Έξοδος">power_settings_new</mat-icon>
+            </button>
+        </mat-toolbar>
+    </header>
+    <div class="main">
+        <mat-grid-list [cols]="cols | async" gutterSize="5px" rowHeight="260px">           
+            <mat-grid-tile class="prediction-card-tile" *ngFor="let availableDate of availableDates">
+                <mat-card class="prediction-card">
+                    <mat-card-header>
+                        <mat-card-title>{{formatDate(availableDate)}}</mat-card-title>
+                    </mat-card-header>
+                    <div class="prediction-card-image-container">
+                        <img class="prediction-card-image" mat-card-image [src]="getDayImage(availableDate)" [alt]="getDayImageName(availableDate)">
+                    </div>
+                    <mat-card-actions>
+                        <button mat-button [disabled]="availableDate == -1" (click)="openPrediction(availableDate)">{{getActionLemma(availableDate)}}</button>
+                    </mat-card-actions>
+                </mat-card>
+            </mat-grid-tile>
+        </mat-grid-list>
+    </div>
+    <aside class="aside aside-1">
+        <div class="aside-container"></div>
+    </aside>
+    <aside class="aside aside-2">
+        <div class="aside-container"></div>
+    </aside>
+    <footer class="footer">
+        <div>
+        <a href="https://gineastrologos.gr" target="_blank">
+            <img src="assets/gineastrologosLogo.jpg" alt="Γίνε αστρολόγος λογότυπο" class="powered-by-logo-img"/>
+            <span class="powered-by-text">Από την ομάδα τού Γίνε Αστρολόγος</span>
+        </a>
+        </div>
+    </footer>
+</div>

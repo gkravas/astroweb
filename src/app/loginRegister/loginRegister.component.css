@@ -1,7 +1,14 @@
+.parent {
+    left: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+}
 .container > * {
     width: auto;
     margin-left: 15px;
     margin-right: 15px;
+    background: transparent;
 }
 .clickable {
     cursor: pointer;

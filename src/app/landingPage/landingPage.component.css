@@ -1,0 +1,10 @@
+.master-container {
+    padding: 15px;
+    height: 100vh; 
+    justify-content: center;
+    align-items: center;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-image: url("/assets/landingBG.png")
+}

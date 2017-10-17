@@ -3,7 +3,8 @@ import { JwtHelper } from 'angular2-jwt';
 @Injectable()
 export class AuthorizationService {
 
-    jwtHelper: JwtHelper = new JwtHelper();
+  private jwtHelper: JwtHelper = new JwtHelper();
+
   public getToken(): string {
     return localStorage.getItem('token');
   }
@@ -13,10 +14,6 @@ export class AuthorizationService {
   }
 
   public isAuthenticated(): boolean {
-    // get the token
-    const token = this.getToken();
-    // return a boolean reflecting 
-    // whether or not the token is expired
-    return this.jwtHelper.isTokenExpired(token);
+    return !this.jwtHelper.isTokenExpired(this.getToken());
   }
 }
