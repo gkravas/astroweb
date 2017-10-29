@@ -1,6 +1,7 @@
 import {Input, Component} from '@angular/core';
 import { ObservableMedia } from '@angular/flex-layout';
 import { Router, ActivatedRoute, ParamMap } from '@angular/router';
+import { Title } from '@angular/platform-browser';
 
 import { Observable } from "rxjs/Observable";
 import "rxjs/add/operator/map";
@@ -42,7 +43,8 @@ export class DailyPredictionListComponent {
 
     constructor(private observableMedia: ObservableMedia,
         private route: ActivatedRoute,
-        private router: Router) {}
+        private router: Router,
+        private titleService: Title) {}
 
     ngOnInit() {
         const grid = new Map([

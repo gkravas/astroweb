@@ -11,14 +11,17 @@ export class AuthenticationService {
 
   private token: string;
   
-  constructor(private config: Config, private http: HttpClient, private authorizationService:AuthorizationService) { }
+  constructor(private config: Config,
+              private http: HttpClient,
+              private authorizationService:AuthorizationService) { }
 
   public login(email: string, password: string): Promise<User> {
+    const that = this;
     const body: any = {email: email, password: password};
-    return this.http.post<LoginResponse>(this.config.BASE_URL + '/auth/login', body)
+    return this.http.post<LoginResponse>(this.config.BASE_URL + '/api/v1/auth/login', body)
       .toPromise()
       .then(json => {
-        this.authorizationService.setToken(json.token);
+        that.authorizationService.setToken(json.token);
         return json.user as User
       })
       .catch(this.handleError);
@@ -32,7 +35,27 @@ export class AuthenticationService {
       birthLocation: location,
       type: type
     };
-    return this.http.post<boolean>(this.config.BASE_URL + '/auth/register', body)
+    return this.http.post<boolean>(this.config.BASE_URL + '/api/v1/auth/register', body)
+      .toPromise()
+      .then(response => true)
+      .catch(this.handleError);
+  }
+
+  public resetPassword(password: string): Promise<boolean> {
+    const body: any = {
+      password: password,
+    };
+    return this.http.post<boolean>(this.config.BASE_URL + '/api/v1/auth/resetPassword', body)
+      .toPromise()
+      .then(response => true)
+      .catch(this.handleError);
+  }
+
+  public sendResetEmail(email: string): Promise<boolean> {
+    const body: any = {
+      email: email,
+    };
+    return this.http.post<boolean>(this.config.BASE_URL + '/api/v1/auth/sendResetEmail', body)
       .toPromise()
       .then(response => true)
       .catch(this.handleError);

@@ -1,10 +1,74 @@
-.master-container {
-    padding: 15px;
+.master {
+    width: 100vw;
     height: 100vh; 
     justify-content: center;
     align-items: center;
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
-    background-image: url("/assets/landingBG.png")
+    background-image: url("/assets/bg1.jpg")
+}
+.overlay {
+    width: 100vw;
+    height: 100vh;
+    background-color: black;
+    opacity: 0.4;
+ }
+ .content {
+    display: flex;
+    top: 0; bottom: 0; left: 0; right: 0;
+    flex-direction: column;
+    align-items: center;
+    position: absolute
+ }
+ .header {
+    flex:auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+ }
+ .header-logo {
+    align-self: center;
+    height: 100px;
+    width: auto;
+ }
+ .footer {
+    flex:auto;
+ }
+.intro { 
+    flex: auto;
+    min-width: 500px;
+    text-align: center;
+    font-size: 1.1rem;
+    background-color: transparent;
+}
+@media (max-width: 500px) {
+    .intro {
+        min-width: 90%;
+        padding-left: 5px;
+        padding-right: 5px;
+    }
+    .header-logo {
+        height: 50px;
+    }
+}
+
+.text {
+    color: whitesmoke;
+}
+
+a:hover, a:visited, a:link, a:active
+{
+    text-decoration: none;
+}
+
+* {
+    font-family: "Ubuntu" /*Replace with your custom font*/, sans-serif !important; 
+    /*Add the !important to overwrite all elements*/
+  }
+.register-button {
+    margin-top: 30px;
+    color: #4154B2;
+    font-size: x-large;
+    padding: 10px 20px;
 }

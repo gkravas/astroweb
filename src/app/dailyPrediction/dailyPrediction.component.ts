@@ -1,5 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import { ObservableMedia } from '@angular/flex-layout';
+import { Title } from '@angular/platform-browser';
 import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 import {Location} from '@angular/common';
 
@@ -17,7 +18,10 @@ export class DailyPredictionComponent implements OnInit {
 
     private date: string;
     private titleDate: string;
-    constructor(private location: Location, private route: ActivatedRoute, private router: Router) {}
+    constructor(private location: Location,
+        private route: ActivatedRoute,
+        private router: Router,
+        private titleService: Title) {}
 
     ngOnInit() {
         this.date = this.route.snapshot.paramMap.get('date');

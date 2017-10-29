@@ -5,16 +5,28 @@ import { MaterialModule } from './material.module';
 import { FlexLayoutModule } from "@angular/flex-layout";
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { RouterModule, Routes }   from '@angular/router';
+import { ApolloClient, createNetworkInterface } from 'apollo-client';
+import { ApolloModule } from 'apollo-angular';
+import { Angulartics2Module, Angulartics2GoogleAnalytics } from 'angulartics2';
 
 import { AuthorizationService } from './services/authorization.service';
-import { StorageService } from './services/storage.services';
+import { StorageService } from './services/storage.service';
 import { AuthenticationService } from './services/authentication.service';
 import { NatalDatesService } from './services/natalDates.service';
 import { TokenInterceptor } from './services/token.interceptor';
+import { provideClient } from './services/graphql';
 import { AppComponent } from './app.component';
 
 import { LandingPageComponent } from './landingPage/landingPage.component';
 import { LoginRegisterComponent } from './loginRegister/loginRegister.component';
+import { ResetPasswordComponent } from './resetPassword/resetPassword.component';
+import { BasePageComponent } from './basePage/basePage.component';
+import { FooterLandingComponent } from './footer/footerLanding.component';
+import { HeaderComponent } from './header/header.component';
+import { TermsComponent } from './staticPages/terms/terms.component';
+import { AboutComponent } from './staticPages/about/about.component';
+
+import { PrivacyComponent } from './staticPages/privacy/privacy.component';
 import { DailyPredictionListComponent } from './dailyPredictionList/dailyPredictionList.component';
 import { DailyPredictionComponent } from './dailyPrediction/dailyPrediction.component';
 import { ErrorDialogComponent } from './errorDialog/errorDialog.component';
@@ -25,6 +37,32 @@ const routes: Routes = [
   {
     path: '',
     component: LandingPageComponent,
+    data: { state: 'landing' }
+  },
+  {
+    path: 'login',
+    component: LoginRegisterComponent,
+    data: { state: 'login' }
+  },
+  {
+    path: 'terms',
+    component: TermsComponent,
+    data: { state: 'terms' }
+  },
+  {
+    path: 'about',
+    component: AboutComponent,
+    data: { state: 'about' }
+  },
+  {
+    path: 'privacy',
+    component: PrivacyComponent,
+    data: { state: 'privacy' }
+  },
+  {
+    path: 'resetPassword',
+    component: ResetPasswordComponent,
+    data: { state: 'resetPassword' }
   },
   {
     path: 'daily/:name',
@@ -47,12 +85,21 @@ const routes: Routes = [
     MaterialModule,
     HttpClientModule,
     FlexLayoutModule,
-    RouterModule.forRoot(routes, {useHash: false})
+    RouterModule.forRoot(routes, {useHash: false}),
+    ApolloModule.forRoot(provideClient),
+    Angulartics2Module.forRoot([ Angulartics2GoogleAnalytics ])
   ],
   declarations: [
     AppComponent,
     LandingPageComponent,
     LoginRegisterComponent,
+    ResetPasswordComponent,
+    BasePageComponent,
+    FooterLandingComponent,
+    PrivacyComponent,
+    TermsComponent,
+    AboutComponent,
+    HeaderComponent,
     DailyPredictionListComponent,
     DailyPredictionComponent,
     ErrorDialogComponent

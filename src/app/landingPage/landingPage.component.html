@@ -1,15 +1,22 @@
-<div>
-    <div fxLayoutWrap="row" class="master-container">
-        <div fxFlex="3 0 auto">
-            <div>
-                <h1 style="color:white">
-                {{title}}!
-                </h1>
-                <!--<img width="300" src="assets/logo.jpg">-->
-            </div>
+<div class="master">
+    <div class="overlay"></div>
+    <div class="content">
+        <header class="header">
+            <img class="header-logo" src="/assets/logoColored.png">
+        </header>
+        <div class="intro">
+            <p></p>
+            <h3 class="text">Αστρολογία και Τεχνητή Νοημοσύνη ενώνονται και προσφέρουν αξιόπιστες προβλέψεις</h3>
+            <p></p>
+            <h1 class="text">Προσωπικές ημερήσιες προβλέψεις δωρεάν</h1>
+            <p></p>
+            <h3 class="text"><a class="text" [routerLink]="['/login']" [queryParams]="{register : 1}">
+                <strong style="text-decoration: none; color: #4154B2;">Γίνε μέλος</strong></a> και δες τι σου επιφυλάσσουν τα άστρα για το μέλλον σου!</h3>
+            <p></p>
+            <a mat-raised-button class="register-button" [routerLink]="['/login']" [queryParams]="{register : 1}">Ξεκίνα εδώ</a>
         </div>
-        <div fxFlex="1 0 auto">
-            <login-register></login-register>  
-        </div>
+        <footer>
+            <footer-landing></footer-landing>
+        </footer>
     </div>
 </div>

@@ -1,0 +1,21 @@
+<div class="wrapper">
+    <header class="header">
+        <app-header title="{{title}}" [showLogout]="showLogout"></app-header>
+    </header>
+    <div class="main">
+        <ng-content></ng-content>
+    </div>
+    <aside class="aside aside-1">
+        <div class="aside-container"></div>
+    </aside>
+    <aside class="aside aside-2">
+        <div class="aside-container"></div>
+    </aside>
+    <footer class="footer">
+        <mat-toolbar color="primary" class="footer-bar">
+            <span>
+                <footer-landing></footer-landing>
+            </span>
+        </mat-toolbar>
+    </footer>
+</div>

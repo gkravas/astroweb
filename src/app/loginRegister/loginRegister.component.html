@@ -1,59 +1,76 @@
-<mat-card class="parent">
-    <form (ngSubmit)="onSubmit()">
-        <mat-card-content fxLayoutGap="5px" fxFlex="auto" fxLayout="column" class="container">
+<div class="master">
+    <div class="bg"></div>
+    <div class="overlay"></div>
+    <div class="content">
+        <div class="card-container">
+        <mat-card class="card">
+            <form (ngSubmit)="onSubmit()">
+                <mat-card-content fxLayoutGap="5px" fxFlex="auto" fxLayout="column" class="container">
 
-            <mat-form-field>
-                <input name="email" matInput placeholder="Το email μου" [formControl]="emailFormControl" [value]="emailField" (input)="emailField = $event.target.value">
-                <mat-error *ngIf="emailFormControl.hasError('pattern')">
-                    Το email δεν είναι έγκυρο
-                </mat-error>
-                <mat-error *ngIf="emailFormControl.hasError('required')">
-                    Το email είναι δεν μπορεί να είναι κενο
-                </mat-error>
-            </mat-form-field>
-        
-            <mat-form-field>
-                <input name="password" matInput placeholder="Ο κωδικός μου" [type]="passwordHide ? 'password' : 'text'" [formControl]="passwordFormControl" [value]="passwordField" (input)="passwordField = $event.target.value">
-                <mat-icon matSuffix (click)="passwordHide = !passwordHide">{{passwordHide ? 'visibility' : 'visibility_off'}}</mat-icon>
-                <mat-error *ngIf="passwordFormControl.hasError('minLength')">
-                    Ο κωδικός πρέπει να τουλάχιστον 6 χαρακτήρες
-                </mat-error>
-                <mat-error *ngIf="passwordFormControl.hasError('required')">
-                    Ο κωδικός δεν μπορεί να είναι κενος
-                </mat-error>
-            </mat-form-field>
+                    <mat-form-field>
+                        <input name="email" matInput placeholder="Το email μου" [formControl]="emailFormControl" [value]="emailField" (input)="emailField = $event.target.value">
+                        <mat-error *ngIf="emailFormControl.hasError('pattern')">
+                            Το email δεν είναι έγκυρο
+                        </mat-error>
+                        <mat-error *ngIf="emailFormControl.hasError('required')">
+                            Το email είναι δεν μπορεί να είναι κενο
+                        </mat-error>
+                    </mat-form-field>
+                
+                    <mat-form-field>
+                        <input name="password" matInput placeholder="Ο κωδικός μου" [type]="passwordHide ? 'password' : 'text'" [formControl]="passwordFormControl" [value]="passwordField" (input)="passwordField = $event.target.value">
+                        <mat-icon matSuffix (click)="passwordHide = !passwordHide">{{passwordHide ? 'visibility' : 'visibility_off'}}</mat-icon>
+                        <mat-error *ngIf="passwordFormControl.hasError('minlength')">
+                            Ο κωδικός πρέπει να τουλάχιστον 6 χαρακτήρες
+                        </mat-error>
+                        <mat-error *ngIf="passwordFormControl.hasError('required')">
+                            Ο κωδικός δεν μπορεί να είναι κενος
+                        </mat-error>
+                    </mat-form-field>
 
-            <mat-form-field [@visibilityChanged]="showExtra">
-                <input name="birthPlace" matInput placeholder="Που γέννηθηκα" [formControl]="birthPlaceFormControl" [value]="birthPlaceField" (input)="birthPlaceField = $event.target.value">
-                <mat-error *ngIf="birthPlaceFormControl.hasError('required')">
-                    Ο τόπος γέννησης δεν μπορεί να είναι κενός
-                </mat-error>
-            </mat-form-field>
+                    <mat-form-field [@visibilityChanged]="showExtra">
+                        <input name="birthPlace" matInput placeholder="Που γέννηθηκα" [formControl]="birthPlaceFormControl" [value]="birthPlaceField" (input)="birthPlaceField = $event.target.value">
+                        <mat-error *ngIf="birthPlaceFormControl.hasError('required')">
+                            Ο τόπος γέννησης δεν μπορεί να είναι κενός
+                        </mat-error>
+                    </mat-form-field>
 
-            <mat-form-field [@visibilityChanged]="showExtra">
-                <input name="birthDate" matInput type="date" [formControl]="birthDateFormControl" placeholder="Πότε γεννήθηκα" [value]="birthDateField" (input)="birthDateField = $event.target.value">
-                <mat-error *ngIf="birthDateFormControl.hasError('required')">
-                    Η χρονολογία γέννησης δεν μπορεί να είναι κενή
-                </mat-error>
-            </mat-form-field>
+                    <mat-form-field [@visibilityChanged]="showExtra">
+                        <input name="birthDate" matInput type="date" [formControl]="birthDateFormControl" placeholder="Πότε γεννήθηκα" [value]="birthDateField" (input)="birthDateField = $event.target.value">
+                        <mat-error *ngIf="birthDateFormControl.hasError('required')">
+                            Η χρονολογία γέννησης δεν μπορεί να είναι κενή
+                        </mat-error>
+                    </mat-form-field>
 
-            <mat-form-field [@visibilityChanged]="showExtra">
-                <input name="birthTime" matInput type="time" placeholder="Τι ώρα γέννηθηκα" [formControl]="birthTimeFormControl" [value]="birthTimeField" (input)="birthTimeField = $event.target.value">
-                <mat-error *ngIf="birthTimeFormControl.hasError('required')">
-                    Η ώρα γέννησης δεν μπορεί να είναι κενή
-                </mat-error>
-            </mat-form-field>
+                    <mat-form-field [@visibilityChanged]="showExtra">
+                        <input name="birthTime" matInput type="time" placeholder="Τι ώρα γέννηθηκα" [formControl]="birthTimeFormControl" [value]="birthTimeField" (input)="birthTimeField = $event.target.value">
+                        <mat-error *ngIf="birthTimeFormControl.hasError('required')">
+                            Η ώρα γέννησης δεν μπορεί να είναι κενή
+                        </mat-error>
+                    </mat-form-field>
 
-            <mat-form-field [@visibilityChanged]="showExtra" class="selectType" [style.width]="'33vh'">
-                <mat-select placeholder="Είμαι" [value]="typeField" (change)="typeField = $event.value">
-                        <mat-option *ngFor="let type of types" [value]="type.id">{{type.name}}</mat-option>
-                </mat-select>
-            </mat-form-field>
+                    <mat-form-field [@visibilityChanged]="showExtra" class="selectType" [style.width]="'33vh'">
+                        <mat-select placeholder="Είμαι" [value]="typeField" (change)="typeField = $event.value">
+                                <mat-option *ngFor="let type of types" [value]="type.id">{{type.name}}</mat-option>
+                        </mat-select>
+                    </mat-form-field>
 
-            <mat-progress-bar mode="indeterminate" [@visibilityChanged]="showLoader"></mat-progress-bar>
-            <button type="submit" mat-raised-button [@visibilityChanged]="showLoginRegister">{{isLogin ? 'Είσοδος' : 'Εγγραφή'}}</button>
-            <a [@visibilityChanged]="showLoginRegister" class="toggle-login-register">{{isLogin ? 'Δεν έχω λογαριασμό;' : 'Έχω ήδη λογαρισμό;'}} <strong class="clickable" (click)="onToggleState()">{{isLogin ? 'Εγγραφή!' : 'Είσοδος!'}}</strong></a>
+                    <mat-progress-bar mode="indeterminate" [@visibilityChanged]="showLoader"></mat-progress-bar>
+                    <mat-card-actions>
+                            <button type="submit" class="login-button" mat-raised-button class="login-button" color="primary" [@visibilityChanged]="showLoginRegister">{{isLogin ? 'Είσοδος' : 'Εγγραφή'}}</button>
+                    </mat-card-actions>
+                    <mat-card-footer fxLayoutGap="2px" [@visibilityChanged]="showLoginRegister">
+                            <a class="toggle-login-register">{{isLogin ? 'Δεν έχω λογαριασμό;' : 'Έχω ήδη λογαριασμό;'}} <strong class="clickable" (click)="onToggleState()">{{isLogin ? 'Εγγραφή!' : 'Είσοδος!'}}</strong></a>
+                            <p></p>
+                            <a [@visibilityChanged]="showReset" class="toggle-login-register">Ξέχασες τον κωδικό σου; <strong class="clickable" (click)="sendResetEmail()">Αλλαγή κωδικού!</strong></a>
+                    </mat-card-footer>
 
-        </mat-card-content>
-    </form>
-</mat-card>
+                </mat-card-content>
+            </form>
+        </mat-card>
+        </div>
+        <footer>
+            <footer-landing></footer-landing>
+        </footer>
+    </div>
+</div>

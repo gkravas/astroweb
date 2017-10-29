@@ -1,0 +1,19 @@
+a:hover, a:visited, a:link, a:active {
+    text-decoration: none;
+}
+.register-button {
+    margin-top: 20px;
+    align-self: center;
+    color: #4154B2;
+    font-size: x-large;
+    padding: 10px 20px;
+}
+.header-logo {
+    align-self: center;
+    height: 140px;
+    width: auto;
+    margin-bottom: 30px;
+ }
+ .content {
+    margin: 30px;
+ }

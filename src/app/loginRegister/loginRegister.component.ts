@@ -1,8 +1,15 @@
 import { Input, Component } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
 import { HttpErrorResponse } from '@angular/common/http';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { MatDialog, MAT_DIALOG_DATA, MatDatepickerInputEvent } from '@angular/material';
+import { Title } from '@angular/platform-browser';
+import { Angulartics2GoogleAnalytics } from 'angulartics2';
+
+import gql from 'graphql-tag';
+import { Apollo } from 'apollo-angular';
+import { Subscription } from 'rxjs/Subscription';
+import 'rxjs/add/operator/toPromise';
 
 import {
     trigger,
@@ -13,7 +20,7 @@ import {
   } from '@angular/animations';
 
 import { AuthenticationService } from '../services/authentication.service';
-import { StorageService } from '../services/storage.services';
+import { StorageService } from '../services/storage.service';
 import { NatalDatesService } from '../services/natalDates.service';
 import { ErrorDialogComponent } from '../errorDialog/errorDialog.component';
 
@@ -27,6 +34,20 @@ interface Type {
   id: string;
   name: string;
 }
+
+const CurrentUser = gql`
+{
+  me {
+      id
+      email
+      natalDates {
+        id
+        name
+        primary
+      }
+  }
+}
+`;
 
 @Component({
   selector: 'login-register',
@@ -44,13 +65,19 @@ interface Type {
 export class LoginRegisterComponent {
 
   constructor(private router: Router,
+    private route: ActivatedRoute,
+    private apollo: Apollo,
     private authenticationService: AuthenticationService, 
     private storageService: StorageService, 
     private natalDatesService: NatalDatesService,
-    public dialog: MatDialog) { }
+    private titleService: Title,
+    private dialog: MatDialog,
+    private angulartics2: Angulartics2GoogleAnalytics) {}
   
+  private currentUserSub: Subscription;
+
   types: Array<Type> = [
-    {id: 'male', name: "'Ανδρας"},
+    {id: 'male', name: "Ανδρας"},
     {id: 'female', name: "Γυναίκα"},
     {id: 'freeSperit', name: "Ελεύθερη Ψυχή"}
   ];
@@ -63,8 +90,9 @@ export class LoginRegisterComponent {
   typeField: string = "";
 
   //State
-  passwordHide = true;
-  isLogin = false;
+  passwordHide: boolean = true;
+  isLogin: boolean = false;
+  showReset: string = !this.isLogin ? 'hidden' : 'shown';
   showExtra: string = this.isLogin ? 'hidden' : 'shown';
   showLoader: string = 'hidden';
   showLoginRegister: string = 'shown';
@@ -78,9 +106,19 @@ export class LoginRegisterComponent {
   birthTimeFormControl = new FormControl('', [Validators.required]);
 
   //methods
-  onToggleState () {
-      this.isLogin = !this.isLogin;
-      this.showExtra = this.isLogin ? 'hidden' : 'shown';
+  ngOnInit() {
+    this.setLoginState(this.route.snapshot.queryParamMap.get('register') != '1');
+    this.titleService.setTitle('Είσοδος / Εγγραφή');
+  }
+
+  onToggleState() {
+    this.setLoginState(!this.isLogin);
+  }
+
+  setLoginState(isLogin: boolean) {
+    this.isLogin = isLogin;
+    this.showExtra = this.isLogin ? 'hidden' : 'shown';
+    this.showReset = !this.isLogin ? 'hidden' : 'shown';
   }
 
   showLoading(visible: boolean) {
@@ -100,15 +138,37 @@ export class LoginRegisterComponent {
       this.showLoading(true);
       this.authenticationService.register(this.emailField, this.passwordField,
         this.birthDateField, this.birthTimeField, this.birthPlaceField, this.typeField)
-        .then(o => this.login(this.emailField, this.passwordField))
+        .then((o) => {
+          this.angulartics2.eventTrack('newUser', {});
+          this.login(this.emailField, this.passwordField)
+        });
     }
+  }
+
+  sendResetEmail() {
+    if (this.hasValidationErrors([this.emailFormControl])) {
+      return;
+    }
+
+    const that = this;
+    this.authenticationService.sendResetEmail(this.emailField)
+      .then(function(allGood:boolean) {
+        that.showErrorDialog('Προσοχή', 'Μόλις σου αποστείλαμε email για την αλλαγή του κωδικό σου.')
+      })
+      .catch(error => that.handleError(error));
   }
 
   login(username: string, password: string): Promise<any> {
     const that = this;
     return this.authenticationService.login(this.emailField, this.passwordField)
       .then(function(user: User) {
-        return that.natalDatesService.getAll();
+        return that.apollo.query({
+          query: CurrentUser
+        }).toPromise()
+        .then(result => {
+          const user: User = result.data['me'];
+          return Promise.resolve(user.natalDates);
+        });
       })
       .then(function(natalDates: Array<NatalDate>) {
         that.storageService.setNatalDates(natalDates);

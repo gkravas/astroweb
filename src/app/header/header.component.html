@@ -1,0 +1,15 @@
+<mat-toolbar flexLayout="row" color="primary" class="mat-elevation-z6">
+    <div flexLayout="row" fxFlex="auto" fxLayoutAlign="start center">
+        <img class="icon" src="/assets/logoGrayscale.png"/>
+        <span class="spacer">{{title}}</span>
+    </div>
+    <div flexLayout="row" fxFlex="auto" fxLayoutAlign="end center">
+        <footer-landing fxHide.lt-md="true"></footer-landing>
+        <button mat-button mat-icon-button [disabled]="!showLogout">
+            <mat-icon *ngIf="showLogout" (click)="logout()" aria-label="Έξοδος">power_settings_new</mat-icon>
+        </button>
+    </div>
+    <mat-toolbar-row fxHide.gt-sm="true">
+            <footer-landing></footer-landing>
+    </mat-toolbar-row>
+</mat-toolbar>
