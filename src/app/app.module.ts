@@ -8,6 +8,7 @@ import { RouterModule, Routes }   from '@angular/router';
 import { ApolloClient, createNetworkInterface } from 'apollo-client';
 import { ApolloModule } from 'apollo-angular';
 import { Angulartics2Module, Angulartics2GoogleAnalytics } from 'angulartics2';
+import { AdsenseModule } from 'ng2-adsense';
 
 import { AuthorizationService } from './services/authorization.service';
 import { StorageService } from './services/storage.service';
@@ -87,7 +88,8 @@ const routes: Routes = [
     FlexLayoutModule,
     RouterModule.forRoot(routes, {useHash: false}),
     ApolloModule.forRoot(provideClient),
-    Angulartics2Module.forRoot([ Angulartics2GoogleAnalytics ])
+    Angulartics2Module.forRoot([ Angulartics2GoogleAnalytics ]),
+    AdsenseModule.forRoot({ adClient: 'ca-pub-6040563814771861' })
   ],
   declarations: [
     AppComponent,

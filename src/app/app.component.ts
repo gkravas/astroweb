@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { routerTransition } from './router.transitions'
 import { NavigationEnd, Router } from '@angular/router';
+import { Angulartics2GoogleAnalytics } from 'angulartics2';
 
 import { Observable } from "rxjs/Observable";
 import "rxjs/add/operator/filter";
@@ -12,7 +13,7 @@ import "rxjs/add/operator/filter";
   animations: [routerTransition]
 })
 export class AppComponent {
-  constructor(private router: Router) {}
+  constructor(private router: Router, private angulartics2GoogleAnalytics: Angulartics2GoogleAnalytics) {}
 
   getState(outlet) {
     return outlet.activatedRouteData.state;
