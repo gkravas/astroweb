@@ -17,18 +17,13 @@ import * as moment from 'moment';
 export class DailyPredictionComponent implements OnInit {
 
     private date: string;
-    private titleDate: string;
-    constructor(private location: Location,
-        private route: ActivatedRoute,
+    
+    constructor(private route: ActivatedRoute,
         private router: Router,
         private titleService: Title) {}
 
     ngOnInit() {
         this.date = this.route.snapshot.paramMap.get('date');
-        this.titleDate = moment(this.date, 'DDMMYYYY').locale('el').format('d MMM YYYY');
-    }
-
-    public goBack() {
-        this.location.back();
+        this.titleService.setTitle(moment(this.date, 'DDMMYYYY').locale('el').format('d MMM YYYY'));
     }
 }
