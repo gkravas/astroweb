@@ -11,7 +11,6 @@ export class NatalDatesService {
   constructor(private config: Config, private http: HttpClient) { }
 
   public getAll(): Promise<Array<NatalDate>> {
-    console.log('ssssss');
     return this.http.get<Array<NatalDate>>(this.config.BASE_URL + '/natalDate')
       .toPromise()
       .catch(this.handleError);

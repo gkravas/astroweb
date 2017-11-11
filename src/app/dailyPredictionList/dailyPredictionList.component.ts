@@ -22,13 +22,13 @@ export class DailyPredictionListComponent {
     public cols: Observable<number>;
     public availableDates: Array<number> = [];
     public dayImages: Array<string> = [
-        'assets/sun.svg',
-        'assets/moon.svg',
-        'assets/mars.svg',
-        'assets/mercury.svg',
-        'assets/jupiter.svg',
-        'assets/venus.svg',
-        'assets/saturn.svg',
+        'assets/1.jpg',
+        'assets/2.jpg',
+        'assets/3.jpg',
+        'assets/4.jpg',
+        'assets/5.jpg',
+        'assets/6.jpg',
+        'assets/7.jpg',
     ];
 
     public dayImageNames: Array<string> = [
@@ -83,7 +83,7 @@ export class DailyPredictionListComponent {
         if (timestamp == DailyPredictionListComponent.ADVERTISING_ID) {
             return "Διαφήμιση";
         } else {
-            return moment.unix(timestamp).locale('el').format('dddd, D MMM YYYY');
+            return "Προβλέψεις για " + moment.unix(timestamp).locale('el').format('dddd, D MMM YYYY');
         }
     }
 

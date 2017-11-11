@@ -29,7 +29,7 @@
  }
  .header-logo {
     align-self: center;
-    height: 100px;
+    height: 140px;
     width: auto;
  }
  .footer {
@@ -49,7 +49,7 @@
         padding-right: 5px;
     }
     .header-logo {
-        height: 50px;
+        height: 80px;
     }
 }
 

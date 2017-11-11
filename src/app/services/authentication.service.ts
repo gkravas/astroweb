@@ -23,8 +23,7 @@ export class AuthenticationService {
       .then(json => {
         that.authorizationService.setToken(json.token);
         return json.user as User
-      })
-      .catch(this.handleError);
+      });
   }
 
   public register(email: string, password: string, date: string, time:string, location:string, type:string): Promise<boolean> {
@@ -37,8 +36,9 @@ export class AuthenticationService {
     };
     return this.http.post<boolean>(this.config.BASE_URL + '/api/v1/auth/register', body)
       .toPromise()
-      .then(response => true)
-      .catch(this.handleError);
+      .then(response => {
+        return true;
+      });
   }
 
   public resetPassword(password: string): Promise<boolean> {
@@ -48,7 +48,6 @@ export class AuthenticationService {
     return this.http.post<boolean>(this.config.BASE_URL + '/api/v1/auth/resetPassword', body)
       .toPromise()
       .then(response => true)
-      .catch(this.handleError);
   }
 
   public sendResetEmail(email: string): Promise<boolean> {
@@ -58,13 +57,7 @@ export class AuthenticationService {
     return this.http.post<boolean>(this.config.BASE_URL + '/api/v1/auth/sendResetEmail', body)
       .toPromise()
       .then(response => true)
-      .catch(this.handleError);
   }
-
-  private handleError(error: any): Promise<any> {
-    return Promise.reject(error);
-  }
-  
 }
 
 interface LoginResponse {

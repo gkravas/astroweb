@@ -3,7 +3,7 @@
         <mat-grid-tile class="prediction-card-tile" *ngFor="let availableDate of availableDates">
             <mat-card class="prediction-card">
                 <mat-card-header>
-                    <mat-card-title>{{formatDate(availableDate)}}</mat-card-title>
+                    <mat-card-title><strong>{{formatDate(availableDate)}}</strong></mat-card-title>
                 </mat-card-header>
                 <img class="prediction-card-image" mat-card-image (click)="openPrediction(availableDate)" [src]="getDayImage(availableDate)" [alt]="getDayImageName(availableDate)">
                 <mat-card-actions>

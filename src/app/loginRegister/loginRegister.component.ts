@@ -36,7 +36,7 @@ interface Type {
 }
 
 const CurrentUser = gql`
-{
+query CurrentUser {
   me {
       id
       email
@@ -140,8 +140,9 @@ export class LoginRegisterComponent {
         this.birthDateField, this.birthTimeField, this.birthPlaceField, this.typeField)
         .then((o) => {
           this.angulartics2.eventTrack('newUser', {});
-          this.login(this.emailField, this.passwordField)
-        });
+          return this.login(this.emailField, this.passwordField)
+        })
+        .catch(error => this.handleError(error));
     }
   }
 
@@ -191,23 +192,26 @@ export class LoginRegisterComponent {
     return false;
   }
 
-  handleError(error: HttpErrorResponse) {
+  handleError(response: HttpErrorResponse) {
     var title: string = 'Προσοχή';
     var message: string;
-    switch (error.status) {
+    switch (response.status) {
       case 401:
         message = 'Το email ή ο κωδικός πρόσβασης δεν ειναι σωστα!';
         break;
       case 400:
-        const err = JSON.parse(error.error).errors[0];
-        if (err.type == 'timezone error' || err.path == 'location') {
+        var err = JSON.parse(response.error).error;
+        
+        if (err.name == 'ExternalServiceError' && err.type == 'timezone error') {
           message = 'Δεν βρέθηκε ο τόπος γέννησης, παντα σύμφωνα με την google... :) ';
-        } else if (err.path == 'email') {//err.type == 'unique violation'
-          message = 'To email αυτό έχει ήδη λογιαριασμό';
-        } else if (err.path == 'date') {//err.type == 'unique violation'
-          message = 'Η ημερόμηνια ή ώρα γεννησης έχει λάθος μορφή';
-        } else {
-          message = 'Υπήρξε κάποιο πρόβλημα επικοινωνίας με τον ψηφιακό αστρολόγο... Δοκιμάστε πάλι σε λιγάκι!';
+        } else if (err.name = 'ServiceError') {
+          if (err.field == 'email') {//err.type == 'unique violation'
+            message = 'To email αυτό έχει ήδη λογιαριασμό';
+          } else if (err.field == 'birthDate') {//err.type == 'unique violation'
+            message = 'Η ημερόμηνια ή ώρα γεννησης έχει λάθος μορφή';
+          } else {
+            message = 'Υπήρξε κάποιο πρόβλημα επικοινωνίας με τον ψηφιακό αστρολόγο... Δοκιμάστε πάλι σε λιγάκι!';
+          }
         }
         break;
       default:
