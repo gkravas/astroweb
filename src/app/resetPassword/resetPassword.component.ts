@@ -79,7 +79,7 @@ export class ResetPasswordComponent {
       this.showLoading(true);
       return this.authenticationService.resetPassword(this.passwordField)
         .then(function(allGood:any) {
-          that.showErrorDialog('Επιτυχία', 'Ο νεός σου κωδικός αποθυκεύτηκε επιτυχώς!')
+          that.showErrorDialog('Επιτυχία', 'Ο νεός σου κωδικός αποθηκεύτηκε επιτυχώς!')
             .afterClosed()
             .subscribe(result => {
               that.router.navigate(['/login']);
@@ -89,8 +89,8 @@ export class ResetPasswordComponent {
     }
 
     showTokenExpiredDialog() {
-      this.showErrorDialog('Προσοχή', 'Δυστηχώς περάσανε τα 30 λεπτά που' +
-      ' είχατε για να αλλάξεις τον κωδικό σου.\nΠήγαινε ξανά στο ξέσαχα τον κωδικό μου.');
+      this.showErrorDialog('Προσοχή', 'Δυστυχώς περάσανε τα 30 λεπτά που' +
+      ' είχες για να αλλάξεις τον κωδικό σου.\nΠήγαινε ξανά στο ξέχασα τον κωδικό μου.');
     }
     hasValidationErrors(controls: [FormControl]): boolean {
       for (var i = 0; i < controls.length; i++) {
@@ -104,7 +104,7 @@ export class ResetPasswordComponent {
     handleError(error: HttpErrorResponse) {
       console.error(error);
       var title: string = 'Προσοχή';
-      var message: string = 'Υπήρξε κάποιο πρόβλημα επικοινωνίας με τον ψηφιακό αστρολόγο... Δοκιμάστε πάλι σε λιγάκι!';
+      var message: string = 'Υπήρξε κάποιο πρόβλημα επικοινωνίας με τον ψηφιακό αστρολόγο... Δοκίμασε πάλι σε λιγάκι!';
       this.showLoading(false);
       this.showErrorDialog(title, message);
     }

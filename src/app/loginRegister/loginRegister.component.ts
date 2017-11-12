@@ -77,7 +77,7 @@ export class LoginRegisterComponent {
   private currentUserSub: Subscription;
 
   types: Array<Type> = [
-    {id: 'male', name: "Ανδρας"},
+    {id: 'male', name: "Άνδρας"},
     {id: 'female', name: "Γυναίκα"},
     {id: 'freeSperit', name: "Ελεύθερη Ψυχή"}
   ];
@@ -154,7 +154,7 @@ export class LoginRegisterComponent {
     const that = this;
     this.authenticationService.sendResetEmail(this.emailField)
       .then(function(allGood:boolean) {
-        that.showErrorDialog('Προσοχή', 'Μόλις σου αποστείλαμε email για την αλλαγή του κωδικό σου.')
+        that.showErrorDialog('Προσοχή', 'Μόλις σου αποστείλαμε email για την αλλαγή του κωδικού σου.')
       })
       .catch(error => that.handleError(error));
   }
@@ -197,25 +197,25 @@ export class LoginRegisterComponent {
     var message: string;
     switch (response.status) {
       case 401:
-        message = 'Το email ή ο κωδικός πρόσβασης δεν ειναι σωστα!';
+        message = 'Το email ή ο κωδικός πρόσβασης δεν είναι σωστά!';
         break;
       case 400:
         var err = JSON.parse(response.error).error;
         
         if (err.name == 'ExternalServiceError' && err.type == 'timezone error') {
-          message = 'Δεν βρέθηκε ο τόπος γέννησης, παντα σύμφωνα με την google... :) ';
+          message = 'Δεν βρέθηκε ο τόπος γέννησης, πάντα σύμφωνα με την google... :) ';
         } else if (err.name = 'ServiceError') {
           if (err.field == 'email') {//err.type == 'unique violation'
             message = 'To email αυτό έχει ήδη λογιαριασμό';
           } else if (err.field == 'birthDate') {//err.type == 'unique violation'
-            message = 'Η ημερόμηνια ή ώρα γεννησης έχει λάθος μορφή';
+            message = 'Η ημερομηνία ή ώρα γεννησης έχει λάθος μορφή';
           } else {
-            message = 'Υπήρξε κάποιο πρόβλημα επικοινωνίας με τον ψηφιακό αστρολόγο... Δοκιμάστε πάλι σε λιγάκι!';
+            message = 'Υπήρξε κάποιο πρόβλημα επικοινωνίας με τον ψηφιακό αστρολόγο... Δοκίμασε πάλι σε λιγάκι!';
           }
         }
         break;
       default:
-        message = 'Υπήρξε κάποιο πρόβλημα επικοινωνίας με τον ψηφιακό αστρολόγο... Δοκιμάστε πάλι σε λιγάκι!';
+        message = 'Υπήρξε κάποιο πρόβλημα επικοινωνίας με τον ψηφιακό αστρολόγο... Δοκίμασε πάλι σε λιγάκι!';
     }
     this.showLoading(false);
     this.showErrorDialog(title, message);

@@ -13,7 +13,7 @@
                             Το email δεν είναι έγκυρο
                         </mat-error>
                         <mat-error *ngIf="emailFormControl.hasError('required')">
-                            Το email είναι δεν μπορεί να είναι κενο
+                            Το email δεν μπορεί να είναι κενό
                         </mat-error>
                     </mat-form-field>
                 
@@ -21,15 +21,15 @@
                         <input name="password" matInput placeholder="Ο κωδικός μου" [type]="passwordHide ? 'password' : 'text'" [formControl]="passwordFormControl" [value]="passwordField" (input)="passwordField = $event.target.value">
                         <mat-icon matSuffix (click)="passwordHide = !passwordHide">{{passwordHide ? 'visibility' : 'visibility_off'}}</mat-icon>
                         <mat-error *ngIf="passwordFormControl.hasError('minlength')">
-                            Ο κωδικός πρέπει να τουλάχιστον 6 χαρακτήρες
+                            Ο κωδικός πρέπει να είναι τουλάχιστον 6 χαρακτήρες
                         </mat-error>
                         <mat-error *ngIf="passwordFormControl.hasError('required')">
-                            Ο κωδικός δεν μπορεί να είναι κενος
+                            Ο κωδικός δεν μπορεί να είναι κενός
                         </mat-error>
                     </mat-form-field>
 
                     <mat-form-field [@visibilityChanged]="showExtra">
-                        <input name="birthPlace" matInput placeholder="Που γέννηθηκα" [formControl]="birthPlaceFormControl" [value]="birthPlaceField" (input)="birthPlaceField = $event.target.value">
+                        <input name="birthPlace" matInput placeholder="Που γεννήθηκα" [formControl]="birthPlaceFormControl" [value]="birthPlaceField" (input)="birthPlaceField = $event.target.value">
                         <mat-error *ngIf="birthPlaceFormControl.hasError('required')">
                             Ο τόπος γέννησης δεν μπορεί να είναι κενός
                         </mat-error>
@@ -43,7 +43,7 @@
                     </mat-form-field>
 
                     <mat-form-field [@visibilityChanged]="showExtra">
-                        <input name="birthTime" matInput type="time" placeholder="Τι ώρα γέννηθηκα" [formControl]="birthTimeFormControl" [value]="birthTimeField" (input)="birthTimeField = $event.target.value">
+                        <input name="birthTime" matInput type="time" placeholder="Τι ώρα γεννήθηκα" [formControl]="birthTimeFormControl" [value]="birthTimeField" (input)="birthTimeField = $event.target.value">
                         <mat-error *ngIf="birthTimeFormControl.hasError('required')">
                             Η ώρα γέννησης δεν μπορεί να είναι κενή
                         </mat-error>
@@ -60,9 +60,9 @@
                             <button type="submit" class="login-button" mat-raised-button class="login-button" color="primary" [@visibilityChanged]="showLoginRegister">{{isLogin ? 'Είσοδος' : 'Εγγραφή'}}</button>
                     </mat-card-actions>
                     <mat-card-footer fxLayoutGap="2px" [@visibilityChanged]="showLoginRegister">
-                            <a class="toggle-login-register">{{isLogin ? 'Δεν έχω λογαριασμό;' : 'Έχω ήδη λογαριασμό;'}} <strong class="clickable" (click)="onToggleState()">{{isLogin ? 'Εγγραφή!' : 'Είσοδος!'}}</strong></a>
+                            <a class="toggle-login-register">{{isLogin ? 'Δεν έχω λογαριασμό.' : 'Έχω ήδη λογαριασμό.'}} <strong class="clickable" (click)="onToggleState()">{{isLogin ? 'Εγγραφή!' : 'Είσοδος!'}}</strong></a>
                             <p></p>
-                            <a [@visibilityChanged]="showReset" class="toggle-login-register">Ξέχασες τον κωδικό σου; <strong class="clickable" (click)="sendResetEmail()">Αλλαγή κωδικού!</strong></a>
+                            <a [@visibilityChanged]="showReset" class="toggle-login-register">Ξέχασα τον κωδικό μου. <strong class="clickable" (click)="sendResetEmail()">Αλλαγή κωδικού!</strong></a>
                     </mat-card-footer>
 
                 </mat-card-content>
