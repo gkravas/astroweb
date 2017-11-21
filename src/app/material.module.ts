@@ -3,7 +3,8 @@ import {MatButtonModule, MatInputModule, MatDatepickerModule,
   MatNativeDateModule, MatFormFieldModule, MatSelectModule, 
   MatCardModule, MatIconModule, MatSlideToggleModule,
   MatDialogModule, MatProgressBarModule, MatToolbarModule,
-  MatGridListModule} from '@angular/material';
+  MatGridListModule, MatProgressSpinnerModule, MatSliderModule,
+  MatSnackBarModule } from '@angular/material';
 
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 
@@ -17,7 +18,8 @@ import {
     MatNativeDateModule, MatFormFieldModule, MatSelectModule, 
     MatCardModule, MatIconModule, MatSlideToggleModule,
     MatDialogModule, MatProgressBarModule, MatToolbarModule,
-    MatGridListModule,
+    MatGridListModule, MatProgressSpinnerModule, MatSliderModule,
+    MatSnackBarModule,
 
     FormsModule, ReactiveFormsModule
   ],
@@ -25,7 +27,8 @@ import {
     MatNativeDateModule, MatFormFieldModule, MatSelectModule,
     MatCardModule, MatIconModule, MatSlideToggleModule,
     MatDialogModule, MatProgressBarModule, MatToolbarModule,
-    MatGridListModule,
+    MatGridListModule, MatProgressSpinnerModule, MatSliderModule,
+    MatSnackBarModule,
 
     FormsModule, ReactiveFormsModule
   ],

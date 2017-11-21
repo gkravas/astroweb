@@ -3,12 +3,13 @@ import { NgModule } from '@angular/core';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MaterialModule } from './material.module';
 import { FlexLayoutModule } from "@angular/flex-layout";
-import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClientModule, HttpClientJsonpModule } from '@angular/common/http';
 import { RouterModule, Routes }   from '@angular/router';
 import { ApolloClient, createNetworkInterface } from 'apollo-client';
 import { ApolloModule } from 'apollo-angular';
 import { Angulartics2Module, Angulartics2GoogleAnalytics } from 'angulartics2';
 import { AdsenseModule } from 'ng2-adsense';
+import { ShareButtonsModule } from 'ngx-sharebuttons';
 
 import { AuthorizationService } from './services/authorization.service';
 import { StorageService } from './services/storage.service';
@@ -22,7 +23,8 @@ import { LandingPageComponent } from './landingPage/landingPage.component';
 import { LoginRegisterComponent } from './loginRegister/loginRegister.component';
 import { ResetPasswordComponent } from './resetPassword/resetPassword.component';
 import { BasePageComponent } from './basePage/basePage.component';
-import { FooterLandingComponent } from './footer/footerLanding.component';
+import { FooterLandingComponent } from './footerLanding/footerLanding.component';
+import { FooterComponent } from './footer/footer.component';
 import { HeaderComponent } from './header/header.component';
 import { TermsComponent } from './staticPages/terms/terms.component';
 import { AboutComponent } from './staticPages/about/about.component';
@@ -32,7 +34,7 @@ import { DailyPredictionListComponent } from './dailyPredictionList/dailyPredict
 import { DailyPredictionComponent } from './dailyPrediction/dailyPrediction.component';
 import { ErrorDialogComponent } from './errorDialog/errorDialog.component';
 import { LoggedInPolicy } from './policies/loggedInPolicy.module';
-import { Config } from './config.module';
+
 
 const routes: Routes = [
   {
@@ -81,15 +83,17 @@ const routes: Routes = [
 
 @NgModule({
   imports: [
-    BrowserModule,
     BrowserAnimationsModule,
+    BrowserModule,
     MaterialModule,
     HttpClientModule,
     FlexLayoutModule,
     RouterModule.forRoot(routes, {useHash: false}),
     ApolloModule.forRoot(provideClient),
     Angulartics2Module.forRoot([ Angulartics2GoogleAnalytics ]),
-    AdsenseModule.forRoot({ adClient: 'ca-pub-6040563814771861' })
+    AdsenseModule.forRoot({ adClient: 'ca-pub-6040563814771861' }),
+    HttpClientJsonpModule,        // (Optional) for linkedIn and tumblr share counts
+    ShareButtonsModule.forRoot()
   ],
   declarations: [
     AppComponent,
@@ -98,6 +102,7 @@ const routes: Routes = [
     ResetPasswordComponent,
     BasePageComponent,
     FooterLandingComponent,
+    FooterComponent,
     PrivacyComponent,
     TermsComponent,
     AboutComponent,
@@ -115,7 +120,6 @@ const routes: Routes = [
     AuthenticationService,
     NatalDatesService,
     LoggedInPolicy,
-    Config,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: TokenInterceptor,

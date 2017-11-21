@@ -11,7 +11,7 @@ import "rxjs/add/operator/startWith";
 @Component({
   selector: 'base-page',
   templateUrl: 'basePage.component.html',
-  styleUrls: ['basePage.component.css']
+  styleUrls: ['basePage.component.scss']
 })
 export class BasePageComponent {
     @Input() title: string;

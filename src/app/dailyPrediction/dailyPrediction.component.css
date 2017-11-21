@@ -1,0 +1,21 @@
+.explanation-content {
+    margin-left: 16px;
+    margin-right: 16px
+}
+.accuracy-slide {
+    width: 50%;
+    margin-top: 24px;
+    margin-bottom: 24px;
+    margin-left: 16px;
+    margin-right: 16px;
+}
+
+@media all and (max-width: 600px) {
+    .accuracy-slide {
+        width: 90%;
+        margin-top: 24px;
+        margin-bottom: 24px;
+        margin-left: 16px;
+        margin-right: 16px;
+    }
+  }

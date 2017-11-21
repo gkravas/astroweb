@@ -1,15 +1,31 @@
-<mat-toolbar flexLayout="row" color="primary" class="mat-elevation-z6">
-    <div flexLayout="row" fxFlex="auto" fxLayoutAlign="start center">
-        <img class="icon" src="/assets/logoGrayscale.png"/>
-        <span class="spacer">{{title}}</span>
-    </div>
-    <div flexLayout="row" fxFlex="auto" fxLayoutAlign="end center">
-        <footer-landing fxHide.lt-md="true"></footer-landing>
-        <button mat-button mat-icon-button [disabled]="!showLogout">
+<mat-toolbar color="primary" class="mat-elevation-z6">
+    <span flexLayout="row" fxFlexFill fxLayoutAlign="center center">
+        <div flexLayout="row" fxFlex="auto" fxLayoutAlign="center start">
+            <img class="icon" src="/assets/logoGrayscale.png"/>
+            <span class="spacer" fxLayoutAlign="start start">{{title}}</span>
+        </div>
+        <div fxHide.lt-md="true" flexLayout="row" fxFlex="auto" fxLayoutAlign="center center" fxFlexFill>
+            <a mat-button fxFLex="1" class="footer-button" [routerLink]="['/']">Αρχική</a>
+            <a mat-button fxFLex="1" class="footer-button" [routerLink]="['/about']">Σχετικά</a>
+            <a mat-button fxFLex="1" class="footer-button" [routerLink]="['/terms']">Όροι χρήσης</a>
+            <a mat-button fxFLex="1" class="footer-button" [routerLink]="['/privacy']">Ασφάλεια δεδομένων</a>
+            <a mat-button fxFLex="1" class="footer-button" href="https://gineastrologos.gr" target="_blank">Blog</a>
+        </div>
+        <button mat-button mat-icon-button fxLayoutAlign="center end" [disabled]="!showLogout">
             <mat-icon *ngIf="showLogout" (click)="logout()" aria-label="Έξοδος">power_settings_new</mat-icon>
         </button>
-    </div>
-    <mat-toolbar-row fxHide.gt-sm="true">
-            <footer-landing></footer-landing>
+    </span>
+    <mat-toolbar-row fxHide.gt-sm="true"
+        fxLayoutAlign="center center"
+        fxLayoutGap="10px">
+        <a mat-button fxFLex="1" class="footer-button" [routerLink]="['/']">Αρχική</a>
+        <a mat-button fxFLex="1" class="footer-button" [routerLink]="['/about']">Σχετικά</a>
+    </mat-toolbar-row>
+    <mat-toolbar-row fxHide.gt-sm="true"
+        fxLayoutAlign="center center"
+        fxLayoutGap="10px">
+        <a mat-button fxFLex="1" class="footer-button" [routerLink]="['/terms']">Όροι χρήσης</a>
+        <a mat-button fxFLex="1" class="footer-button" [routerLink]="['/privacy']">Ασφάλεια δεδομένων</a>
+        <a mat-button fxFLex="1" class="footer-button" href="https://gineastrologos.gr" target="_blank">Blog</a>
     </mat-toolbar-row>
 </mat-toolbar>

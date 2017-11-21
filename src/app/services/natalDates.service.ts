@@ -3,15 +3,15 @@ import { HttpClient } from '@angular/common/http';
 import 'rxjs/add/operator/toPromise';
 
 import { NatalDate, Coordinates } from '../models/natalDate';
-import { Config } from '../config.module';
+import { environment } from '../../environments/environment';
 
 @Injectable()
 export class NatalDatesService {
   
-  constructor(private config: Config, private http: HttpClient) { }
+  constructor(private http: HttpClient) { }
 
   public getAll(): Promise<Array<NatalDate>> {
-    return this.http.get<Array<NatalDate>>(this.config.BASE_URL + '/natalDate')
+    return this.http.get<Array<NatalDate>>(environment.baseUrl + '/natalDate')
       .toPromise()
       .catch(this.handleError);
   }

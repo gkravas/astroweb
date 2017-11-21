@@ -1,13 +1,11 @@
-/**
- * Created by Tobia on 12/04/17.
- */
-import { Config } from '../config.module';
 import ApolloClient, {
   createNetworkInterface
 } from 'apollo-client';
 
+import { environment } from '../../environments/environment';
+
 const networkInterface = createNetworkInterface({
-  uri: new Config().BASE_URL + '/graphql'
+  uri: environment.baseUrl + '/graphql'
 });
 networkInterface.use([
   {

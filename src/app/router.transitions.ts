@@ -3,7 +3,13 @@ import {trigger, animate, style, group, animateChild, query, stagger, transition
 export const routerTransition = trigger('routerTransition', [
   transition('* <=> *', [
     /* order */
-    /* 1 */ query(':enter, :leave', style({ position: 'fixed', width:'100%' })
+    /* 1 */ query(':enter, :leave', style({ 
+        position: 'absolute',
+        top: 0,
+        bottom: 0,
+        left: 0, 
+        right: 0
+      })
       , { optional: true }),
     /* 2 */ group([  // block executes in parallel
       query(':enter', [

@@ -1,2 +1,32 @@
-<base-page title="">
+<base-page title="{{title}}" showLogout="true">
+    <div fxLayout="column" style="min-height: 100%"fxLayoutAlign="center center">
+        <div fxLayout="column" fxLayoutAlign="center center" *ngIf="dailyPrediction | async; else loading">
+            <mat-nav-list>
+                <mat-list-item *ngFor="let explanation of (dailyPrediction | async)?.planetExplanations">
+                    <p></p>
+                    <h3 matLine class="explanation-content"><strong>{{explanation.title}}</strong></h3>
+                    <p matLine></p>
+                    <p class="explanation-content">{{explanation.lemma}}</p>
+                    <p></p>
+                </mat-list-item>
+            </mat-nav-list>
+            <p></p>
+            <h3 fxFlexAlign="center center" class="explanation-content"><strong>Ήταν οι προβλέψεις μας ακριβείς; Βαθμολογίστε μας με αριστα το 10!</strong></h3>
+            <mat-slider 
+                fxFlexAlign="center center"
+                class="accuracy-slide"
+                max="10"
+                min="0"
+                step="1"
+                thumb-label="true"
+                (change)="onAccuracyChanged($event)"
+                [value]="(dailyPrediction | async)?.accuracy / 10">
+            </mat-slider>
+        </div>
+        <ng-template #loading>
+            <div fxFlexAlign="center center" >
+                <mat-spinner></mat-spinner>
+            </div>
+        </ng-template>
+    </div>
 </base-page>
