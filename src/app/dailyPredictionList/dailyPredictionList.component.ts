@@ -68,14 +68,14 @@ export class DailyPredictionListComponent {
         
         const now = moment();
         this.availableDates.push(now.unix())
-        this.availableDates.push(DailyPredictionListComponent.ADVERTISING_ID);
+        //this.availableDates.push(DailyPredictionListComponent.ADVERTISING_ID);
 
         for(var i: number = 1; i < DailyPredictionListComponent.MAX_DAYS_FORWARD; i++) {
             now.add(1, 'days');
             this.availableDates.push(now.unix())
-            if (i % 5 == 0) {
+            /*if (i % 5 == 0) {
                 this.availableDates.push(DailyPredictionListComponent.ADVERTISING_ID);
-            }
+            }*/
         }
     }
 
