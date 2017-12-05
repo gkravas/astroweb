@@ -16,7 +16,7 @@ export class LoggedInPolicy implements CanActivate {
     if (this.authorizationService.isAuthenticated()) {
       return true;
     } else {
-      this.router.navigate(['/']);
+      this.router.navigate(['/login']);
       return false;
     }
   }

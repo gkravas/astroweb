@@ -14,7 +14,22 @@ export class AuthenticationService {
   constructor(private http: HttpClient,
               private authorizationService:AuthorizationService) { }
 
-  public login(email: string, password: string): Promise<User> {
+  public login(email: string, password: string, fbToken: string): Promise<User> {
+    return fbToken ? this.fbLogin(fbToken) : this.emailLogin(email, password);
+  }
+
+  public fbLogin(fbToken: string): Promise<User> {
+    const that = this;
+    const body: any = {fbToken: fbToken};
+    return this.http.post<LoginResponse>(environment.baseUrl + '/api/v1/auth/fbLogin', body)
+      .toPromise()
+      .then(json => {
+        that.authorizationService.setToken(json.token);
+        return json.user as User
+      });
+  }
+
+  public emailLogin(email: string, password: string): Promise<User> {
     const that = this;
     const body: any = {email: email, password: password};
     return this.http.post<LoginResponse>(environment.baseUrl + '/api/v1/auth/login', body)
@@ -25,13 +40,11 @@ export class AuthenticationService {
       });
   }
 
-  public register(email: string, password: string, date: string, time:string, location:string, type:string): Promise<boolean> {
+  public register(email: string, password: string, fbToken: string): Promise<boolean> {
     const body: any = {
       email: email, 
       password: password,
-      birthDate: date + ' ' + time + ':00',
-      birthLocation: location,
-      type: type
+      fbToken: fbToken
     };
     return this.http.post<boolean>(environment.baseUrl + '/api/v1/auth/register', body)
       .toPromise()
@@ -39,6 +52,24 @@ export class AuthenticationService {
         return true;
       });
   }
+
+  /*
+  public register(email: string, password: string, date: string,
+                  time:string, location:string, type:string, fbToken: string): Promise<boolean> {
+    const body: any = {
+      email: email, 
+      password: password,
+      birthDate: date + ' ' + time + ':00',
+      birthLocation: location,
+      type: type,
+      fbToken: fbToken
+    };
+    return this.http.post<boolean>(environment.baseUrl + '/api/v1/auth/register', body)
+      .toPromise()
+      .then(response => {
+        return true;
+      });
+  }*/
 
   public resetPassword(password: string): Promise<boolean> {
     const body: any = {

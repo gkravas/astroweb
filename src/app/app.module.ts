@@ -10,6 +10,7 @@ import { ApolloModule } from 'apollo-angular';
 import { Angulartics2Module, Angulartics2GoogleAnalytics } from 'angulartics2';
 import { AdsenseModule } from 'ng2-adsense';
 import { ShareButtonsModule } from 'ngx-sharebuttons';
+import { FacebookModule } from 'ngx-facebook';
 
 import { AuthorizationService } from './services/authorization.service';
 import { StorageService } from './services/storage.service';
@@ -93,7 +94,8 @@ const routes: Routes = [
     Angulartics2Module.forRoot([ Angulartics2GoogleAnalytics ]),
     AdsenseModule.forRoot({ adClient: 'ca-pub-6040563814771861' }),
     HttpClientJsonpModule,        // (Optional) for linkedIn and tumblr share counts
-    ShareButtonsModule.forRoot()
+    ShareButtonsModule.forRoot(),
+    FacebookModule.forRoot()
   ],
   declarations: [
     AppComponent,
