@@ -15,7 +15,7 @@ import "rxjs/add/operator/startWith";
 })
 export class BasePageComponent {
     @Input() title: string;
-    @Input() showLogout: boolean;
+    @Input() showMenu: boolean;
 
     constructor(private observableMedia: ObservableMedia,
         private route: ActivatedRoute,

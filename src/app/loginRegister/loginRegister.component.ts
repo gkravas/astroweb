@@ -1,5 +1,5 @@
 import { Input, Component } from '@angular/core';
-import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms';
 import { HttpErrorResponse } from '@angular/common/http';
 import { Router, ActivatedRoute } from '@angular/router';
 import { MatDialog, MAT_DIALOG_DATA, MatDatepickerInputEvent } from '@angular/material';
@@ -23,22 +23,14 @@ import {
   } from '@angular/animations';
 
 import { AuthenticationService } from '../services/authentication.service';
-import { AuthorizationService } from '../services/authorization.service';
 import { StorageService } from '../services/storage.service';
-import { NatalDatesService } from '../services/natalDates.service';
 import { ErrorDialogComponent } from '../errorDialog/errorDialog.component';
 
 import { User } from '../models/user';
 import { NatalDate } from '../models/natalDate';
-import { AbstractControl } from '@angular/forms/src/model';
+import { checkIfMatchingPasswords } from '../validators/matchingValidator';
 
 const EMAIL_REGEX = /^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
-const DATE_REGEX = /^\d{4}\-\d{1,2}\-\d{1,2}$/;
-
-interface Type {
-  id: string;
-  name: string;
-}
 
 const CurrentUser = gql`
 query CurrentUser {
@@ -73,13 +65,12 @@ export class LoginRegisterComponent {
     private route: ActivatedRoute,
     private apollo: Apollo,
     private authenticationService: AuthenticationService,
-    private authorizationService: AuthorizationService, 
     private storageService: StorageService, 
-    private natalDatesService: NatalDatesService,
     private titleService: Title,
     private dialog: MatDialog,
     private angulartics2: Angulartics2GoogleAnalytics,
-    private fb: FacebookService) {
+    private fb: FacebookService,
+    private formBuilder: FormBuilder) {
 
       let initParams: InitParams = {
         appId: environment.fbAppId,
@@ -113,26 +104,19 @@ export class LoginRegisterComponent {
 
   //validation
   
-  form = new FormGroup({
-    email: new FormControl('', [Validators.required, Validators.pattern(EMAIL_REGEX)]),
-    password: new FormControl('', [Validators.required, Validators.minLength(6)]),
-    passwordRepeat: new FormControl('', [Validators.required])
-  }, this.passwordMatchValidator);
-
-  passwordMatchValidator(g: FormGroup) {
-    return g.get('password').value === g.get('passwordRepeat').value
-       ? null : {'mismatch': true};
-  }
+  form: FormGroup;
 
   //methods
   ngOnInit() {
-    if (this.authorizationService.isAuthenticated()) {
-      this.router.navigate(['/daily/me']);
-      return;
-    }
     this.setLoginState(this.route.snapshot.queryParamMap.get('register') != '1');
     this.fbLogin = this.route.snapshot.queryParamMap.get('fbLogin') == '1';
     this.titleService.setTitle('Είσοδος / Εγγραφή');
+
+    this.form = this.formBuilder.group({
+      email: ['', [Validators.email]],
+      password: ['', [Validators.required, Validators.minLength(6)]],
+      passwordRepeat: ['', [Validators.required, checkIfMatchingPasswords('password', 'passwordRepeat')]]
+    });
   }
 
   onToggleState() {
@@ -188,19 +172,24 @@ export class LoginRegisterComponent {
     if (this.isLogin && this.form.get('email').valid && this.form.get('password').valid) {
       this.showLoading(true);
       this.login(this.emailField, this.passwordField, this.fbToken);
-    } else if (this.form.valid){
-      this.showLoading(true);
-      this.authenticationService.register(this.emailField, this.passwordField, this.fbToken)
-        .then((o) => {
-          this.angulartics2.eventTrack('newUser', {});
-          return this.login(this.emailField, this.passwordField, this.fbToken)
-        })
-        .catch(error => this.handleError(error));
+    } else {
+      this.form.get('passwordRepeat').updateValueAndValidity();
+      this.form.get('passwordRepeat').markAsTouched();
+      if (this.form.valid){
+        this.showLoading(true);
+        this.authenticationService.register(this.emailField, this.passwordField, this.fbToken)
+          .then((o) => {
+            this.angulartics2.eventTrack('newUser', {});
+            return this.login(this.emailField, this.passwordField, this.fbToken)
+          })
+          .catch(error => this.handleError(error));
+      }
     }
   }
 
   sendResetEmail() {
     if (!this.form.get('email').valid) {
+      this.form.get('email').markAsTouched();
       return;
     }
 
@@ -215,23 +204,8 @@ export class LoginRegisterComponent {
   login(username: string, password: string, fbToken: string): Promise<any> {
     const that = this;
     return this.authenticationService.login(username, password, fbToken)
-      .then(function(user: User) {
-        return that.apollo.query({
-          query: CurrentUser
-        }).toPromise()
-        .then(result => {
-          const user: User = result.data['me'];
-          return Promise.resolve(user.natalDates);
-        });
-      })
-      .then(function(natalDates: Array<NatalDate>) {
-        that.storageService.setNatalDates(natalDates);
-        return natalDates.filter(function(natalDate) {
-          return natalDate.primary;
-        })[0];
-      })
-      .then(function(natalDate: NatalDate) {
-        return that.router.navigate(['/daily/' + natalDate.name]);
+      .then((user: User) => {
+        return that.router.navigate(['/daily/me']);
       })
       .catch(error => that.handleError(error));
   }

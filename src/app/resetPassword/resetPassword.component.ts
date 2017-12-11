@@ -1,5 +1,5 @@
 import { Input, Component } from '@angular/core';
-import { FormControl, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms';
 import { HttpErrorResponse } from '@angular/common/http';
 import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 import { Title } from '@angular/platform-browser';
@@ -17,6 +17,7 @@ import {
 import { AuthenticationService } from '../services/authentication.service';
 import { AuthorizationService } from '../services/authorization.service';
 import { ErrorDialogComponent } from '../errorDialog/errorDialog.component';
+import { checkIfMatchingPasswords } from '../validators/matchingValidator';
 
 @Component({
   selector: 'reset-password',
@@ -38,27 +39,30 @@ export class ResetPasswordComponent {
     private authenticationService: AuthenticationService, 
     private authorizationService: AuthorizationService,
     private titleService: Title,
-    public dialog: MatDialog) {}
+    public dialog: MatDialog,
+    private fb: FormBuilder) {}
 
-    //form fiels
-    emailField: string = "";
-    passwordField: string = "";
-
-    //State
-    passwordHide = true;
+    showNatalOnly: boolean = true;
+    changePasswordHide: boolean = true;
+    changePasswordRepeatHide: boolean = true;
+    formChangePassword: FormGroup;
     showLoader: string = 'hidden';
-
-    //validation
-    passwordFormControl = new FormControl('', [Validators.required, Validators.minLength(6)]);
 
     //methods
     ngOnInit() {
       this.titleService.setTitle('Αλλαγή Κωδικού');
       this.authorizationService.setToken(this.route.snapshot.queryParamMap.get('t'));
+
+      this.formChangePassword = this.fb.group({
+        email: ['', [Validators.required, Validators.email]],
+        password: ['', [Validators.required, Validators.minLength(6)]],
+        passwordRepeat: ['', [Validators.required, checkIfMatchingPasswords('password', 'passwordRepeat')]]
+      });
+
       if (!this.authorizationService.isAuthenticated()) {
         this.showTokenExpiredDialog();
       }
-      this.emailField = this.authorizationService.getPublicData().email;
+      this.formChangePassword.get('email').patchValue(this.authorizationService.getPublicData().email);
     }
 
     showLoading(visible: boolean) {
@@ -71,21 +75,22 @@ export class ResetPasswordComponent {
         return;
       }
 
-      if (this.hasValidationErrors([this.passwordFormControl])) {
+      this.formChangePassword.get('passwordRepeat').updateValueAndValidity();
+      this.formChangePassword.get('passwordRepeat').markAsTouched();
+      if (!this.formChangePassword.valid) {
         return;
       }
       
       const that = this;
       this.showLoading(true);
-      return this.authenticationService.resetPassword(this.passwordField)
-        .then(function(allGood:any) {
+      this.authenticationService.resetPassword(this.formChangePassword.get('password').value)
+        .subscribe(result => {
           that.showErrorDialog('Επιτυχία', 'Ο νεός σου κωδικός αποθηκεύτηκε επιτυχώς!')
             .afterClosed()
             .subscribe(result => {
               that.router.navigate(['/login']);
             });
-        })
-        .catch(error => that.handleError(error));
+        }, error => that.handleError(error));
     }
 
     showTokenExpiredDialog() {

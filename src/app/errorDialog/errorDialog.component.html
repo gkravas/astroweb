@@ -1,6 +1,12 @@
 <h2 mat-dialog-title>{{data.title}}</h2>
 <mat-dialog-content>{{data.message}}</mat-dialog-content>
-<mat-dialog-actions>
-    <button *ngIf="data.negative != null" mat-button [mat-dialog-close]="true">{{data.negative}}</button>
-    <button *ngIf="data.positive != null" mat-button [mat-dialog-close]="true">{{data.positive}}</button>
+<mat-dialog-actions *ngIf="data.negative != null && data.positive != null">
+    <button mat-button [mat-dialog-close]="true">{{data.negative}}</button>
+    <button mat-button [mat-dialog-close]="true">{{data.positive}}</button>
+</mat-dialog-actions>
+<mat-dialog-actions *ngIf="data.positive == null && data.negative != null">
+    <button fxFlexFill mat-button [mat-dialog-close]="true">{{data.negative}}</button>
+</mat-dialog-actions>
+<mat-dialog-actions *ngIf="data.positive != null && data.negative == null">
+    <button fxFlexFill mat-button [mat-dialog-close]="true">{{data.positive}}</button>
 </mat-dialog-actions>

@@ -11,9 +11,23 @@
             <a mat-button fxFLex="1" class="footer-button" [routerLink]="['/privacy']">Ασφάλεια δεδομένων</a>
             <a mat-button fxFLex="1" class="footer-button" href="https://gineastrologos.gr" target="_blank">Blog</a>
         </div>
-        <button mat-button mat-icon-button fxLayoutAlign="center end" [disabled]="!showLogout">
-            <mat-icon *ngIf="showLogout" (click)="logout()" aria-label="Έξοδος">power_settings_new</mat-icon>
+        <button mat-icon-button [matMenuTriggerFor]="menu" fxLayoutAlign="center end" [disabled]="!showMenu">                      
+            <mat-icon *ngIf="showMenu" aria-label="Επιλογές">more_vert</mat-icon>
         </button>
+        <mat-menu #menu="matMenu">
+            <button mat-menu-item *ngIf="showProfile" [routerLink]="['/profile']">
+                <mat-icon>account_circle</mat-icon>
+                <span>Ο Λογαριασμός μου</span>
+            </button>
+            <button mat-menu-item *ngIf="showDaily" [routerLink]="['/daily/me']">
+                <mat-icon>today</mat-icon>
+                <span>Ημερήσιες Προβλέψεις</span>
+            </button>
+            <button mat-menu-item>
+                <mat-icon (click)="logout()">power_settings_new</mat-icon>
+                <span>Έξοδος</span>
+            </button>
+        </mat-menu>
     </span>
     <mat-toolbar-row fxHide.gt-sm="true"
         fxLayoutAlign="center center"

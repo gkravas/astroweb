@@ -1,0 +1,126 @@
+<base-page title="{{title}}" showMenu="true">
+    <div fxLayout="column"
+        class="container"
+        fxLayoutAlign="center center"
+        fxLayoutGap="16px">
+        <div fxFlexFill *ngIf="!showNatalOnly">
+            <mat-card>
+                <form [formGroup]="formChangeEmail" (ngSubmit)="onChangeEmailSubmit()">
+                    <mat-card-content>
+                        <div fxFlexFill class="card-title">Αλλαγή email</div>
+                        <mat-form-field fxFlexFill>
+                            <input name="email" matInput placeholder="Το νέο μου email" formControlName="email">
+                            <mat-error *ngIf="formChangeEmail.controls.email.errors?.email">
+                                Το email δεν είναι έγκυρο
+                            </mat-error>
+                            <mat-error *ngIf="formChangeEmail.controls.email.errors?.required">
+                                Το email δεν μπορεί να είναι κενό
+                            </mat-error>
+                            <mat-error *ngIf="formChangeEmail.controls.email.errors?.oldEmail">
+                                Το email δεν μπορεί να είναι το ίδιο με το παλιό
+                            </mat-error>
+                        </mat-form-field>
+
+                        <mat-progress-bar mode="indeterminate" [@visibilityChanged]="showChangeEmailLoader"></mat-progress-bar>
+                        <mat-card-actions fxFlexFill>
+                            <button fxFlexFill type="submit" class="button" mat-raised-button color="primary">Αλλαγή email</button>
+                        </mat-card-actions>
+
+                    </mat-card-content>
+                </form>
+            </mat-card>
+        </div>
+
+        <div fxFlexFill *ngIf="!showNatalOnly">
+            <mat-card>
+                <form [formGroup]="formChangePassword" (ngSubmit)="onChangePasswordSubmit()">
+                    <mat-card-content>
+                        <div fxFlexFill class="card-title">Αλλαγή κωδικού πρόσβασης</div>
+                        <mat-form-field fxFlexFill>
+                            <input name="password" matInput placeholder="Ο νέος μου κωδικός" [type]="changePasswordHide ? 'password' : 'text'"
+                                formControlName="password">
+                            <mat-icon matSuffix (click)="changePasswordHide = !changePasswordHide">{{changePasswordHide ? 'visibility' : 'visibility_off'}}</mat-icon>
+                            <mat-error *ngIf="formChangePassword.controls.password.errors?.minlength">
+                                Ο κωδικός πρέπει να είναι τουλάχιστον 6 χαρακτήρες
+                            </mat-error>
+                            <mat-error *ngIf="formChangePassword.controls.password.errors?.required">
+                                Ο κωδικός δεν μπορεί να είναι κενός
+                            </mat-error>
+                        </mat-form-field>
+
+                        <mat-form-field fxFlexFill>
+                            <input name="passwordRepeat" matInput placeholder="Επανάληψη του νέου μου κωδικού" [type]="changePasswordRepeatHide ? 'password' : 'text'"
+                                formControlName="passwordRepeat">
+                            <mat-icon matSuffix (click)="changePasswordRepeatHide = !changePasswordRepeatHide">{{changePasswordRepeatHide ? 'visibility' : 'visibility_off'}}</mat-icon>
+                            <mat-error *ngIf="formChangePassword.controls.passwordRepeat.errors?.required">
+                                Ο κωδικός δεν μπορεί να είναι κενός
+                            </mat-error>
+                            <mat-error *ngIf="formChangePassword.controls.passwordRepeat.errors?.mismatch">
+                                Οι κωδικοί που έβαλες πρέπει να είναι ίδιοι
+                            </mat-error>
+                        </mat-form-field>
+
+                        <mat-progress-bar mode="indeterminate" [@visibilityChanged]="showChangePasswordLoader"></mat-progress-bar>
+                        <mat-card-actions fxFlexFill>
+                            <button fxFlexFill type="submit" class="button" mat-raised-button color="primary">Αλλαγή Κωδικού</button>
+                        </mat-card-actions>
+
+                    </mat-card-content>
+                </form>
+            </mat-card>
+        </div>
+        
+        <div fxFlexFill>
+            <mat-card>
+                <form [formGroup]="formNatalDate" (ngSubmit)="onNatalDateFormSubmit()">
+                    <mat-card-content>
+                        <div fxFlexFill class="card-title">Τα στοιχεία μου</div>
+                        <div fxFlexFill class="card-subtitle">Βάση των παρακάτω στοιχείων θα βλέπεις τις προσωπικές σου προβλέψεις</div>
+                        <input type="hidden" name="id" formControlName="id">
+                        <input type="hidden" name="primary" formControlName="primary">
+                        <input type="hidden" name="name" formControlName="name">
+
+                        <mat-form-field fxFlexFill>
+                                <input name="livingPlace" matInput placeholder="Που κατοικώ" formControlName="livingPlace">
+                                <mat-error *ngIf="formNatalDate.get('livingPlace').hasError('required')">
+                                    Ο τόπος κατοικίας είναι υποχρεωτικός
+                                </mat-error>
+                            </mat-form-field>
+
+                        <mat-form-field fxFlexFill>
+                            <input name="birthPlace" matInput placeholder="Που γεννήθηκα" formControlName="birthPlace">
+                            <mat-error *ngIf="formNatalDate.get('birthPlace').hasError('required')">
+                                Ο τόπος γέννησης δεν μπορεί να είναι κενός
+                            </mat-error>
+                        </mat-form-field>
+
+                        <mat-form-field fxFlexFill>
+                            <input name="birthDate" matInput type="date" placeholder="Πότε γεννήθηκα(ημέρα/μήνας/χρόνος)" formControlName="birthDate">
+                            <mat-error *ngIf="formNatalDate.get('birthDate').hasError('required')">
+                                Η χρονολογία γέννησης δεν μπορεί να είναι κενή
+                            </mat-error>
+                        </mat-form-field>
+
+                        <mat-form-field fxFlexFill>
+                            <input name="birthTime" matInput type="time" placeholder="Τι ώρα γεννήθηκα" formControlName="birthTime">
+                            <mat-error *ngIf="formNatalDate.get('birthTime').hasError('required')">
+                                Η ώρα γέννησης δεν μπορεί να είναι κενή
+                            </mat-error>
+                        </mat-form-field>
+
+                        <mat-form-field class="selectType" [style.width]="'33vh'" fxFlexFill>
+                            <mat-select placeholder="Είμαι" formControlName="type">
+                                <mat-option *ngFor="let type of types" [value]="type.id">{{type.name}}</mat-option>
+                            </mat-select>
+                        </mat-form-field>
+
+                        <mat-progress-bar mode="indeterminate" [@visibilityChanged]="showNatalDateLoader"></mat-progress-bar>
+                        <mat-card-actions fxFlexFill>
+                            <button fxFlexFill type="submit" class="button" mat-raised-button color="primary">Αποθήκευση Στοιχείων</button>
+                        </mat-card-actions>
+                    </mat-card-content>
+                </form>
+            </mat-card>
+        </div>
+    </div>
+</base-page>

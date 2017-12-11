@@ -62,7 +62,6 @@ export class DailyPredictionComponent implements OnInit {
     ngOnInit() {
         const that = this;
         this.date = this.route.snapshot.paramMap.get('date');
-        console.log(this.date);
         this.titleService.setTitle("Προβλέψεις για " + moment(this.date, 'DDMMYYYY').locale('el').format('D MMM YYYY'));
         this.title = this.titleService.getTitle();
 

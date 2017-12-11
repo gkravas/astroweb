@@ -16,10 +16,12 @@ import { AuthorizationService } from './services/authorization.service';
 import { StorageService } from './services/storage.service';
 import { AuthenticationService } from './services/authentication.service';
 import { NatalDatesService } from './services/natalDates.service';
+import { UserService } from './services/user.service';
 import { TokenInterceptor } from './services/token.interceptor';
 import { provideClient } from './services/graphql';
 import { AppComponent } from './app.component';
 
+import { ProfileComponent } from './profile/profile.component';
 import { LandingPageComponent } from './landingPage/landingPage.component';
 import { LoginRegisterComponent } from './loginRegister/loginRegister.component';
 import { ResetPasswordComponent } from './resetPassword/resetPassword.component';
@@ -46,6 +48,7 @@ const routes: Routes = [
   {
     path: 'login',
     component: LoginRegisterComponent,
+    canActivate: [LoggedInPolicy],
     data: { state: 'login' }
   },
   {
@@ -79,6 +82,12 @@ const routes: Routes = [
     component: DailyPredictionComponent,
     canActivate: [LoggedInPolicy],
     data: { state: 'dailyPrediction' }
+  },
+  {
+    path: 'profile',
+    component: ProfileComponent,
+    canActivate: [LoggedInPolicy],
+    data: { state: 'profile' }
   }
  ];
 
@@ -111,6 +120,7 @@ const routes: Routes = [
     HeaderComponent,
     DailyPredictionListComponent,
     DailyPredictionComponent,
+    ProfileComponent,
     ErrorDialogComponent
   ],
   entryComponents: [
@@ -121,6 +131,7 @@ const routes: Routes = [
     StorageService,
     AuthenticationService,
     NatalDatesService,
+    UserService,
     LoggedInPolicy,
     {
       provide: HTTP_INTERCEPTORS,
