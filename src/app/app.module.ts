@@ -95,7 +95,7 @@ const routes: Routes = [
 @NgModule({
   imports: [
     BrowserAnimationsModule,
-    BrowserModule,
+    BrowserModule.withServerTransition({ appId: 'astroweb' }),
     MaterialModule,
     HttpClientModule,
     FlexLayoutModule,
