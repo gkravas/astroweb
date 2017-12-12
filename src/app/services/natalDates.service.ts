@@ -62,6 +62,7 @@ export class NatalDatesService {
     return this.apollo.watchQuery({
       query: GetNatalDates,
     })
+    .valueChanges
     .map((result) => {
       const user: User = (result.data['me'] as User)
       this.storageService.setUser(user);

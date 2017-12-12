@@ -72,6 +72,7 @@ export class DailyPredictionComponent implements OnInit {
                 date: moment(this.date, 'DDMMYYYY').format('YYYY-MM-DD')
             }
           })
+          .valueChanges
           .map(result => {
             return (result.data['dailyPrediction'] as DailyPrediction);
           });

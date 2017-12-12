@@ -1,6 +1,6 @@
 import { AppPage } from './app.po';
 
-describe('astro-angular App', () => {
+describe('astroweb app', () => {
   let page: AppPage;
 
   beforeEach(() => {

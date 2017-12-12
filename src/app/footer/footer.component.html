@@ -1,5 +1,5 @@
 <mat-toolbar color="primary" class="master">
-    <span fxHide.lt-sm="true"
+    <mat-toolbar-row fxHide.lt-sm="true"
             flexLayout="row"
             fxLayoutAlign="center center"
             fxLayoutGap="10px"
@@ -9,15 +9,15 @@
             <a mat-button fxFLex="1" class="footer-button" [routerLink]="['/terms']">Όροι χρήσης</a>
             <a mat-button fxFLex="1" class="footer-button" [routerLink]="['/privacy']">Ασφάλεια δεδομένων</a>
             <a mat-button fxFLex="1" class="footer-button" href="https://gineastrologos.gr" target="_blank">Blog</a>
-    </span>
-    <span fxHide.gt-xs="true"
+    </mat-toolbar-row>
+    <mat-toolbar-row fxHide.gt-xs="true"
             flexLayout="row"
             fxLayoutAlign="center center"
             fxLayoutGap="10px"
             fxFlexFill>
             <a mat-button fxFLex="1" class="footer-button" [routerLink]="['/']">Αρχική</a>
             <a mat-button fxFLex="1" class="footer-button" [routerLink]="['/about']">Σχετικά</a>
-    </span>
+    </mat-toolbar-row>
     <mat-toolbar-row fxHide.gt-xs="true"
             flexLayout="row"
             fxLayoutAlign="center center"

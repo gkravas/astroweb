@@ -1,3 +1,12 @@
+.card-title {
+    font-size: 16px;
+    font-weight: bold;
+    padding-bottom: 16px;
+}
+.card-subtitle {
+    font-size: 14px;
+    padding-bottom: 16px;
+}
 .explanation-content {
     margin-left: 16px;
     margin-right: 16px

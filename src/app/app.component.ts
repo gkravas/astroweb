@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { routerTransition } from './router.transitions'
 import { NavigationEnd, Router } from '@angular/router';
 import { Meta } from '@angular/platform-browser';
-import { Angulartics2GoogleAnalytics } from 'angulartics2';
+import { Angulartics2GoogleAnalytics } from 'angulartics2/ga';
 
 import { Observable } from "rxjs/Observable";
 import "rxjs/add/operator/filter";

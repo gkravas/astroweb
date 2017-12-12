@@ -5,9 +5,11 @@ import { MaterialModule } from './material.module';
 import { FlexLayoutModule } from "@angular/flex-layout";
 import { HTTP_INTERCEPTORS, HttpClientModule, HttpClientJsonpModule } from '@angular/common/http';
 import { RouterModule, Routes }   from '@angular/router';
-import { ApolloClient, createNetworkInterface } from 'apollo-client';
-import { ApolloModule } from 'apollo-angular';
-import { Angulartics2Module, Angulartics2GoogleAnalytics } from 'angulartics2';
+import { ApolloModule, Apollo } from 'apollo-angular';
+import { HttpLinkModule, HttpLink } from 'apollo-angular-link-http';
+import { InMemoryCache } from 'apollo-cache-inmemory';
+import { Angulartics2Module } from 'angulartics2';
+import { Angulartics2GoogleAnalytics } from 'angulartics2/ga';
 import { AdsenseModule } from 'ng2-adsense';
 import { ShareButtonsModule } from 'ngx-sharebuttons';
 import { FacebookModule } from 'ngx-facebook';
@@ -18,7 +20,6 @@ import { AuthenticationService } from './services/authentication.service';
 import { NatalDatesService } from './services/natalDates.service';
 import { UserService } from './services/user.service';
 import { TokenInterceptor } from './services/token.interceptor';
-import { provideClient } from './services/graphql';
 import { AppComponent } from './app.component';
 
 import { ProfileComponent } from './profile/profile.component';
@@ -38,7 +39,7 @@ import { DailyPredictionComponent } from './dailyPrediction/dailyPrediction.comp
 import { ErrorDialogComponent } from './errorDialog/errorDialog.component';
 import { LoggedInPolicy } from './policies/loggedInPolicy.module';
 
-
+import { environment } from '../environments/environment';
 const routes: Routes = [
   {
     path: '',
@@ -98,8 +99,9 @@ const routes: Routes = [
     MaterialModule,
     HttpClientModule,
     FlexLayoutModule,
+    ApolloModule,
+    HttpLinkModule,
     RouterModule.forRoot(routes, {useHash: false}),
-    ApolloModule.forRoot(provideClient),
     Angulartics2Module.forRoot([ Angulartics2GoogleAnalytics ]),
     AdsenseModule.forRoot({ adClient: 'ca-pub-6040563814771861' }),
     HttpClientJsonpModule,        // (Optional) for linkedIn and tumblr share counts
@@ -141,4 +143,14 @@ const routes: Routes = [
   ],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {
+  constructor(
+    apollo: Apollo,
+    httpLink: HttpLink
+  ) {
+    apollo.create({
+      link: httpLink.create({ uri: environment.baseUrl + '/graphql' }),
+      cache: new InMemoryCache()
+    });
+  }
+}

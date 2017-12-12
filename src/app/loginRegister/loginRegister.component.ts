@@ -4,7 +4,7 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { Router, ActivatedRoute } from '@angular/router';
 import { MatDialog, MAT_DIALOG_DATA, MatDatepickerInputEvent } from '@angular/material';
 import { Title } from '@angular/platform-browser';
-import { Angulartics2GoogleAnalytics } from 'angulartics2';
+import { Angulartics2GoogleAnalytics } from 'angulartics2/ga';
 import { FacebookService, InitParams, LoginResponse, LoginOptions } from 'ngx-facebook';
 import { environment } from '../../environments/environment';
 
