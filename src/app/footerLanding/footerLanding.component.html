@@ -2,9 +2,9 @@
     <mat-toolbar-row fxHide.lt-sm="true"
             flexLayout="row"
             fxLayoutAlign="center center"
-            fxLayoutGap="10px"
-            fxFlexFill>
-            <a mat-button fxFLex="1" class="footer-button" [routerLink]="['/']">Αρχική</a>
+            fxLayoutGap="10px">
+            <a *ngIf="!loggedIn" mat-button fxFLex="1" class="footer-button" [routerLink]="['/']">Αρχική</a>
+            <a *ngIf="loggedIn" mat-button fxFLex="1" class="footer-button" [routerLink]="['/daily/me']">Ημερήσιες Προβλέψεις</a>
             <a mat-button fxFLex="1" class="footer-button" [routerLink]="['/about']">Σχετικά</a>
             <a mat-button fxFLex="1" class="footer-button" [routerLink]="['/terms']">Όροι χρήσης</a>
             <a mat-button fxFLex="1" class="footer-button" [routerLink]="['/privacy']">Ασφάλεια δεδομένων</a>
@@ -15,7 +15,8 @@
             fxLayoutAlign="center center"
             fxLayoutGap="10px"
             fxFlexFill>
-            <a mat-button fxFLex="1" class="footer-button" [routerLink]="['/']">Αρχική</a>
+            <a *ngIf="!loggedIn" mat-button fxFLex="1" class="footer-button" [routerLink]="['/']">Αρχική</a>
+            <a *ngIf="loggedIn" mat-button fxFLex="1" class="footer-button" [routerLink]="['/daily/me']">Ημερήσιες Προβλέψεις</a>
             <a mat-button fxFLex="1" class="footer-button" [routerLink]="['/about']">Σχετικά</a>
     </mat-toolbar-row>
     <mat-toolbar-row fxHide.gt-xs="true"

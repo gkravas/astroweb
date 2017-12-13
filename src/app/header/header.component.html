@@ -1,11 +1,12 @@
 <mat-toolbar color="primary" class="mat-elevation-z6">
-    <mat-toolbar-row flexLayout="row" fxFlexFill fxLayoutAlign="center center">
+    <mat-toolbar-row flexLayout="row">
         <div flexLayout="row" fxFlex="auto" fxLayoutAlign="center start">
             <img class="icon" src="/assets/logoGrayscale.png"/>
             <span class="spacer" fxLayoutAlign="start start">{{title}}</span>
         </div>
         <div fxHide.lt-md="true" flexLayout="row" fxFlex="auto" fxLayoutAlign="center center" fxFlexFill>
-            <a mat-button fxFLex="1" class="footer-button" [routerLink]="['/']">Αρχική</a>
+            <a *ngIf="!loggedIn" mat-button fxFLex="1" class="footer-button" [routerLink]="['/']">Αρχική</a>
+            <a *ngIf="loggedIn" mat-button fxFLex="1" class="footer-button" [routerLink]="['/daily/me']">Ημερήσιες Προβλέψεις</a>
             <a mat-button fxFLex="1" class="footer-button" [routerLink]="['/about']">Σχετικά</a>
             <a mat-button fxFLex="1" class="footer-button" [routerLink]="['/terms']">Όροι χρήσης</a>
             <a mat-button fxFLex="1" class="footer-button" [routerLink]="['/privacy']">Ασφάλεια δεδομένων</a>
@@ -19,12 +20,8 @@
                 <mat-icon>account_circle</mat-icon>
                 <span>Ο Λογαριασμός μου</span>
             </button>
-            <button mat-menu-item *ngIf="showDaily" [routerLink]="['/daily/me']">
-                <mat-icon>today</mat-icon>
-                <span>Ημερήσιες Προβλέψεις</span>
-            </button>
-            <button mat-menu-item>
-                <mat-icon (click)="logout()">power_settings_new</mat-icon>
+            <button mat-menu-item (click)="logout()">
+                <mat-icon>power_settings_new</mat-icon>
                 <span>Έξοδος</span>
             </button>
         </mat-menu>
@@ -32,7 +29,8 @@
     <mat-toolbar-row fxHide.gt-sm="true"
         fxLayoutAlign="center center"
         fxLayoutGap="10px">
-        <a mat-button fxFLex="1" class="footer-button" [routerLink]="['/']">Αρχική</a>
+        <a *ngIf="!loggedIn" mat-button fxFLex="1" class="footer-button" [routerLink]="['/']">Αρχική</a>
+        <a *ngIf="loggedIn" mat-button fxFLex="1" class="footer-button" [routerLink]="['/daily/me']">Ημερήσιες Προβλέψεις</a>
         <a mat-button fxFLex="1" class="footer-button" [routerLink]="['/about']">Σχετικά</a>
     </mat-toolbar-row>
     <mat-toolbar-row fxHide.gt-sm="true"

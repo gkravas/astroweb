@@ -2,6 +2,8 @@ import {Input, Component} from '@angular/core';
 import { Router, ActivatedRouteSnapshot } from '@angular/router';
 import { AuthorizationService } from '../services/authorization.service'
 import { StorageService } from '../services/storage.service'
+import { ErrorDialogComponent } from '../errorDialog/errorDialog.component';
+import { MatDialog, MAT_DIALOG_DATA, MatDatepickerInputEvent } from '@angular/material';
 
 @Component({
   selector: 'app-header',
@@ -13,11 +15,14 @@ export class HeaderComponent {
   @Input() showMenu: boolean = false;
   showDaily: boolean = false;
   showProfile: boolean = false;
+  loggedIn: boolean = false;
 
   constructor(private router: Router,
-    
+    public dialog: MatDialog,
     private storageService: StorageService,
-    private authorizationService: AuthorizationService){}
+    private authorizationService: AuthorizationService){
+      this.loggedIn = this.authorizationService.isAuthenticated();
+    }
 
   ngOnInit() {
     const route = this.router.routerState.snapshot;
@@ -26,7 +31,23 @@ export class HeaderComponent {
   }
 
   public logout() {
-    this.storageService.clear();
-    this.router.navigate(['/login']);
+    const that = this;
+    this.dialog.open(ErrorDialogComponent, {
+      width: '250px',
+      data: { 
+        title: 'Προσοχή', 
+        message: 'Θα ήθελες να εξέλθεις απο την υπηρεσία μας;',
+        positive: 'Έξοδος',
+        negative: 'Άκυρο'
+      }
+    })
+    .afterClosed()
+    .subscribe(result => {
+      if (!result) {
+        return;
+      }
+      this.storageService.clear();
+      this.router.navigate(['/login']);
+    });
   }
 }
