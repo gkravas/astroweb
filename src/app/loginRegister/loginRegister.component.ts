@@ -117,6 +117,7 @@ export class LoginRegisterComponent {
       password: ['', [Validators.required, Validators.minLength(6)]],
       passwordRepeat: ['', [Validators.required, checkIfMatchingPasswords('password', 'passwordRepeat')]]
     });
+    FB.Event.subscribe('auth.login', this.onFbConnect);
   }
 
   onToggleState() {
@@ -134,32 +135,19 @@ export class LoginRegisterComponent {
     this.showLoginRegister = !visible ? 'shown' : 'hidden';
   }
 
-  fbConnect() {
-    this.showLoading(true);
-    const loginOptions: LoginOptions = {
-      enable_profile_selector: true,
-      return_scopes: true,
-      scope: 'public_profile, email'
-    };
-    //'public_profile, user_birthday, email, user_hometown'
-
-    const that = this;
-    this.fb.login(loginOptions)
-      .then((loginResponse: LoginResponse) => {
-        //connected, not_authorized, unknown
-        if (loginResponse.status != 'connected') {
-          throw Error(LoginRegisterComponent.FB_LOGIN_FAILED);
-        }
-        
-        if (loginResponse.authResponse.grantedScopes.indexOf('public_profile') == -1) {
-          throw Error("Δεν μας έδωσες πρόσβαση στο δημόσιο προφίλ σου!")
-        }
-        if (loginResponse.authResponse.grantedScopes.indexOf('email') == -1) {
-          throw Error("Δεν μας έδωσες πρόσβαση στο email σου!")
-        }
-        that.fbToken = loginResponse.authResponse.accessToken;
-        return this.login(null, null, that.fbToken);
-      });
+  onFbConnect(loginResponse: LoginResponse) {
+    if (loginResponse.status != 'connected') {
+      throw Error(LoginRegisterComponent.FB_LOGIN_FAILED);
+    }
+    
+    if (loginResponse.authResponse.grantedScopes.indexOf('public_profile') == -1) {
+      throw Error("Δεν μας έδωσες πρόσβαση στο δημόσιο προφίλ σου!")
+    }
+    if (loginResponse.authResponse.grantedScopes.indexOf('email') == -1) {
+      throw Error("Δεν μας έδωσες πρόσβαση στο email σου!")
+    }
+    this.fbToken = loginResponse.authResponse.accessToken;
+    return this.login(null, null, this.fbToken);
   }
 
   getLoginStatus() {
