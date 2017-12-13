@@ -49,7 +49,7 @@
                                 data-auto-logout-link="false"
                                 data-use-continue-as="false"
                                 data-scope="public_profile,email"
-                                (onlogin)="fbConnect()"></div>
+                                (onlogin)="onFbConnect"></div>
                     </mat-card-actions>
                     <mat-card-footer fxLayoutGap="2px" [@visibilityChanged]="showLoginRegister">
                             <a class="toggle-login-register">{{isLogin ? 'Δεν έχω λογαριασμό.' : 'Έχω ήδη λογαριασμό.'}} <strong class="clickable" (click)="onToggleState()">{{isLogin ? 'Εγγραφή!' : 'Είσοδος!'}}</strong></a>

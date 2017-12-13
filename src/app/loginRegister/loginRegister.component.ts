@@ -84,6 +84,7 @@ export class LoginRegisterComponent {
   private static FB_LOGIN_FAILED: string = 'fb_login_failed';
   private currentUserSub: Subscription;
   private fbToken: string;
+  //private FB: any;
 
   //form fiels
   emailField: string = "";
@@ -117,7 +118,7 @@ export class LoginRegisterComponent {
       password: ['', [Validators.required, Validators.minLength(6)]],
       passwordRepeat: ['', [Validators.required, checkIfMatchingPasswords('password', 'passwordRepeat')]]
     });
-    FB.Event.subscribe('auth.login', this.onFbConnect);
+    //this.FB.Event.subscribe('auth.login', this.onFbConnect);
   }
 
   onToggleState() {
