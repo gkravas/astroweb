@@ -21,7 +21,6 @@ import { NatalDatesService } from './services/natalDates.service';
 import { UserService } from './services/user.service';
 import { TokenInterceptor } from './services/token.interceptor';
 import { AppComponent } from './app.component';
-import { AppComponent as AppComponentDev} from './app.component.dev';
 
 import { ProfileComponent } from './profile/profile.component';
 import { LandingPageComponent } from './landingPage/landingPage.component';
@@ -110,7 +109,7 @@ const routes: Routes = [
     FacebookModule.forRoot()
   ],
   declarations: [
-    environment.production ? AppComponent : AppComponentDev,
+    AppComponent,
     LandingPageComponent,
     LoginRegisterComponent,
     ResetPasswordComponent,
@@ -142,7 +141,7 @@ const routes: Routes = [
       multi: true
     }
   ],
-  bootstrap: [environment.production ? AppComponent : AppComponentDev]
+  bootstrap: [AppComponent]
 })
 export class AppModule {
   constructor(
