@@ -6,11 +6,20 @@
                 fxLayoutAlign="center center"
                 fxLayoutGap="16px">
                 <mat-card class="explanation-content" *ngFor="let explanation of (dailyPrediction | async)?.planetExplanations">
-                    <mat-card-content>
+                    <mat-card-content *ngIf="explanation.title != -1">
                         <div fxFlexFill class="card-title explanation-content"><strong>{{explanation.title}}</strong></div>
                         <div fxFlexFill class="card-subtitle explanation-content">{{explanation.lemma}}</div>
                     </mat-card-content>
-                </mat-card>                    
+                    <mat-card-content *ngIf="explanation.title == -1">
+                        <ng-adsense
+                            [adClient]="ca-pub-6040563814771861"
+                            [adSlot]="9347117076"
+                            [layoutKey]="'-8h+1w-e4+dl+je'"
+                            [display]="block"
+                            [adFormat]="fluid">
+                        </ng-adsense>
+                    </mat-card-content>
+                </mat-card>
             </div>
             <p></p>
             <h3 fxFlexAlign="center center" class="explanation-content"><strong>Ήταν οι προβλέψεις μας ακριβείς; Βαθμολογίστε μας με αριστα το 10!</strong></h3>

@@ -1,6 +1,6 @@
 export interface DailyPrediction {
     accuracy: Number;
-    planetExplanations: [PlanetExplanations];
+    planetExplanations: Array<PlanetExplanations>;
 }
 
 export interface PlanetExplanations {

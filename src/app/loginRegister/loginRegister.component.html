@@ -41,9 +41,9 @@
 
                     <mat-progress-bar mode="indeterminate" [@visibilityChanged]="showLoader"></mat-progress-bar>
                     <mat-card-actions [@visibilityChanged]="showLoginRegister">
-                            <button type="submit" mat-raised-button class="login-button" color="primary">{{isLogin ? 'Είσοδος' : 'Εγγραφή'}}</button>
+                            <button fxFlexFill type="submit" mat-raised-button class="login-button" color="primary">{{isLogin ? 'Είσοδος' : 'Εγγραφή'}}</button>
                             <p></p>
-                            <button mat-raised-button class="login-button" color="primary" (click)="fbConnect()">FB Login</button>
+                            <button fxFlexFill mat-raised-button class="fb-button" (click)="fbConnect()">Συνέχεια με το Facebook</button>
                     </mat-card-actions>
                     <mat-card-footer fxLayoutGap="2px" [@visibilityChanged]="showLoginRegister">
                             <a class="toggle-login-register">{{isLogin ? 'Δεν έχω λογαριασμό.' : 'Έχω ήδη λογαριασμό.'}} <strong class="clickable" (click)="onToggleState()">{{isLogin ? 'Εγγραφή!' : 'Είσοδος!'}}</strong></a>

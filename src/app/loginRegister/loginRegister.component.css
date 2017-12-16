@@ -62,11 +62,12 @@
     margin-top: 20px;
     text-align: center
 }
-.select-type {
-    width: 33vh;
-}
 .login-button {
-    width: 100%;
     height: auto;
     color: white;
+}
+.fb-button {
+    height: auto;
+    color: white;
+    background-color: #385E9F;
 }

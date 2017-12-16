@@ -19,6 +19,7 @@ import { MatSnackBar, MatSlider } from '@angular/material'
 import * as moment from 'moment';
 
 import {DailyPrediction, PlanetExplanations} from '../models/dailyPrediction';
+import { forEach } from '@angular/router/src/utils/collection';
 
 const GetDailyPrediction = gql`
 query GetDailyPrediction($natalDateId: Int!, $date: String!) {
@@ -47,6 +48,8 @@ mutation RateDailyPredectionAccuracy($natalDateId: Int!, $date: String!, $accura
 })
 export class DailyPredictionComponent implements OnInit {
 
+    private static readonly ADVERTISING_ID: number = -1;
+
     @Input() title: string;
     
     private date: string;
@@ -74,7 +77,25 @@ export class DailyPredictionComponent implements OnInit {
           })
           .valueChanges
           .map(result => {
-            return (result.data['dailyPrediction'] as DailyPrediction);
+            const dailyPrediction: DailyPrediction = (result.data['dailyPrediction'] as DailyPrediction);
+            
+            var arrayResult: Array<PlanetExplanations> = new Array<PlanetExplanations>();
+            var index: number = 0;
+            for(var e of dailyPrediction.planetExplanations) {
+              arrayResult.push(e);
+              if (index % 3 == 0) {
+                arrayResult.push({ 
+                  title: new String(DailyPredictionComponent.ADVERTISING_ID),
+                  lemma: new String(DailyPredictionComponent.ADVERTISING_ID)
+                } as PlanetExplanations);
+              }
+              index++;
+            }
+            
+            return {
+              accuracy: dailyPrediction.accuracy,
+              planetExplanations: arrayResult
+            } as DailyPrediction;
           });
 
           this.dailyPrediction
