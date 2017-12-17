@@ -10,8 +10,6 @@ import { HttpLinkModule, HttpLink } from 'apollo-angular-link-http';
 import { InMemoryCache } from 'apollo-cache-inmemory';
 import { Angulartics2Module } from 'angulartics2';
 import { Angulartics2GoogleAnalytics } from 'angulartics2/ga';
-import { AdsenseModule } from 'ng2-adsense';
-import { ShareButtonsModule } from 'ngx-sharebuttons';
 import { FacebookModule } from 'ngx-facebook';
 
 import { AuthorizationService } from './services/authorization.service';
@@ -103,9 +101,7 @@ const routes: Routes = [
     HttpLinkModule,
     RouterModule.forRoot(routes, {useHash: false}),
     Angulartics2Module.forRoot([ Angulartics2GoogleAnalytics ]),
-    AdsenseModule.forRoot({ adClient: 'ca-pub-6040563814771861', adSlot: "8587126214", timeOutRetry: 1000, pageLevelAds: true }),
-    HttpClientJsonpModule,        // (Optional) for linkedIn and tumblr share counts
-    ShareButtonsModule.forRoot(),
+    HttpClientJsonpModule,
     FacebookModule.forRoot()
   ],
   declarations: [
