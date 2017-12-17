@@ -103,7 +103,7 @@ const routes: Routes = [
     HttpLinkModule,
     RouterModule.forRoot(routes, {useHash: false}),
     Angulartics2Module.forRoot([ Angulartics2GoogleAnalytics ]),
-    AdsenseModule.forRoot({ adClient: 'ca-pub-6040563814771861', timeOutRetry: 1000, pageLevelAds: true }),
+    AdsenseModule.forRoot({ adClient: 'ca-pub-6040563814771861', adSlot: "8587126214", timeOutRetry: 1000, pageLevelAds: true }),
     HttpClientJsonpModule,        // (Optional) for linkedIn and tumblr share counts
     ShareButtonsModule.forRoot(),
     FacebookModule.forRoot()
