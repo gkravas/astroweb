@@ -6,6 +6,7 @@ import { StorageService } from '../services/storage.service';
 import { Observable } from 'rxjs/Observable';
 import { NatalDate } from '../models/natalDate';
 import { ErrorObservable } from 'rxjs/observable/ErrorObservable';
+import { of } from 'rxjs/observable/of';
 
 @Injectable()
 export class LoggedInPolicy implements CanActivate {
@@ -23,14 +24,14 @@ export class LoggedInPolicy implements CanActivate {
     const path: string = route.url[route.url.length - 1].path;
 
     const that =  this;
-    return Observable.of(this.authorizationService.isAuthenticated())
+    return of(this.authorizationService.isAuthenticated())
       .flatMap((isAuthenticated: boolean) => {
         if (!isAuthenticated) {
           if (path != 'login') {
             that.router.navigate(['/login']);
-            return Observable.of(false);
+            return of(false);
           } else {
-            return Observable.of(true);
+            return of(true);
           }
         } else {
           return Observable.create(observer => {
@@ -50,13 +51,13 @@ export class LoggedInPolicy implements CanActivate {
             if ((natalDates == null || natalDates.length == 0)) {
               if (path != 'profile') {
                 that.router.navigate(['/profile']);
-                return Observable.of(false);
+                return of(false);
               } else {
-                return Observable.of(true);
+                return of(true);
               }
             } else {
               that.storageService.setNatalDates(natalDates);
-              return Observable.of(true);
+              return of(true);
             }
           })
         }

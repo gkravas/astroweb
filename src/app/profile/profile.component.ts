@@ -11,6 +11,7 @@ import { Apollo } from 'apollo-angular';
 import { ApolloError } from 'apollo-client';
 import * as moment from 'moment';
 import { Observable } from 'rxjs/Observable';
+import { of } from 'rxjs/observable/of';
 import {
     trigger,
     state,
@@ -130,7 +131,7 @@ export class ProfileComponent {
       var me = natalDates.length > 0 
         ? natalDates[0]
         : {id: 0, name: 'me', location: null, date: null, type: null, primary: true};
-      return Observable.of(me);
+      return of(me);
     })
     .subscribe((me: NatalDate) => {
       this.showNatalOnly = me.id == 0;

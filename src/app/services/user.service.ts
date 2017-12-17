@@ -2,6 +2,7 @@ import { Apollo } from 'apollo-angular';
 import gql from 'graphql-tag';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
+import { of } from 'rxjs/observable/of';
 
 import { StorageService } from '../services/storage.service';
 import { User } from '../models/user';
@@ -32,7 +33,7 @@ export class UserService {
         .flatMap((result) => {
             const user: User = result.data['updateUser'] as User;
             this.storageService.setUser(user);
-            return Observable.of(user);
+            return of(user);
         });
       };
 }
