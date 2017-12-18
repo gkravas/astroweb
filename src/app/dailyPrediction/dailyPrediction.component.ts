@@ -81,13 +81,17 @@ export class DailyPredictionComponent implements OnInit {
             
             var arrayResult: Array<PlanetExplanations> = new Array<PlanetExplanations>();
             var index: number = 0;
+            var adSenseIndex: number = 0;
             for(var e of dailyPrediction.planetExplanations) {
               arrayResult.push(e);
               if (index % 3 == 0) {
-                arrayResult.push({ 
-                  title: new String(DailyPredictionComponent.ADVERTISING_ID),
-                  lemma: new String(DailyPredictionComponent.ADVERTISING_ID)
+                arrayResult.push({
+                  isAd: true,
+                  adIndex: adSenseIndex,
+                  title: new String(adSenseIndex),
+                  lemma: new String(adSenseIndex)
                 } as PlanetExplanations);
+                adSenseIndex++;
               }
               index++;
             }
@@ -103,8 +107,6 @@ export class DailyPredictionComponent implements OnInit {
             }, (error) => {
               this.showError();
             });
-
-          this.dailyPrediction.subscribe();
 
           this.accuracySubject
             .debounceTime(1000)

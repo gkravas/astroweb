@@ -4,6 +4,8 @@ export interface DailyPrediction {
 }
 
 export interface PlanetExplanations {
+    isAd: boolean;
+    adIndex: number;
     title: string;
     lemma: string;
 }
