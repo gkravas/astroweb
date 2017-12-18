@@ -1,5 +1,5 @@
 <base-page title="Ημερήσιες Προβλέψεις" showMenu="true">
-    <mat-grid-list [cols]="cols | async" gutterSize="15px" rowHeight="290px">           
+    <mat-grid-list [cols]="cols | async" gutterSize="15px" rowHeight="320px">           
         <mat-grid-tile class="prediction-card-tile" *ngFor="let availableDate of availableDates">
             <mat-card class="prediction-card" *ngIf="availableDate != -1">
                 <mat-card-header>
@@ -10,8 +10,10 @@
                     <button mat-button [disabled]="availableDate == -1" (click)="openPrediction(availableDate)">{{getActionLemma(availableDate)}}</button>
                 </mat-card-actions>
             </mat-card>
-            <mat-card class="prediction-card" *ngIf="availableDate == -1">
-                
+            <mat-card fxFlex="grow" style="height: 92%;" class="prediction-card" *ngIf="availableDate == -1">
+                <mat-card-content>
+                    <daily-prediction-list-adsense></daily-prediction-list-adsense>
+                </mat-card-content>
             </mat-card>
         </mat-grid-tile>
     </mat-grid-list>

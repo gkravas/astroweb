@@ -7,10 +7,10 @@
     font-size: 14px;
     padding-bottom: 16px;
 }
-.explanation-content {
-    margin-left: 16px;
-    margin-right: 16px
+.explanation-list {
+    margin:0 16px 0 16px;
 }
+
 .accuracy-slide {
     width: 50%;
     margin-top: 24px;

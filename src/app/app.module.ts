@@ -34,6 +34,8 @@ import { AboutComponent } from './staticPages/about/about.component';
 import { PrivacyComponent } from './staticPages/privacy/privacy.component';
 import { DailyPredictionListComponent } from './dailyPredictionList/dailyPredictionList.component';
 import { DailyPredictionComponent } from './dailyPrediction/dailyPrediction.component';
+import { DailyPredictionAdSenseComponent } from './adSense/dailyPredictionAdSense.component';
+import { DailyPredictionListAdSenseComponent } from './adSense/dailyPredictionListAdSense.component';
 import { ErrorDialogComponent } from './errorDialog/errorDialog.component';
 import { LoggedInPolicy } from './policies/loggedInPolicy.module';
 
@@ -118,6 +120,8 @@ const routes: Routes = [
     HeaderComponent,
     DailyPredictionListComponent,
     DailyPredictionComponent,
+    DailyPredictionAdSenseComponent,
+    DailyPredictionListAdSenseComponent,
     ProfileComponent,
     ErrorDialogComponent
   ],
