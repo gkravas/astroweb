@@ -135,6 +135,7 @@ export class LoginRegisterComponent {
   }
 
   fbConnect() {
+    this.form.disable();
     this.showLoading(true);
     const loginOptions: LoginOptions = {
       enable_profile_selector: true,
@@ -159,7 +160,12 @@ export class LoginRegisterComponent {
         }
         that.fbToken = loginResponse.authResponse.accessToken;
         return this.login(null, null, that.fbToken);
-      });
+      })
+      .catch(error => {
+        this.showErrorDialog('Προσοχή', error.message);
+        this.form.enable();
+        this.showLoading(false);
+      })
   }
 
   getLoginStatus() {
@@ -252,6 +258,7 @@ export class LoginRegisterComponent {
       default:
         message = 'Υπήρξε κάποιο πρόβλημα επικοινωνίας με τον ψηφιακό αστρολόγο... Δοκίμασε πάλι σε λιγάκι!';
     }
+    this.form.enable();
     this.showLoading(false);
     this.showErrorDialog(title, message);
   }
