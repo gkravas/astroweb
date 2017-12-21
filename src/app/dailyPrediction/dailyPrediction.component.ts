@@ -84,7 +84,8 @@ export class DailyPredictionComponent implements OnInit {
             var adSenseIndex: number = 0;
             for(var e of dailyPrediction.planetExplanations) {
               arrayResult.push(e);
-              if (index % 3 == 0) {
+              
+              if (index % 3 == 0 && adSenseIndex == 0) {
                 arrayResult.push({
                   isAd: true,
                   adIndex: adSenseIndex,

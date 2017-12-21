@@ -32,12 +32,10 @@ import {Input, Component,OnInit,AfterViewInit} from '@angular/core'
       }
 
       ngAfterViewInit() {
-         setTimeout(()=>{
-          try{
-            (window['adsbygoogle'] = window['adsbygoogle'] || []).push({});
-          }catch(e){
-            console.error(e);
-          }
-        },2000);
+        try{
+          (window['adsbygoogle'] = window['adsbygoogle'] || []).push({});
+        }catch(e){
+          console.error(e);
+        }
      }     
     }
