@@ -7,11 +7,13 @@ import { Observable } from 'rxjs/Observable';
 import { NatalDate } from '../models/natalDate';
 import { ErrorObservable } from 'rxjs/observable/ErrorObservable';
 import { of } from 'rxjs/observable/of';
+import { Apollo } from 'apollo-angular';
 
 @Injectable()
 export class LoggedInPolicy implements CanActivate {
   
-  constructor(private router: Router,
+  constructor(private apollo: Apollo,
+    private router: Router,
     private authorizationService: AuthorizationService,
     private natalDatesService: NatalDatesService,
     private storageService: StorageService) {}
@@ -28,6 +30,7 @@ export class LoggedInPolicy implements CanActivate {
       .flatMap((isAuthenticated: boolean) => {
         if (!isAuthenticated) {
           if (path != 'login') {
+            that.apollo.getClient().cache.reset();
             that.router.navigate(['/login']);
             return of(false);
           } else {
@@ -38,6 +41,7 @@ export class LoggedInPolicy implements CanActivate {
             if (that.storageService.getNatalDates().length == 0) {
               that.natalDatesService.getAll()
                 .subscribe((natalDates: Array<NatalDate>) => {
+                  console.log(natalDates);
                   that.storageService.setNatalDates(natalDates);
                   observer.next(natalDates);
                   observer.complete();
@@ -57,7 +61,12 @@ export class LoggedInPolicy implements CanActivate {
               }
             } else {
               that.storageService.setNatalDates(natalDates);
-              return of(true);
+              if (path == 'login') {
+                that.router.navigate(['/daily/me']);
+                return of(false);
+              } else {
+                return of(true);
+              }
             }
           })
         }

@@ -61,6 +61,7 @@ export class NatalDatesService {
   public getAll(): Observable<Array<NatalDate>> {
     return this.apollo.watchQuery({
       query: GetNatalDates,
+      fetchPolicy: 'network-only'
     })
     .valueChanges
     .map((result) => {

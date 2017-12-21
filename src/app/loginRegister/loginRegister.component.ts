@@ -30,22 +30,6 @@ import { User } from '../models/user';
 import { NatalDate } from '../models/natalDate';
 import { checkIfMatchingPasswords } from '../validators/matchingValidator';
 
-const EMAIL_REGEX = /^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
-
-const CurrentUser = gql`
-query CurrentUser {
-  me {
-      id
-      email
-      natalDates {
-        id
-        name
-        primary
-      }
-  }
-}
-`;
-
 @Component({
   selector: 'login-register',
   templateUrl: 'loginRegister.component.html',
@@ -82,7 +66,6 @@ export class LoginRegisterComponent {
   }
   
   private static FB_LOGIN_FAILED: string = 'fb_login_failed';
-  private currentUserSub: Subscription;
   private fbToken: string;
 
   //form fiels
@@ -226,6 +209,7 @@ export class LoginRegisterComponent {
   }
 
   handleError(response: HttpErrorResponse) {
+    console.log(response);
     var title: string = 'Προσοχή';
     var message: string;
     switch (response.status) {
@@ -233,7 +217,7 @@ export class LoginRegisterComponent {
         message = 'Το email ή ο κωδικός πρόσβασης δεν είναι σωστά!';
         break;
       case 400:
-        var err = JSON.parse(response.error).error;
+        var err = response.error.error;
         
         if (err.name == 'ExternalServiceError' && err.type == 'timezone error') {
           message = 'Δεν βρέθηκε ο τόπος γέννησης, πάντα σύμφωνα με την google... :) ';

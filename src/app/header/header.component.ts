@@ -1,5 +1,6 @@
 import {Input, Component} from '@angular/core';
 import { Router, ActivatedRouteSnapshot } from '@angular/router';
+import { Apollo } from 'apollo-angular';
 import { AuthorizationService } from '../services/authorization.service'
 import { StorageService } from '../services/storage.service'
 import { ErrorDialogComponent } from '../errorDialog/errorDialog.component';
@@ -17,7 +18,7 @@ export class HeaderComponent {
   showProfile: boolean = false;
   loggedIn: boolean = false;
 
-  constructor(private router: Router,
+  constructor(private apollo: Apollo, private router: Router,
     public dialog: MatDialog,
     private storageService: StorageService,
     private authorizationService: AuthorizationService){
@@ -46,6 +47,7 @@ export class HeaderComponent {
       if (!result) {
         return;
       }
+      this.apollo.getClient().cache.reset();
       this.storageService.clear();
       this.router.navigate(['/login']);
     });

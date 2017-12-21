@@ -1,4 +1,5 @@
 import {Input, Component,OnInit,AfterViewInit} from '@angular/core'
+import { setTimeout } from 'timers';
 
     @Component({
       moduleId: module.id,
@@ -32,10 +33,12 @@ import {Input, Component,OnInit,AfterViewInit} from '@angular/core'
       }
 
       ngAfterViewInit() {
-        try{
-          (window['adsbygoogle'] = window['adsbygoogle'] || []).push({});
-        }catch(e){
-          console.error(e);
-        }
+        setTimeout(function() {
+          try{
+            (window['adsbygoogle'] = window['adsbygoogle'] || []).push({});
+          }catch(e){
+            console.error(e);
+          }
+        }, 2000);
      }     
     }

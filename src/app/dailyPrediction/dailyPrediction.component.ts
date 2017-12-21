@@ -73,7 +73,8 @@ export class DailyPredictionComponent implements OnInit {
             variables: {
                 natalDateId: 1,
                 date: moment(this.date, 'DDMMYYYY').format('YYYY-MM-DD')
-            }
+            },
+            fetchPolicy: 'network-only'
           })
           .valueChanges
           .map(result => {
