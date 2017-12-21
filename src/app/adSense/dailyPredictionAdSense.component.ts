@@ -1,5 +1,4 @@
 import {Input, Component,OnInit,AfterViewInit} from '@angular/core'
-import { setTimeout } from 'timers';
 
     @Component({
       moduleId: module.id,
