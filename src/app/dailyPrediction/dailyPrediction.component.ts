@@ -20,6 +20,7 @@ import * as moment from 'moment';
 
 import {DailyPrediction, PlanetExplanations} from '../models/dailyPrediction';
 import { forEach } from '@angular/router/src/utils/collection';
+import { DailyPredictionAdSenseComponent } from '../adSense/dailyPredictionAdSense.component';
 
 const GetDailyPrediction = gql`
 query GetDailyPrediction($natalDateId: Int!, $date: String!) {
@@ -86,7 +87,7 @@ export class DailyPredictionComponent implements OnInit {
             for(var e of dailyPrediction.planetExplanations) {
               arrayResult.push(e);
               
-              if (index % 3 == 0 && adSenseIndex == 0) {
+              if (index % 3 == 0 && adSenseIndex < DailyPredictionAdSenseComponent.SLOTS.length) {
                 arrayResult.push({
                   isAd: true,
                   adIndex: adSenseIndex,

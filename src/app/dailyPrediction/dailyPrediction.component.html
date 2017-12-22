@@ -12,6 +12,7 @@
                         <div fxFlexFill class="card-subtitle explanation-content">{{explanation.lemma}}</div>
                     </mat-card-content>
                     <mat-card-content *ngIf="explanation.isAd">
+                        <div fxFlexFill class="card-title explanation-content"><strong>Διαφήμιση</strong></div>
                         <daily-prediction-adsense fxFlexFill [index]="explanation.adIndex"></daily-prediction-adsense>
                     </mat-card-content>
                 </mat-card>
