@@ -73,7 +73,7 @@ export class DailyPredictionListComponent {
         for(var i: number = 1; i < DailyPredictionListComponent.MAX_DAYS_FORWARD; i++) {
             now.add(1, 'days');
             this.availableDates.push(now.unix())
-            if (i % 4 == 0) {
+            if (i % 6 == 0) {
                 this.availableDates.push(DailyPredictionListComponent.ADVERTISING_ID);
             }
         }
