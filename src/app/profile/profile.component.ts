@@ -219,6 +219,7 @@ export class ProfileComponent {
     this.showChangePasswordLoading(true);
     this.authenticationService.resetPassword(password)
       .subscribe(result => {
+        this.showChangePasswordLoading(false);
         that.showDialog('Επιτυχία', 'Ο νεός σου κωδικός αποθηκεύτηκε επιτυχώς!')
       }, (response: HttpErrorResponse) => {
         var title: string = 'Προσοχή';
@@ -239,7 +240,6 @@ export class ProfileComponent {
         that.updateNatalDate();
       }, (apolloError: ApolloError) => {
         const error: any = apolloError.graphQLErrors[0]
-        console.log(apolloError);
         var title: string = 'Προσοχή';
         var message: string;
         if (error.name == 'ExternalServiceError' && error.type == 'timezone error') {
@@ -274,7 +274,6 @@ export class ProfileComponent {
         that.showDialog('Επιτυχία', 'Τα στοιχεία σου αποθηκεύτηκαν με επιτυχία');
       }, (apolloError: ApolloError) => {
         const error: any = apolloError.graphQLErrors[0]
-        console.log(error);
         var title: string = 'Προσοχή';
         var message: string;
         if (error.name == 'ExternalServiceError' && error.type == 'timezone error') {

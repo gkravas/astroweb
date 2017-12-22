@@ -151,12 +151,6 @@ export class LoginRegisterComponent {
       })
   }
 
-  getLoginStatus() {
-    this.fb.getLoginStatus()
-      .then(console.log.bind(console))
-      .catch(console.error.bind(console));
-  }
-
   onSubmit() {
     if (this.isLogin && this.form.get('email').valid && this.form.get('password').valid) {
       this.showLoading(true);
@@ -194,6 +188,7 @@ export class LoginRegisterComponent {
     const that = this;
     return this.authenticationService.login(username, password, fbToken)
       .then((user: User) => {
+        that.apollo.getClient().cache.reset();
         return that.router.navigate(['/daily/me']);
       })
       .catch(error => that.handleError(error));

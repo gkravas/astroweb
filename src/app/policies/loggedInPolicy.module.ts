@@ -41,7 +41,6 @@ export class LoggedInPolicy implements CanActivate {
             if (that.storageService.getNatalDates().length == 0) {
               that.natalDatesService.getAll()
                 .subscribe((natalDates: Array<NatalDate>) => {
-                  console.log(natalDates);
                   that.storageService.setNatalDates(natalDates);
                   observer.next(natalDates);
                   observer.complete();
