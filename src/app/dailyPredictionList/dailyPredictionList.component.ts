@@ -16,7 +16,7 @@ import * as moment from 'moment';
 })
 export class DailyPredictionListComponent {
 
-    private static readonly MAX_DAYS_FORWARD: number = 60;
+    private static readonly MAX_DAYS_FORWARD: number = 30;
     private static readonly ADVERTISING_ID: number = -1;
 
     public cols: Observable<number>;
@@ -78,6 +78,16 @@ export class DailyPredictionListComponent {
             }
         }
     }
+
+    ngAfterViewInit() {
+        setTimeout(function() {
+          try{
+            (window['adsbygoogle'] = window['adsbygoogle'] || []).push({});
+          }catch(e){
+            console.error(e);
+          }
+        }, 2000);
+     }  
 
     public formatDate(timestamp: number): string {
         if (timestamp == DailyPredictionListComponent.ADVERTISING_ID) {

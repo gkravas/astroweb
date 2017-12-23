@@ -30,14 +30,14 @@ import {Input, Component,OnInit,AfterViewInit} from '@angular/core'
         this.adSlot = DailyPredictionAdSenseComponent.SLOTS[this.index];
         this.key = DailyPredictionAdSenseComponent.KEYS[this.index];
       }
-
+      
       ngAfterViewInit() {
-        setTimeout(function() {
+        /*setTimeout(function() {
           try{
             (window['adsbygoogle'] = window['adsbygoogle'] || []).push({});
           }catch(e){
             console.error(e);
           }
-        }, 2000);
+        }, 2000);*/
      }     
     }

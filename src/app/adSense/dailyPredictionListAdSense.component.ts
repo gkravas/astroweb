@@ -18,14 +18,14 @@ import {Component,OnInit,AfterViewInit} from '@angular/core'
 
       constructor() {    
       } 
-
+      
       ngAfterViewInit() {
-        setTimeout(function() {
+        /*setTimeout(function() {
           try{
             (window['adsbygoogle'] = window['adsbygoogle'] || []).push({});
           }catch(e){
             console.error(e);
           }
-        }, 2000);
-     }     
+        }, 2000);*/
+     }  
     }

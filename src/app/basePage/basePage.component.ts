@@ -24,5 +24,6 @@ export class BasePageComponent {
 
     ngOnInit() {
         this.titleService.setTitle(this.title);
+        window.scrollTo(0, 0);
     }
 }
