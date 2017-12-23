@@ -79,16 +79,6 @@ export class DailyPredictionListComponent {
         }
     }
 
-    ngAfterViewInit() {
-        setTimeout(function() {
-          try{
-            (window['adsbygoogle'] = window['adsbygoogle'] || []).push({});
-          }catch(e){
-            console.error(e);
-          }
-        }, 2000);
-     }  
-
     public formatDate(timestamp: number): string {
         if (timestamp == DailyPredictionListComponent.ADVERTISING_ID) {
             return "Διαφήμιση";

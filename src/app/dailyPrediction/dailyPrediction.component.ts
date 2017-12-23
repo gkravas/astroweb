@@ -132,16 +132,6 @@ export class DailyPredictionComponent implements OnInit {
             });
     }
 
-    ngAfterViewInit() {
-      setTimeout(function() {
-        try{
-          (window['adsbygoogle'] = window['adsbygoogle'] || []).push({});
-        }catch(e){
-          console.error(e);
-        }
-      }, 2000);
-    }
-      
     onAccuracyChanged(e) {
       this.accuracySubject.next(e.value * 10);
     }
