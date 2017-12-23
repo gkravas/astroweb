@@ -271,7 +271,11 @@ export class ProfileComponent {
         natalDates.push(result);
         that.storageService.setNatalDates(natalDates);
         this.showNatalDateLoading(false);
-        that.showDialog('Επιτυχία', 'Τα στοιχεία σου αποθηκεύτηκαν με επιτυχία');
+        that.showDialog('Επιτυχία', 'Τα στοιχεία σου αποθηκεύτηκαν με επιτυχία')
+        .afterClosed()
+        .subscribe(result => {
+          this.router.navigate(['/daily/me']);
+        });
       }, (apolloError: ApolloError) => {
         const error: any = apolloError.graphQLErrors[0]
         var title: string = 'Προσοχή';
@@ -291,7 +295,7 @@ export class ProfileComponent {
   }
 
   showDialog(title: string, message: string) {
-    let dialogRef = this.dialog.open(ErrorDialogComponent, {
+    return this.dialog.open(ErrorDialogComponent, {
       width: '250px',
       data: { 
         title: title, 
