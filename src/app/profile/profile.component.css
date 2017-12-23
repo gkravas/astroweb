@@ -16,6 +16,9 @@
     width: 70%;
     margin: 0 auto;
 }
+.clickable {
+    cursor: pointer;
+}
 @media (max-width: 500px) {
     .container {
         min-width: 100%;

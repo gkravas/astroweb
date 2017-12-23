@@ -18,7 +18,7 @@
                 
                     <mat-form-field fxFlexFill [@visibilityChanged]="showPassword">
                         <input name="password" matInput placeholder="Ο κωδικός μου" [type]="passwordHide ? 'password' : 'text'" [formControl]="form.get('password')" [value]="passwordField" (input)="passwordField = $event.target.value">
-                        <mat-icon matSuffix (click)="passwordHide = !passwordHide">{{passwordHide ? 'visibility' : 'visibility_off'}}</mat-icon>
+                        <mat-icon class="clickable" matSuffix (click)="passwordHide = !passwordHide">{{passwordHide ? 'visibility' : 'visibility_off'}}</mat-icon>
                         <mat-error *ngIf="form.controls.password.errors?.minlength">
                             Ο κωδικός πρέπει να είναι τουλάχιστον 6 χαρακτήρες
                         </mat-error>
@@ -29,7 +29,7 @@
 
                     <mat-form-field fxFlexFill [@visibilityChanged]="showExtra">
                         <input name="password" matInput placeholder="Επανάληψη του κωδικού μου" [type]="passwordRepeatHide ? 'password' : 'text'" [formControl]="form.get('passwordRepeat')" [value]="passwordRepeatField" (input)="passwordRepeatField = $event.target.value">
-                        <mat-icon matSuffix (click)="passwordRepeatHide = !passwordRepeatHide">{{passwordRepeatHide ? 'visibility' : 'visibility_off'}}</mat-icon>
+                        <mat-icon class="clickable" matSuffix (click)="passwordRepeatHide = !passwordRepeatHide">{{passwordRepeatHide ? 'visibility' : 'visibility_off'}}</mat-icon>
                         <mat-error *ngIf="form.controls.passwordRepeat.errors?.required">
                                 Ο κωδικός δεν μπορεί να είναι κενός
                             </mat-error>
