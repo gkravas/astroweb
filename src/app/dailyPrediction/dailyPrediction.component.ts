@@ -124,7 +124,7 @@ export class DailyPredictionComponent implements OnInit {
               })
             })
             .subscribe((result) => {
-              this.snackBar.open("Σε ευχαριστούμε για την βαθμολία σου!", "", {
+              this.snackBar.open("Σε ευχαριστούμε για την βαθμολογία σου!", "", {
                 duration: 2000,
               });
             }, (error) => {
