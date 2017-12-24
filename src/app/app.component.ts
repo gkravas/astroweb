@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { routerTransition } from './router.transitions'
 import { NavigationEnd, Router } from '@angular/router';
-import { Meta } from '@angular/platform-browser';
+//import { Meta } from '@angular/platform-browser';
 import { Angulartics2GoogleAnalytics } from 'angulartics2/ga';
 
 import { Observable } from "rxjs/Observable";
@@ -15,11 +15,11 @@ import "rxjs/add/operator/filter";
 })
 export class AppComponent {
   constructor(private router: Router, 
-    private metaService: Meta,
+    //private metaService: Meta,
     private angulartics2GoogleAnalytics: Angulartics2GoogleAnalytics) {}
 
     ngOnInit() {
-      const keywords: string = 'Αστρολογία, Αστρολογικές Προβλέψεις, Ημερήσιες Προβλέψεις, Ζώδια, Αστρολογικός Χάρτης';
+      /*const keywords: string = 'Αστρολογία, Αστρολογικές Προβλέψεις, Ημερήσιες Προβλέψεις, Ζώδια, Αστρολογικός Χάρτης';
       const title: string = 'Astro Lucis';
       const description: string = 'Αστρολογία και Τεχνητή Νοημοσύνη ενώνονται και προσφέρουν αξιόπιστες προβλέψεις.'
         + ' Προσωπικές ημερήσιες προβλέψεις δωρεάν';
@@ -36,7 +36,7 @@ export class AppComponent {
         { property: 'og:url', content: "https://astrolucis.gr" },
         { name: 'keywords', content: keywords },
         { name: 'description', content: description },
-      ]);
+      ]);*/
     }
   getState(outlet) {
     return outlet.activatedRouteData.state;
