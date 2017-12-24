@@ -22,6 +22,7 @@ query GetNatalDates {
         location
         primary
         type
+        timezoneMinutesDifference
       }
   }
 }

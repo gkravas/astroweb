@@ -9,7 +9,7 @@ import { GraphQLError } from 'graphql';
 import gql from 'graphql-tag';
 import { Apollo } from 'apollo-angular';
 import { ApolloError } from 'apollo-client';
-import * as moment from 'moment';
+import * as moment from 'moment-timezone';
 import { Observable } from 'rxjs/Observable';
 import { of } from 'rxjs/observable/of';
 import {
@@ -140,7 +140,7 @@ export class ProfileComponent {
       this.formNatalDate.patchValue({type: me.type});
       this.formNatalDate.patchValue({name: me.name});
       if (me.date) {
-        const dateMoment = moment(new Date(me.date).toISOString());
+        const dateMoment = moment(me.date).utcOffset(me.timezoneMinutesDifference / 60);
         this.formNatalDate.patchValue({birthDate: dateMoment.format('YYYY-MM-DD')});
         this.formNatalDate.patchValue({birthTime: dateMoment.format('HH:mm')});
       }
