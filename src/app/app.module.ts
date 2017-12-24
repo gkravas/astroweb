@@ -53,6 +53,7 @@ export function metaFactory(): MetaLoader {
       description: 'Προσωπικές ημερήσιες προβλέψεις δωρεάν! Αστρολογία και Τεχνητή Νοημοσύνη ενώνονται και προσφέρουν αξιόπιστες προβλέψεις.',
       'og:image': 'https://www.astrolucis.gr/assets/fbImage.png',
       'og:type': 'website',
+      'og:url': 'https://astrolucis.gr',
       'og:locale': 'el_GR',
     }
   });
