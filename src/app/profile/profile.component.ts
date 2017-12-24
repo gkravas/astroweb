@@ -140,7 +140,7 @@ export class ProfileComponent {
       this.formNatalDate.patchValue({type: me.type});
       this.formNatalDate.patchValue({name: me.name});
       if (me.date) {
-        const dateMoment = moment(me.date).utcOffset(me.timezoneMinutesDifference / 60);
+        const dateMoment = moment(new Date(me.date).toISOString()).utcOffset(me.timezoneMinutesDifference / 60);
         this.formNatalDate.patchValue({birthDate: dateMoment.format('YYYY-MM-DD')});
         this.formNatalDate.patchValue({birthTime: dateMoment.format('HH:mm')});
       }
@@ -254,7 +254,7 @@ export class ProfileComponent {
 
   updateNatalDate() {
     const fields = this.formNatalDate.value;
-    const date = fields['birthDate'] + " " + fields['birthTime'] + ':00';
+    const date = fields['birthDate'] + "T" + fields['birthTime'] + ':00';
     const action = fields['id'] == 0
                       ?
       this.natalDatesService.createNatalDate(date, fields['name'], 
@@ -303,5 +303,15 @@ export class ProfileComponent {
         positive: 'OK'
        }
     });
+  }
+
+  formatTimeZoneOffset(offset: number) {
+    const isPositive = offset > 0;
+    offset = Math.abs(offset);
+    return (isPositive ? '+' : '-') + this.pad2(offset / 3600) + '' + this.pad2(offset % 3600);
+  }
+
+  pad2(number) {
+    return (number < 10 ? '0' : '') + number
   }
 }
