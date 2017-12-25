@@ -19,7 +19,7 @@ export class AppComponent {
     private angulartics2GoogleAnalytics: Angulartics2GoogleAnalytics) {}
 
     ngOnInit() {
-      
+      /*
       const keywords: string = 'Αστρολογία, Αστρολογικές Προβλέψεις, Ημερήσιες Προβλέψεις, Ζώδια, Αστρολογικός Χάρτης';
       const title: string = 'Astro Lucis';
       const description: string = ' Προσωπικές ημερήσιες προβλέψεις δωρεάν!'
@@ -39,7 +39,7 @@ export class AppComponent {
         { property: 'og:locale', content: "el_GR" },
         { name: 'keywords', content: keywords },
         { name: 'description', content: description },
-      ]);
+      ]);*/
     }
   getState(outlet) {
     return outlet.activatedRouteData.state;
