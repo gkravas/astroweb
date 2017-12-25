@@ -19,13 +19,12 @@ export class AppComponent {
     private angulartics2GoogleAnalytics: Angulartics2GoogleAnalytics) {}
 
     ngOnInit() {
-      
+      /*
       const keywords: string = 'Αστρολογία, Αστρολογικές Προβλέψεις, Ημερήσιες Προβλέψεις, Ζώδια, Αστρολογικός Χάρτης';
       const title: string = 'Astro Lucis';
       const description: string = ' Προσωπικές ημερήσιες προβλέψεις δωρεάν!'
       + ' Αστρολογία και Τεχνητή Νοημοσύνη ενώνονται και προσφέρουν αξιόπιστες προβλέψεις.';
       const image: string = 'https://astrolucis.gr/assets/fbImage.png';
-
       this.metaService.addTags([
         { name: 'twitter:title', content: title },
         { name: 'twitter:description', content: description },
@@ -39,7 +38,7 @@ export class AppComponent {
         { property: 'og:locale', content: "el_GR" },
         { name: 'keywords', content: keywords },
         { name: 'description', content: description },
-      ]);
+      ]);*/
     }
   getState(outlet) {
     return outlet.activatedRouteData.state;
