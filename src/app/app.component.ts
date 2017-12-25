@@ -21,9 +21,9 @@ export class AppComponent {
     ngOnInit() {
       const keywords: string = 'Αστρολογία, Αστρολογικές Προβλέψεις, Ημερήσιες Προβλέψεις, Ζώδια, Αστρολογικός Χάρτης';
       const title: string = 'Astro Lucis';
-      const description: string = 'Αστρολογία και Τεχνητή Νοημοσύνη ενώνονται και προσφέρουν αξιόπιστες προβλέψεις.'
-        + ' Προσωπικές ημερήσιες προβλέψεις δωρεάν';
-      const image: string = '/assets/fbImage.png';
+      const description: string = ' Προσωπικές ημερήσιες προβλέψεις δωρεάν!'
+      + ' Αστρολογία και Τεχνητή Νοημοσύνη ενώνονται και προσφέρουν αξιόπιστες προβλέψεις.';
+      const image: string = 'https://astrolucis.gr/assets/fbImage.png';
 
       this.metaService.addTags([
         { name: 'twitter:title', content: title },
