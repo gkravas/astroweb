@@ -40,25 +40,6 @@ import { ErrorDialogComponent } from './errorDialog/errorDialog.component';
 import { LoggedInPolicy } from './policies/loggedInPolicy.module';
 
 import { environment } from '../environments/environment';
-import { MetaModule, MetaLoader, MetaStaticLoader, PageTitlePositioning } from '@ngx-meta/core';
-
-export function metaFactory(): MetaLoader {
-  return new MetaStaticLoader({
-    pageTitlePositioning: PageTitlePositioning.PrependPageTitle,
-    pageTitleSeparator: ' - ',
-    applicationName: 'Astro Lucis',
-    defaults: {
-      keywords: 'Αστρολογία, Αστρολογικές Προβλέψεις, Ημερήσιες Προβλέψεις, Ζώδια, Αστρολογικός Χάρτης',
-      title: 'Astro Lucis',
-      description: 'Προσωπικές ημερήσιες προβλέψεις δωρεάν! Αστρολογία και Τεχνητή Νοημοσύνη ενώνονται και προσφέρουν αξιόπιστες προβλέψεις.',
-      'og:image': 'https://www.astrolucis.gr/assets/fbImage.png',
-      'og:type': 'website',
-      'og:url': 'https://astrolucis.gr',
-      'og:locale': 'el_GR',
-    }
-  });
-}
-
 const routes: Routes = [
   {
     path: '',
@@ -124,10 +105,6 @@ const routes: Routes = [
     Angulartics2Module.forRoot([ Angulartics2GoogleAnalytics ]),
     HttpClientJsonpModule,
     FacebookModule.forRoot(),
-    MetaModule.forRoot({
-      provide: MetaLoader,
-      useFactory: (metaFactory)
-    })
   ],
   declarations: [
     AppComponent,
