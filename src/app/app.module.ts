@@ -139,7 +139,8 @@ const routes: Routes = [
       provide: HTTP_INTERCEPTORS,
       useClass: TokenInterceptor,
       multi: true
-    }
+    },
+    { provide: 'LOCALSTORAGE', useFactory: getLocalStorage }
   ],
   bootstrap: [AppComponent]
 })
@@ -153,4 +154,12 @@ export class AppModule {
       cache: new InMemoryCache()
     });
   }
+}
+
+export function getLocalStorage() {
+  return (typeof window !== "undefined") ? window.localStorage : {
+    clear: function(){},
+    getItem: function(key){ return ""},
+    setItem: function(key, value){}
+  };
 }

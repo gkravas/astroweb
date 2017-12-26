@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, Inject } from '@angular/core';
 import { NatalDate } from '../models/natalDate';
 import { User } from '../models/user';
 
@@ -9,15 +9,18 @@ export class StorageService {
     private static TOKEN: string = 'token';
     private static USER: string = 'user';
 
+    constructor(
+        @Inject('LOCALSTORAGE') private localStorage: any) {
+    }
     public clear() {
-        localStorage.clear();
+        this.localStorage.clear();
     }
     public setNatalDates(natalDates: Array<NatalDate>) {
-        return localStorage.setItem(StorageService.NATAL_DATES, JSON.stringify(natalDates));
+        return this.localStorage.setItem(StorageService.NATAL_DATES, JSON.stringify(natalDates));
     }
 
     public getNatalDates(): Array<NatalDate> {
-        const str: string = localStorage.getItem(StorageService.NATAL_DATES);
+        const str: string = this.localStorage.getItem(StorageService.NATAL_DATES);
         if (!str) {
             return new Array<NatalDate>();
         } else {
@@ -26,18 +29,18 @@ export class StorageService {
     }
 
     public setToken(token: string) {
-        return localStorage.setItem(StorageService.TOKEN, token);
+        return this.localStorage.setItem(StorageService.TOKEN, token);
     }
 
     public getToken(): string {
-        return localStorage.getItem(StorageService.TOKEN) as string
+        return this.localStorage.getItem(StorageService.TOKEN) as string
     }
 
     public setUser(user: User) {
-        return localStorage.setItem(StorageService.USER, JSON.stringify(user));
+        return this.localStorage.setItem(StorageService.USER, JSON.stringify(user));
     }
 
     public getUser(): User {
-        return JSON.parse(localStorage.getItem(StorageService.USER)) as User;
+        return JSON.parse(this.localStorage.getItem(StorageService.USER)) as User;
     }
 }
