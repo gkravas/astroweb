@@ -10,6 +10,7 @@ import { HttpLinkModule, HttpLink } from 'apollo-angular-link-http';
 import { InMemoryCache } from 'apollo-cache-inmemory';
 import { Angulartics2Module } from 'angulartics2';
 import { Angulartics2GoogleAnalytics } from 'angulartics2/ga';
+import { Angulartics2Facebook } from 'angulartics2/facebook'
 import { FacebookModule } from 'ngx-facebook';
 
 import { AuthorizationService } from './services/authorization.service';
@@ -102,7 +103,7 @@ const routes: Routes = [
     ApolloModule,
     HttpLinkModule,
     RouterModule.forRoot(routes, {useHash: false}),
-    Angulartics2Module.forRoot([ Angulartics2GoogleAnalytics ]),
+    Angulartics2Module.forRoot([ Angulartics2GoogleAnalytics, Angulartics2Facebook ]),
     HttpClientJsonpModule,
     FacebookModule.forRoot(),
   ],
