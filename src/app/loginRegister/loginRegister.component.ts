@@ -1,4 +1,4 @@
-import { Input, Component } from '@angular/core';
+import { PLATFORM_ID, Inject, Input, Component } from '@angular/core';
 import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms';
 import { HttpErrorResponse } from '@angular/common/http';
 import { Router, ActivatedRoute } from '@angular/router';
@@ -7,6 +7,7 @@ import { Title } from '@angular/platform-browser';
 import { Angulartics2GoogleAnalytics } from 'angulartics2/ga';
 import { FacebookService, InitParams, LoginResponse, LoginOptions } from 'ngx-facebook';
 import { environment } from '../../environments/environment';
+import { isPlatformBrowser } from '@angular/common';
 
 import gql from 'graphql-tag';
 import { Apollo } from 'apollo-angular';
@@ -29,6 +30,7 @@ import { ErrorDialogComponent } from '../errorDialog/errorDialog.component';
 import { User } from '../models/user';
 import { NatalDate } from '../models/natalDate';
 import { checkIfMatchingPasswords } from '../validators/matchingValidator';
+import { isPlatformServer } from '@angular/common/src/platform_id';
 
 @Component({
   selector: 'login-register',
@@ -54,15 +56,17 @@ export class LoginRegisterComponent {
     private dialog: MatDialog,
     private angulartics2: Angulartics2GoogleAnalytics,
     private fb: FacebookService,
-    private formBuilder: FormBuilder) {
-
-      let initParams: InitParams = {
-        appId: environment.fbAppId,
-        xfbml: true,
-        version: 'v2.11'
-      };
-  
-      fb.init(initParams);
+    private formBuilder: FormBuilder,
+    @Inject(PLATFORM_ID) private platformId: Object) {
+      if(isPlatformBrowser(this.platformId)) {
+        let initParams: InitParams = {
+          appId: environment.fbAppId,
+          xfbml: true,
+          version: 'v2.11'
+        };
+    
+        fb.init(initParams);
+      }
   }
   
   private static FB_LOGIN_FAILED: string = 'fb_login_failed';
@@ -118,6 +122,9 @@ export class LoginRegisterComponent {
   }
 
   fbConnect() {
+    if(!isPlatformBrowser(this.platformId)) {
+      return;
+    }
     this.form.disable();
     this.showLoading(true);
     const loginOptions: LoginOptions = {
