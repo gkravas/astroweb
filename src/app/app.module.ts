@@ -39,7 +39,7 @@ import { DailyPredictionAdSenseComponent } from './adSense/dailyPredictionAdSens
 import { DailyPredictionListAdSenseComponent } from './adSense/dailyPredictionListAdSense.component';
 import { ErrorDialogComponent } from './errorDialog/errorDialog.component';
 import { LoggedInPolicy } from './policies/loggedInPolicy.module';
-import Raven = require('raven-js');
+import * as Raven from 'raven-js';
 
 import { environment } from '../environments/environment';
 
