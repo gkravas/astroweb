@@ -1,5 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import { NgModule, ErrorHandler } from '@angular/core';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MaterialModule } from './material.module';
 import { FlexLayoutModule } from "@angular/flex-layout";
@@ -39,8 +39,20 @@ import { DailyPredictionAdSenseComponent } from './adSense/dailyPredictionAdSens
 import { DailyPredictionListAdSenseComponent } from './adSense/dailyPredictionListAdSense.component';
 import { ErrorDialogComponent } from './errorDialog/errorDialog.component';
 import { LoggedInPolicy } from './policies/loggedInPolicy.module';
+import Raven = require('raven-js');
 
 import { environment } from '../environments/environment';
+
+Raven
+.config('https://d8733f14ea10450494d6dbd667241f5b@sentry.io/264408')
+.install();
+
+export class RavenErrorHandler implements ErrorHandler {
+  handleError(err:any) : void {
+    Raven.captureException(err.originalError || err);
+  }
+}
+
 const routes: Routes = [
   {
     path: '',
@@ -141,7 +153,8 @@ const routes: Routes = [
       useClass: TokenInterceptor,
       multi: true
     },
-    { provide: 'LOCALSTORAGE', useFactory: getLocalStorage }
+    { provide: 'LOCALSTORAGE', useFactory: getLocalStorage },
+    { provide: ErrorHandler, useClass: RavenErrorHandler }
   ],
   bootstrap: [AppComponent]
 })
