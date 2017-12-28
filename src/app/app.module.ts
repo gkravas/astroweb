@@ -54,9 +54,8 @@ export class RavenErrorHandler implements ErrorHandler {
 }
 
 const routes: Routes = [
-  { path: '', redirectTo: 'landing', pathMatch: 'full' },
   {
-    path: 'landing',
+    path: '',
     component: LandingPageComponent,
     data: { state: 'landing' }
   },
