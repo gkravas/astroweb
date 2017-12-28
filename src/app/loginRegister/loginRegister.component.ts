@@ -149,9 +149,11 @@ export class LoginRegisterComponent {
           throw Error("Δεν μας έδωσες πρόσβαση στο email σου!")
         }
         that.fbToken = loginResponse.authResponse.accessToken;
-        return this.login(null, null, that.fbToken);
+        this.angulartics2.eventTrack('tryToConnectWithFBSuccess', {});
+        return this.login(null, null, that.fbToken, 'userLoggedInFB');
       })
       .catch(error => {
+        this.angulartics2.eventTrack('tryToConnectWithFBFail', {});
         this.showErrorDialog('Προσοχή', error.message);
         this.form.enable();
         this.showLoading(false);
@@ -162,7 +164,7 @@ export class LoginRegisterComponent {
     if (this.isLogin && this.form.get('email').valid && this.form.get('password').valid) {
       this.angulartics2.eventTrack('tryToLogin', {});
       this.showLoading(true);
-      this.login(this.emailField, this.passwordField, this.fbToken);
+      this.login(this.emailField, this.passwordField, this.fbToken, 'userLoggedIn');
     } else {
       this.angulartics2.eventTrack('tryToRegister', {});
       this.form.get('passwordRepeat').updateValueAndValidity();
@@ -172,9 +174,12 @@ export class LoginRegisterComponent {
         this.authenticationService.register(this.emailField, this.passwordField, this.fbToken)
           .then((o) => {
             this.angulartics2.eventTrack('newUser', {});
-            return this.login(this.emailField, this.passwordField, this.fbToken)
+            return this.login(this.emailField, this.passwordField, this.fbToken, 'userLoggedInFirstTime')
           })
-          .catch(error => this.handleError(error));
+          .catch(error => {
+            this.angulartics2.eventTrack('tryToRegisterFail', {});
+            this.handleError(error)
+          });
       }
     }
   }
@@ -188,20 +193,24 @@ export class LoginRegisterComponent {
     const that = this;
     this.authenticationService.sendResetEmail(this.emailField)
       .then(function(allGood:boolean) {
+        this.angulartics2.eventTrack('sendResetEmail', {});
         that.showErrorDialog('Προσοχή', 'Μόλις σου αποστείλαμε email για την αλλαγή του κωδικού σου.')
       })
       .catch(error => that.handleError(error));
   }
 
-  login(username: string, password: string, fbToken: string): Promise<any> {
+  login(username: string, password: string, fbToken: string, event: string): Promise<any> {
     const that = this;
     return this.authenticationService.login(username, password, fbToken)
       .then((user: User) => {
-        this.angulartics2.eventTrack('userLoggedIn', {});
+        this.angulartics2.eventTrack(event + 'Success', {});
         that.apollo.getClient().cache.reset();
         return that.router.navigate(['/daily/me']);
       })
-      .catch(error => that.handleError(error));
+      .catch(error => {
+        this.angulartics2.eventTrack(event + 'Fail', {});
+        that.handleError(error)
+      });
   }
 
   hasValidationErrors(controls: [FormControl]): boolean {
