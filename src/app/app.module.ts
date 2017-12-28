@@ -54,8 +54,9 @@ export class RavenErrorHandler implements ErrorHandler {
 }
 
 const routes: Routes = [
+  { path: '', redirectTo: 'landing', pathMatch: 'full' },
   {
-    path: '',
+    path: 'landing',
     component: LandingPageComponent,
     data: { state: 'landing' }
   },
@@ -102,7 +103,8 @@ const routes: Routes = [
     component: ProfileComponent,
     canActivate: [LoggedInPolicy],
     data: { state: 'profile' }
-  }
+  },
+  {path: '**', component: LandingPageComponent}
  ];
 
 @NgModule({
