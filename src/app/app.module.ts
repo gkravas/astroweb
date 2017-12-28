@@ -59,6 +59,7 @@ const routes: Routes = [
     component: LandingPageComponent,
     data: { state: 'landing' }
   },
+  { path: '**', redirectTo: '' },
   {
     path: 'login',
     component: LoginRegisterComponent,
