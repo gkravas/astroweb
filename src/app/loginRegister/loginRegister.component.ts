@@ -133,7 +133,7 @@ export class LoginRegisterComponent {
       scope: 'public_profile, email'
     };
     //'public_profile, user_birthday, email, user_hometown'
-
+    this.angulartics2.eventTrack('tryToConnectWithFB', {});
     const that = this;
     this.fb.login(loginOptions)
       .then((loginResponse: LoginResponse) => {
@@ -160,9 +160,11 @@ export class LoginRegisterComponent {
 
   onSubmit() {
     if (this.isLogin && this.form.get('email').valid && this.form.get('password').valid) {
+      this.angulartics2.eventTrack('tryToLogin', {});
       this.showLoading(true);
       this.login(this.emailField, this.passwordField, this.fbToken);
     } else {
+      this.angulartics2.eventTrack('tryToRegister', {});
       this.form.get('passwordRepeat').updateValueAndValidity();
       this.form.get('passwordRepeat').markAsTouched();
       if (this.form.valid){
@@ -195,6 +197,7 @@ export class LoginRegisterComponent {
     const that = this;
     return this.authenticationService.login(username, password, fbToken)
       .then((user: User) => {
+        this.angulartics2.eventTrack('userLoggedIn', {});
         that.apollo.getClient().cache.reset();
         return that.router.navigate(['/daily/me']);
       })
