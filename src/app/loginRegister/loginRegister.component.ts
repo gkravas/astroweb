@@ -166,10 +166,10 @@ export class LoginRegisterComponent {
       this.showLoading(true);
       this.login(this.emailField, this.passwordField, this.fbToken, 'userLoggedIn');
     } else {
-      this.angulartics2.eventTrack('tryToRegister', {});
       this.form.get('passwordRepeat').updateValueAndValidity();
       this.form.get('passwordRepeat').markAsTouched();
       if (this.form.valid){
+        this.angulartics2.eventTrack('tryToRegister', {});
         this.showLoading(true);
         this.authenticationService.register(this.emailField, this.passwordField, this.fbToken)
           .then((o) => {
