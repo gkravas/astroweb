@@ -153,7 +153,9 @@ export class LoginRegisterComponent {
         return this.login(null, null, that.fbToken, 'userLoggedInFB');
       })
       .catch(error => {
-        this.angulartics2.eventTrack('tryToConnectWithFBFail', {});
+        this.angulartics2.eventTrack('tryToConnectWithFBFail', {
+          label: JSON.stringify(error)
+        });
         this.showErrorDialog('Προσοχή', error.message);
         this.form.enable();
         this.showLoading(false);
