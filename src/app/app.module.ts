@@ -40,6 +40,7 @@ import { DailyPredictionListAdSenseComponent } from './adSense/dailyPredictionLi
 import { ErrorDialogComponent } from './errorDialog/errorDialog.component';
 import { LoggedInPolicy } from './policies/loggedInPolicy.module';
 import * as Raven from 'raven-js';
+import { PrebootModule } from 'preboot';
 
 import { environment } from '../environments/environment';
 
@@ -110,6 +111,7 @@ const routes: Routes = [
   imports: [
     BrowserAnimationsModule,
     BrowserModule.withServerTransition({ appId: 'astroweb' }),
+    PrebootModule.withConfig({ appRoot: 'app-root' }),
     MaterialModule,
     HttpClientModule,
     FlexLayoutModule,

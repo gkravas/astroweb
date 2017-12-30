@@ -48,6 +48,7 @@
     "moment-timezone": "^0.5.14",
     "ng2-adsense": "^5.1.0",
     "ngx-facebook": "^2.4.0",
+    "preboot": "^6.0.0-beta.1",
     "raven-js": "^3.21.0",
     "rxjs": "^5.5.5",
     "ts-loader": "^3.2.0",
