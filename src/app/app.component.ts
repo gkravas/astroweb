@@ -24,7 +24,7 @@ export class AppComponent {
       const keywords: string = 'Αστρολογία, Αστρολογικές Προβλέψεις, Ημερήσιες Προβλέψεις, Ζώδια, Αστρολογικός Χάρτης';
       const title: string = 'Astro Lucis';
       const description: string = ' Προσωπικές ημερήσιες προβλέψεις δωρεάν!'
-      + ' Αστρολογία και Τεχνητή Νοημοσύνη ενώνονται και προσφέρουν αξιόπιστες προβλέψεις.';
+      + ' Δες τι σου επιφυλλάσει η μοίρα για το μέλλον!';
       const image: string = 'https://astrolucis.gr/assets/fbImage.png';
       const site: string = 'https://astrolucis.gr';
       this.metaService.addTags([
