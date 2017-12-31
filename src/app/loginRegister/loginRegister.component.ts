@@ -195,7 +195,7 @@ export class LoginRegisterComponent {
     const that = this;
     this.authenticationService.sendResetEmail(this.emailField)
       .then(function(allGood:boolean) {
-        this.angulartics2.eventTrack('sendResetEmail', {});
+        that.angulartics2.eventTrack('sendResetEmail', {});
         that.showErrorDialog('Προσοχή', 'Μόλις σου αποστείλαμε email για την αλλαγή του κωδικού σου.')
       })
       .catch(error => that.handleError(error));

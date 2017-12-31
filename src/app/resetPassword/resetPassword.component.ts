@@ -16,8 +16,13 @@ import {
 
 import { AuthenticationService } from '../services/authentication.service';
 import { AuthorizationService } from '../services/authorization.service';
+import { NatalDatesService } from '../services/natalDates.service';
+import { StorageService } from '../services/storage.service';
 import { ErrorDialogComponent } from '../errorDialog/errorDialog.component';
 import { checkIfMatchingPasswords } from '../validators/matchingValidator';
+
+import { User } from '../models/user';
+import { NatalDate } from '../models/natalDate';
 
 @Component({
   selector: 'reset-password',
@@ -38,6 +43,8 @@ export class ResetPasswordComponent {
     private route: ActivatedRoute,
     private authenticationService: AuthenticationService, 
     private authorizationService: AuthorizationService,
+    private natalDatesService: NatalDatesService,
+    private storageService: StorageService, 
     private titleService: Title,
     public dialog: MatDialog,
     private fb: FormBuilder) {}
@@ -59,10 +66,16 @@ export class ResetPasswordComponent {
         passwordRepeat: ['', [Validators.required, checkIfMatchingPasswords('password', 'passwordRepeat')]]
       });
 
+      this.formChangePassword.get('email').disable();
+      
       if (!this.authorizationService.isAuthenticated()) {
         this.showTokenExpiredDialog();
       }
-      this.formChangePassword.get('email').patchValue(this.authorizationService.getPublicData().email);
+
+      this.natalDatesService.getAll()
+        .subscribe((natalDates: Array<NatalDate>) => {
+          this.formChangePassword.patchValue({email: this.storageService.getUser().email});
+        });
     }
 
     showLoading(visible: boolean) {
