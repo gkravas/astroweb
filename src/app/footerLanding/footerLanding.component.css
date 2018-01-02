@@ -7,3 +7,28 @@
 .transparent {
     background: transparent;
 }
+
+.single-row {
+    display: none;
+    flex-direction: row;
+    flex-grow: true;
+    justify-content: center;
+    align-items: center; 
+}
+
+.two-rows {
+    display: flex;
+    flex-direction: row;
+    flex-grow: true;
+    justify-content: center;
+    align-items: center; 
+}
+
+@media (min-width: 500px) {
+    .single-row {
+        display: flex;
+    }
+    .two-rows {
+        display: none;
+    }
+}

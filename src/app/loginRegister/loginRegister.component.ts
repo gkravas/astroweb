@@ -38,10 +38,10 @@ import { isPlatformServer } from '@angular/common/src/platform_id';
   styleUrls: ['loginRegister.component.css'],
   animations: [
     trigger('visibilityChanged', [
-      state('shown', style({ height: '*', opacity: 1 })),
-      state('hidden', style({ height: '0', opacity: 0, padding: 0, display: 'none' })),
-      transition('shown => hidden', animate('400ms ease-in')),
-      transition('hidden => shown', animate('400ms ease-out')),
+      state('*', style({ height: '*', opacity: 1 })),
+      state('void', style({ height: '0', opacity: 0 })),
+      transition('* => void', animate('400ms')),
+      transition('void => *', animate('400ms')),
     ])
   ]
 })

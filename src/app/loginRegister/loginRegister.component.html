@@ -27,7 +27,7 @@
                         </mat-error>
                     </mat-form-field>
 
-                    <mat-form-field fxFlexFill *ngIf="showExtra" [@visibilityChanged]>
+                    <mat-form-field fxFlexFill *ngIf="showExtra" @visibilityChanged>
                         <input name="password" matInput placeholder="Επανάληψη του κωδικού μου" [type]="passwordRepeatHide ? 'password' : 'text'" [formControl]="form.get('passwordRepeat')" [value]="passwordRepeatField" (input)="passwordRepeatField = $event.target.value">
                         <mat-icon class="clickable" matSuffix (click)="passwordRepeatHide = !passwordRepeatHide">{{passwordRepeatHide ? 'visibility' : 'visibility_off'}}</mat-icon>
                         <mat-error *ngIf="form.controls.passwordRepeat.errors?.required">
@@ -38,16 +38,16 @@
                             </mat-error>
                     </mat-form-field>
 
-                    <mat-progress-bar mode="indeterminate" *ngIf="showLoader" [@visibilityChanged]></mat-progress-bar>
-                    <mat-card-actions fxFlexFill *ngIf="showLoginRegister" [@visibilityChanged]>
+                    <mat-progress-bar mode="indeterminate" *ngIf="showLoader" @visibilityChanged></mat-progress-bar>
+                    <mat-card-actions fxFlexFill *ngIf="showLoginRegister" @visibilityChanged>
                             <button fxFlexFill type="submit" mat-raised-button class="login-button" color="primary">{{isLogin ? 'Είσοδος' : 'Εγγραφή'}}</button>
                             <p></p>
                             <button fxFlexFill mat-raised-button class="fb-button" (click)="fbConnect()">Συνέχεια με το Facebook</button>
                     </mat-card-actions>
-                    <mat-card-footer fxFlexFill *ngIf="showLoginRegister" [@visibilityChanged]>
+                    <mat-card-footer fxFlexFill *ngIf="showLoginRegister" @visibilityChanged>
                             <a class="toggle-login-register">{{isLogin ? 'Δεν έχω λογαριασμό.' : 'Έχω ήδη λογαριασμό.'}} <strong class="clickable" (click)="onToggleState()">{{isLogin ? 'Εγγραφή!' : 'Είσοδος!'}}</strong></a>
                             <p></p>
-                            <a *ngIf="showReset" class="toggle-login-register" [@visibilityChanged]>Ξέχασα τον κωδικό μου. <strong class="clickable" (click)="sendResetEmail()">Αλλαγή κωδικού!</strong></a>
+                            <a *ngIf="showReset" class="toggle-login-register" @visibilityChanged>Ξέχασα τον κωδικό μου. <strong class="clickable" (click)="sendResetEmail()">Αλλαγή κωδικού!</strong></a>
                     </mat-card-footer>
 
                 </mat-card-content>

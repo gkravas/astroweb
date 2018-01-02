@@ -1,8 +1,6 @@
 <mat-toolbar class="transparent">
-    <mat-toolbar-row fxHide.lt-sm="true"
-            flexLayout="row"
-            fxLayoutAlign="center center"
-            fxLayoutGap="10px">
+    <mat-toolbar-row
+            class="single-row">
             <a *ngIf="!loggedIn" mat-button fxFLex="1" class="footer-button" [routerLink]="['/']">Αρχική</a>
             <a *ngIf="loggedIn" mat-button fxFLex="1" class="footer-button" [routerLink]="['/daily/me']">Ημερήσιες Προβλέψεις</a>
             <a mat-button fxFLex="1" class="footer-button" [routerLink]="['/about']">Σχετικά</a>
@@ -10,20 +8,14 @@
             <a mat-button fxFLex="1" class="footer-button" [routerLink]="['/privacy']">Ασφάλεια δεδομένων</a>
             <a mat-button fxFLex="1" class="footer-button" href="https://gineastrologos.gr" target="_blank">Blog</a>
     </mat-toolbar-row>
-    <mat-toolbar-row fxHide.gt-xs="true"
-            flexLayout="row"
-            fxLayoutAlign="center center"
-            fxLayoutGap="10px"
-            fxFlexFill>
+    <mat-toolbar-row
+            class="two-rows">
             <a *ngIf="!loggedIn" mat-button fxFLex="1" class="footer-button" [routerLink]="['/']">Αρχική</a>
             <a *ngIf="loggedIn" mat-button fxFLex="1" class="footer-button" [routerLink]="['/daily/me']">Ημερήσιες Προβλέψεις</a>
             <a mat-button fxFLex="1" class="footer-button" [routerLink]="['/about']">Σχετικά</a>
     </mat-toolbar-row>
-    <mat-toolbar-row fxHide.gt-xs="true"
-            flexLayout="row"
-            fxLayoutAlign="center center"
-            fxLayoutGap="10px"
-            fxFlexFill>
+    <mat-toolbar-row
+            class="two-rows">
             <a mat-button fxFLex="1" class="footer-button" [routerLink]="['/terms']">Όροι χρήσης</a>
             <a mat-button fxFLex="1" class="footer-button" [routerLink]="['/privacy']">Ασφάλεια δεδομένων</a>
             <a mat-button fxFLex="1" class="footer-button" href="https://gineastrologos.gr" target="_blank">Blog</a>

@@ -30,10 +30,10 @@ import { NatalDate } from '../models/natalDate';
   styleUrls: ['resetPassword.component.css'],
   animations: [
     trigger('visibilityChanged', [
-      state('shown', style({ height: '*', opacity: 1 })),
-      state('hidden', style({ height: '0', opacity: 0, padding: 0, display: 'none' })),
-      transition('shown => hidden', animate('400ms ease-in')),
-      transition('hidden => shown', animate('400ms ease-out')),
+      state('*', style({ height: '*', opacity: 1 })),
+      state('void', style({ height: '0', opacity: 0 })),
+      transition('* => void', animate('400ms')),
+      transition('void => *', animate('400ms')),
     ])
   ]
 })
@@ -53,7 +53,7 @@ export class ResetPasswordComponent {
     changePasswordHide: boolean = true;
     changePasswordRepeatHide: boolean = true;
     formChangePassword: FormGroup;
-    showLoader: string = 'hidden';
+    showLoader: boolean = false;
 
     //methods
     ngOnInit() {
@@ -67,7 +67,7 @@ export class ResetPasswordComponent {
       });
 
       this.formChangePassword.get('email').disable();
-      
+
       if (!this.authorizationService.isAuthenticated()) {
         this.showTokenExpiredDialog();
       }
@@ -79,7 +79,7 @@ export class ResetPasswordComponent {
     }
 
     showLoading(visible: boolean) {
-      this.showLoader = visible ? 'shown' : 'hidden';
+      this.showLoader = visible;
     }
 
     onSubmit() {
