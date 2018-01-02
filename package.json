@@ -1,6 +1,6 @@
 {
   "name": "astroweb",
-  "version": "1.0.6",
+  "version": "1.0.7",
   "license": "MIT",
   "scripts": {
     "ng": "ng",
@@ -75,6 +75,6 @@
     "protractor": "~5.2.2",
     "ts-node": "~4.1.0",
     "tslint": "~5.8.0",
-    "typescript": "^2.5.3"
+    "typescript": "~2.5.3"
   }
 }
