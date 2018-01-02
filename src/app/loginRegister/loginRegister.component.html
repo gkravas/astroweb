@@ -16,7 +16,7 @@
                         </mat-error>
                     </mat-form-field>
                 
-                    <mat-form-field fxFlexFill [@visibilityChanged]="showPassword">
+                    <mat-form-field fxFlexFill>
                         <input name="password" matInput placeholder="Ο κωδικός μου" [type]="passwordHide ? 'password' : 'text'" [formControl]="form.get('password')" [value]="passwordField" (input)="passwordField = $event.target.value">
                         <mat-icon class="clickable" matSuffix (click)="passwordHide = !passwordHide">{{passwordHide ? 'visibility' : 'visibility_off'}}</mat-icon>
                         <mat-error *ngIf="form.controls.password.errors?.minlength">
@@ -27,7 +27,7 @@
                         </mat-error>
                     </mat-form-field>
 
-                    <mat-form-field fxFlexFill [@visibilityChanged]="showExtra">
+                    <mat-form-field fxFlexFill *ngIf="showExtra" [@visibilityChanged]>
                         <input name="password" matInput placeholder="Επανάληψη του κωδικού μου" [type]="passwordRepeatHide ? 'password' : 'text'" [formControl]="form.get('passwordRepeat')" [value]="passwordRepeatField" (input)="passwordRepeatField = $event.target.value">
                         <mat-icon class="clickable" matSuffix (click)="passwordRepeatHide = !passwordRepeatHide">{{passwordRepeatHide ? 'visibility' : 'visibility_off'}}</mat-icon>
                         <mat-error *ngIf="form.controls.passwordRepeat.errors?.required">
@@ -38,16 +38,16 @@
                             </mat-error>
                     </mat-form-field>
 
-                    <mat-progress-bar mode="indeterminate" [@visibilityChanged]="showLoader"></mat-progress-bar>
-                    <mat-card-actions fxFlexFill [@visibilityChanged]="showLoginRegister">
+                    <mat-progress-bar mode="indeterminate" *ngIf="showLoader" [@visibilityChanged]></mat-progress-bar>
+                    <mat-card-actions fxFlexFill *ngIf="showLoginRegister" [@visibilityChanged]>
                             <button fxFlexFill type="submit" mat-raised-button class="login-button" color="primary">{{isLogin ? 'Είσοδος' : 'Εγγραφή'}}</button>
                             <p></p>
                             <button fxFlexFill mat-raised-button class="fb-button" (click)="fbConnect()">Συνέχεια με το Facebook</button>
                     </mat-card-actions>
-                    <mat-card-footer fxFlexFill [@visibilityChanged]="showLoginRegister">
+                    <mat-card-footer fxFlexFill *ngIf="showLoginRegister" [@visibilityChanged]>
                             <a class="toggle-login-register">{{isLogin ? 'Δεν έχω λογαριασμό.' : 'Έχω ήδη λογαριασμό.'}} <strong class="clickable" (click)="onToggleState()">{{isLogin ? 'Εγγραφή!' : 'Είσοδος!'}}</strong></a>
                             <p></p>
-                            <a [@visibilityChanged]="showReset" class="toggle-login-register">Ξέχασα τον κωδικό μου. <strong class="clickable" (click)="sendResetEmail()">Αλλαγή κωδικού!</strong></a>
+                            <a *ngIf="showReset" class="toggle-login-register" [@visibilityChanged]>Ξέχασα τον κωδικό μου. <strong class="clickable" (click)="sendResetEmail()">Αλλαγή κωδικού!</strong></a>
                     </mat-card-footer>
 
                 </mat-card-content>

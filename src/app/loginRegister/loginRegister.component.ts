@@ -82,11 +82,10 @@ export class LoginRegisterComponent {
   passwordRepeatHide: boolean = true;
   isLogin: boolean = false;
   fbLogin: boolean = false;
-  showReset: string = !this.isLogin ? 'hidden' : 'shown';
-  showExtra: string = this.isLogin ? 'hidden' : 'shown';
-  showPassword: string = 'shown';
-  showLoader: string = 'hidden';
-  showLoginRegister: string = 'shown';
+  showReset: boolean = this.isLogin;
+  showExtra: boolean = !this.isLogin;
+  showLoader: boolean = false;
+  showLoginRegister: boolean = true;
   emailError: string = '';
 
   //validation
@@ -112,13 +111,13 @@ export class LoginRegisterComponent {
 
   setLoginState(isLogin: boolean) {
     this.isLogin = isLogin;
-    this.showExtra = this.isLogin ? 'hidden' : 'shown';
-    this.showReset = !this.isLogin ? 'hidden' : 'shown';
+    this.showExtra = !this.isLogin;
+    this.showReset = this.isLogin;
   }
 
   showLoading(visible: boolean) {
-    this.showLoader = visible ? 'shown' : 'hidden';
-    this.showLoginRegister = !visible ? 'shown' : 'hidden';
+    this.showLoader = visible;
+    this.showLoginRegister = !visible;
   }
 
   fbConnect() {
