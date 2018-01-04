@@ -12,6 +12,7 @@
     background-position: center;
     background-repeat: no-repeat;
     background-image: url("/assets/bg1.jpg");
+    background-color: #385E9F;
 }
 .overlay {
     position: absolute;
@@ -52,14 +53,27 @@
 
 .container > * {
     width: auto;
-    
     background: transparent;
+    display: flex;
+    flex-direction: column;
+}
+.actions {
+    margin: 0px;
+    padding: 0px;
+    flex: auto;
+    display: flex;
+    flex-direction: column;
+}
+.footer {
+    padding-top: 4px;
+    display: flex;
+    flex-direction: column;
 }
 .clickable {
     cursor: pointer;
 }
 .toggle-login-register {
-    margin-top: 20px;
+    padding-top: 8px;
     text-align: center
 }
 .login-button {

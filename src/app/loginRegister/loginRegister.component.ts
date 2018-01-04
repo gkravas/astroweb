@@ -162,6 +162,7 @@ export class LoginRegisterComponent {
   }
 
   onSubmit() {
+    this.angulartics2.eventTrack('onLoginRegisterSubmitPressed', {});
     if (this.isLogin && this.form.get('email').valid && this.form.get('password').valid) {
       this.angulartics2.eventTrack('tryToLogin', {});
       this.showLoading(true);

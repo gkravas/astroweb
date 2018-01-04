@@ -57,19 +57,16 @@ export class RavenErrorHandler implements ErrorHandler {
 const routes: Routes = [
   {
     path: '',
-    component: LandingPageComponent,
-    data: { state: 'landing' }
+    component: LandingPageComponent
   },
   {
     path: 'login',
     component: LoginRegisterComponent,
-    canActivate: [LoggedInPolicy],
-    data: { state: 'login' }
+    canActivate: [LoggedInPolicy]
   },
   {
     path: 'terms',
-    component: TermsComponent,
-    data: { state: 'terms' }
+    component: TermsComponent
   },
   {
     path: 'about',
@@ -78,31 +75,26 @@ const routes: Routes = [
   },
   {
     path: 'privacy',
-    component: PrivacyComponent,
-    data: { state: 'privacy' }
+    component: PrivacyComponent
   },
   {
     path: 'resetPassword',
-    component: ResetPasswordComponent,
-    data: { state: 'resetPassword' }
+    component: ResetPasswordComponent
   },
   {
     path: 'daily/:name',
     component: DailyPredictionListComponent,
-    canActivate: [LoggedInPolicy],
-    data: { state: 'dailyList' }
+    canActivate: [LoggedInPolicy]
   },
   {
     path: 'daily/:name/:date',
     component: DailyPredictionComponent,
-    canActivate: [LoggedInPolicy],
-    data: { state: 'dailyPrediction' }
+    canActivate: [LoggedInPolicy]
   },
   {
     path: 'profile',
     component: ProfileComponent,
-    canActivate: [LoggedInPolicy],
-    data: { state: 'profile' }
+    canActivate: [LoggedInPolicy]
   },
   {path: '**', component: LandingPageComponent}
  ];
@@ -117,7 +109,7 @@ const routes: Routes = [
     FlexLayoutModule,
     ApolloModule,
     HttpLinkModule,
-    RouterModule.forRoot(routes, {useHash: false}),
+    RouterModule.forRoot(routes, {useHash: false, initialNavigation: 'enabled'}),
     Angulartics2Module.forRoot([ Angulartics2GoogleAnalytics, Angulartics2Facebook ]),
     HttpClientJsonpModule,
     FacebookModule.forRoot(),
