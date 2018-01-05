@@ -1,5 +1,6 @@
 {
- "name": "App",
+ "name": "Astro Luics",
+ "short_name": "Astro Luics",
  "icons": [
   {
    "src": "\/android-icon-36x36.png",
@@ -36,6 +37,25 @@
    "sizes": "192x192",
    "type": "image\/png",
    "density": "4.0"
+  },
+  {  
+    "src": "/images/icon-256x256.png",  
+    "sizes": "256x256",  
+    "type": "image/png"  
+  },  
+  {  
+    "src": "/images/icon-384x384.png",  
+    "sizes": "384x384",  
+    "type": "image/png"  
+  }, 
+  {  
+    "src": "/android-icon-512x512.png",  
+    "sizes": "512x512",  
+    "type": "image/png"  
   }
- ]
+ ],
+ "start_url": "index.html",
+ "display": "standalone",
+ "background_color": "#385E9F",
+ "theme_color": "#385E9F"
 }

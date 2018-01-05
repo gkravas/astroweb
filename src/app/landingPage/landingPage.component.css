@@ -6,7 +6,8 @@
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
-    background-image: url("/assets/bg1.jpg")
+    background-image: url("/assets/bg1.jpg");
+    background-color: #385E9F;
 }
 .overlay {
     width: 100vw;

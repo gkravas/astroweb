@@ -1,9 +1,8 @@
-import { BrowserModule } from '@angular/platform-browser';
+import { BrowserModule, BrowserTransferStateModule } from '@angular/platform-browser';
 import { NgModule, ErrorHandler } from '@angular/core';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { MaterialModule } from './material.module';
 import { FlexLayoutModule } from "@angular/flex-layout";
-import { HTTP_INTERCEPTORS, HttpClientModule, HttpClientJsonpModule } from '@angular/common/http';
+import { HttpClientModule, HttpClientJsonpModule } from '@angular/common/http';
 import { RouterModule, Routes }   from '@angular/router';
 import { ApolloModule, Apollo } from 'apollo-angular';
 import { HttpLinkModule, HttpLink } from 'apollo-angular-link-http';
@@ -12,35 +11,17 @@ import { Angulartics2Module } from 'angulartics2';
 import { Angulartics2GoogleAnalytics } from 'angulartics2/ga';
 import { Angulartics2Facebook } from 'angulartics2/facebook'
 import { FacebookModule } from 'ngx-facebook';
+import { ServiceWorkerModule } from '@angular/service-worker';
 
-import { AuthorizationService } from './services/authorization.service';
-import { StorageService } from './services/storage.service';
-import { AuthenticationService } from './services/authentication.service';
-import { NatalDatesService } from './services/natalDates.service';
-import { UserService } from './services/user.service';
-import { TokenInterceptor } from './services/token.interceptor';
+import { SharedModule } from "./shared.module";
+import { CommonComponentsModule } from "./common.components.module";
+
 import { AppComponent } from './app.component';
-
-import { ProfileComponent } from './profile/profile.component';
 import { LandingPageComponent } from './landingPage/landingPage.component';
-import { LoginRegisterComponent } from './loginRegister/loginRegister.component';
-import { ResetPasswordComponent } from './resetPassword/resetPassword.component';
-import { BasePageComponent } from './basePage/basePage.component';
-import { FooterLandingComponent } from './footerLanding/footerLanding.component';
-import { FooterComponent } from './footer/footer.component';
-import { HeaderComponent } from './header/header.component';
-import { TermsComponent } from './staticPages/terms/terms.component';
-import { AboutComponent } from './staticPages/about/about.component';
-
-import { PrivacyComponent } from './staticPages/privacy/privacy.component';
-import { DailyPredictionListComponent } from './dailyPredictionList/dailyPredictionList.component';
-import { DailyPredictionComponent } from './dailyPrediction/dailyPrediction.component';
-import { DailyPredictionAdSenseComponent } from './adSense/dailyPredictionAdSense.component';
-import { DailyPredictionListAdSenseComponent } from './adSense/dailyPredictionListAdSense.component';
 import { ErrorDialogComponent } from './errorDialog/errorDialog.component';
 import { LoggedInPolicy } from './policies/loggedInPolicy.module';
+import { AppPreloadingStrategy } from './app.preload.strategy';
 import * as Raven from 'raven-js';
-import { PrebootModule } from 'preboot';
 
 import { environment } from '../environments/environment';
 
@@ -54,82 +35,70 @@ export class RavenErrorHandler implements ErrorHandler {
   }
 }
 
+import { ProfileComponent } from './profile/profile.component';
+import { ResetPasswordComponent } from './resetPassword/resetPassword.component';
+
 const routes: Routes = [
   {
-    path: '',
-    component: LandingPageComponent
-  },
-  {
     path: 'login',
-    component: LoginRegisterComponent,
-    canActivate: [LoggedInPolicy]
+    loadChildren: './loginRegister/loginRegister.module#LoginRegisterModule',
+    canActivate: [LoggedInPolicy],
+    data: { preload: true, delay: false }
   },
   {
-    path: 'terms',
-    component: TermsComponent
-  },
-  {
-    path: 'about',
-    component: AboutComponent,
-    data: { state: 'about' }
-  },
-  {
-    path: 'privacy',
-    component: PrivacyComponent
+    path: '',
+    loadChildren: './staticPages/staticPages.module#StaticPagesModule',
+    data: { preload: true, delay: false }
   },
   {
     path: 'resetPassword',
-    component: ResetPasswordComponent
+    component: ResetPasswordComponent,
+    data: { preload: true, delay: false }
   },
   {
     path: 'daily/:name',
-    component: DailyPredictionListComponent,
-    canActivate: [LoggedInPolicy]
+    loadChildren: './dailyPredictionList/dailyPredictionList.module#DailyPredictionListModule',
+    canActivate: [LoggedInPolicy],
+    data: { preload: true, delay: true }
   },
   {
     path: 'daily/:name/:date',
-    component: DailyPredictionComponent,
-    canActivate: [LoggedInPolicy]
+    loadChildren: './dailyPrediction/dailyPrediction.module#DailyPredictionModule',
+    canActivate: [LoggedInPolicy],
+    data: { preload: true, delay: true }
   },
   {
     path: 'profile',
     component: ProfileComponent,
-    canActivate: [LoggedInPolicy]
+    canActivate: [LoggedInPolicy],
+    data: { preload: true, delay: true }
   },
-  {path: '**', component: LandingPageComponent}
+  {path: '**', redirectTo: ''}
  ];
 
 @NgModule({
   imports: [
     BrowserAnimationsModule,
     BrowserModule.withServerTransition({ appId: 'astroweb' }),
-    PrebootModule.withConfig({ appRoot: 'app-root' }),
-    MaterialModule,
+    SharedModule.forRoot(),
+    BrowserTransferStateModule,
+    CommonComponentsModule,
     HttpClientModule,
     FlexLayoutModule,
     ApolloModule,
     HttpLinkModule,
-    RouterModule.forRoot(routes, {useHash: false, initialNavigation: 'enabled'}),
+    RouterModule.forRoot(routes, {
+      useHash: false, 
+      preloadingStrategy: AppPreloadingStrategy
+    }),
     Angulartics2Module.forRoot([ Angulartics2GoogleAnalytics, Angulartics2Facebook ]),
     HttpClientJsonpModule,
     FacebookModule.forRoot(),
+    environment.production ? ServiceWorkerModule.register('ngsw-worker.js') : []
   ],
   declarations: [
     AppComponent,
-    LandingPageComponent,
-    LoginRegisterComponent,
     ResetPasswordComponent,
-    BasePageComponent,
-    FooterLandingComponent,
-    FooterComponent,
-    PrivacyComponent,
-    TermsComponent,
-    AboutComponent,
-    HeaderComponent,
-    DailyPredictionListComponent,
-    DailyPredictionComponent,
-    DailyPredictionAdSenseComponent,
-    DailyPredictionListAdSenseComponent,
     ProfileComponent,
     ErrorDialogComponent
   ],
@@ -137,17 +106,8 @@ const routes: Routes = [
     ErrorDialogComponent
   ],
   providers: [
-    AuthorizationService,
-    StorageService,
-    AuthenticationService,
-    NatalDatesService,
-    UserService,
     LoggedInPolicy,
-    {
-      provide: HTTP_INTERCEPTORS,
-      useClass: TokenInterceptor,
-      multi: true
-    },
+    AppPreloadingStrategy,
     { provide: 'LOCALSTORAGE', useFactory: getLocalStorage },
     { provide: ErrorHandler, useClass: RavenErrorHandler }
   ],

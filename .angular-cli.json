@@ -25,7 +25,8 @@
       "environments": {
         "dev": "environments/environment.ts",
         "prod": "environments/environment.prod.ts"
-      }
+      },
+      "serviceWorker": true
     },
     {
       "root": "src",
@@ -50,7 +51,8 @@
         "prod": "environments/environment.prod.ts"
       },
       "platform": "server",
-      "name": "astroweb"
+      "name": "astroweb",
+      "serviceWorker": true
     }
   ],
   "e2e": {

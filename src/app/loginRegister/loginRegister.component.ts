@@ -97,12 +97,14 @@ export class LoginRegisterComponent {
     this.setLoginState(this.route.snapshot.queryParamMap.get('register') != '1');
     this.fbLogin = this.route.snapshot.queryParamMap.get('fbLogin') == '1';
     this.titleService.setTitle('Είσοδος / Εγγραφή');
-
+    
     this.form = this.formBuilder.group({
       email: ['', [Validators.email]],
       password: ['', [Validators.required, Validators.minLength(6)]],
       passwordRepeat: ['', [Validators.required, checkIfMatchingPasswords('password', 'passwordRepeat')]]
     });
+
+    this.form.patchValue({email: 'yoyoyyo@gmail.com'});
   }
 
   onToggleState() {
