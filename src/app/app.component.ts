@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-//import { routerTransition } from './router.transitions'
+import { routerTransition } from './router.transitions'
 import { NavigationEnd, Router } from '@angular/router';
 import { Meta } from '@angular/platform-browser';
 import { Angulartics2GoogleAnalytics } from 'angulartics2/ga'
@@ -12,7 +12,7 @@ import "rxjs/add/operator/filter";
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css'],
-  //animations: [routerTransition]
+  animations: [routerTransition]
 })
 export class AppComponent {
   constructor(private router: Router, 
@@ -44,9 +44,8 @@ export class AppComponent {
         { name: 'description', content: description },
       ]);
     }
-    /*
+    
     getState(outlet) {
       return outlet.activatedRouteData.state;
     }
-    */
 }
