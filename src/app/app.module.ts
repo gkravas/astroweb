@@ -18,6 +18,9 @@ import { CommonComponentsModule } from "./common.components.module";
 
 import { AppComponent } from './app.component';
 import { LandingPageComponent } from './landingPage/landingPage.component';
+import { TermsComponent } from './staticPages/terms/terms.component';
+import { AboutComponent } from './staticPages/about/about.component';
+import { PrivacyComponent } from './staticPages/privacy/privacy.component';
 import { ErrorDialogComponent } from './errorDialog/errorDialog.component';
 import { LoggedInPolicy } from './policies/loggedInPolicy.module';
 import { AppPreloadingStrategy } from './app.preload.strategy';
@@ -40,14 +43,29 @@ import { ResetPasswordComponent } from './resetPassword/resetPassword.component'
 
 const routes: Routes = [
   {
+    path: '',
+    component: LandingPageComponent,
+    data: { preload: true, delay: false }
+  },
+  {
     path: 'login',
     loadChildren: './loginRegister/loginRegister.module#LoginRegisterModule',
     canActivate: [LoggedInPolicy],
     data: { preload: true, delay: false }
   },
   {
-    path: '',
-    loadChildren: './staticPages/staticPages.module#StaticPagesModule',
+    path: 'terms',
+    component: TermsComponent,
+    data: { preload: true, delay: false }
+  },
+  {
+    path: 'about',
+    component: AboutComponent,
+    data: { preload: true, delay: false }
+  },
+  {
+    path: 'privacy',
+    component: PrivacyComponent,
     data: { preload: true, delay: false }
   },
   {
@@ -59,21 +77,20 @@ const routes: Routes = [
     path: 'daily/:name',
     loadChildren: './dailyPredictionList/dailyPredictionList.module#DailyPredictionListModule',
     canActivate: [LoggedInPolicy],
-    data: { preload: true, delay: true }
+    data: { preload: true, delay: false }
   },
   {
     path: 'daily/:name/:date',
     loadChildren: './dailyPrediction/dailyPrediction.module#DailyPredictionModule',
     canActivate: [LoggedInPolicy],
-    data: { preload: true, delay: true }
+    data: { preload: true, delay: false }
   },
   {
     path: 'profile',
     component: ProfileComponent,
     canActivate: [LoggedInPolicy],
-    data: { preload: true, delay: true }
-  },
-  {path: '**', redirectTo: ''}
+    data: { preload: true, delay: false }
+  }
  ];
 
 @NgModule({
@@ -99,6 +116,10 @@ const routes: Routes = [
   declarations: [
     AppComponent,
     ResetPasswordComponent,
+    LandingPageComponent,
+    TermsComponent,
+    AboutComponent,
+    PrivacyComponent,
     ProfileComponent,
     ErrorDialogComponent
   ],
