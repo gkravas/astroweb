@@ -6,7 +6,7 @@
                 fxLayoutAlign="center center"
                 fxLayoutGap="16px"
                 class="explanation-list">
-                <mat-card fxFlexFill fxFlex="grow" fxFlexAlign="center" *ngFor="let explanation of (dailyPrediction | async)?.planetExplanations">
+                <mat-card style="margin-top: 15px" fxFlexFill fxFlex="grow" fxFlexAlign="center" *ngFor="let explanation of (dailyPrediction | async)?.planetExplanations">
                     <mat-card-content *ngIf="!explanation.isAd">
                         <div fxFlexFill class="card-title explanation-content"><strong>{{explanation.title}}</strong></div>
                         <div fxFlexFill class="card-subtitle explanation-content">{{explanation.lemma}}</div>
