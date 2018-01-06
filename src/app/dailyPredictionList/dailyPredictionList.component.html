@@ -10,7 +10,7 @@
                     <button mat-button [disabled]="availableDate == -1" (click)="openPrediction(availableDate)">{{getActionLemma(availableDate)}}</button>
                 </mat-card-actions>
             </mat-card>
-            <mat-card fxFlex="grow" style="height: 92%;" class="prediction-card" *ngIf="availableDate == -1">
+            <mat-card class="prediction-card" *ngIf="availableDate == -1">
                 <mat-card-header>
                     <mat-card-title><strong>Διαφήμιση</strong></mat-card-title>
                 </mat-card-header>
