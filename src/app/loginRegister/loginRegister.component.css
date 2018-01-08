@@ -1,6 +1,7 @@
 .master {
     width: 100vw;
     height: 100vh;
+    background-color: #385E9F;
  }
  .bg {
     display: block;
