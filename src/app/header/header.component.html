@@ -1,7 +1,10 @@
 <mat-toolbar color="primary" class="mat-elevation-z6">
     <mat-toolbar-row class="single-row">
         <div class="home-container">
-            <img class="icon" src="/assets/logoGrayscale.png"/>
+            <picture>
+                <source type="image/webp" srcset="/assets/webp/logoGrayscale.webp">
+                <img class="icon" src="/assets/logoGrayscale.png" alt="intro background">
+            </picture>
             <span class="spacer">{{title}}</span>
         </div>
         <div class="not-two-rows">

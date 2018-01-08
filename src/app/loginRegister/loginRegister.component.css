@@ -3,17 +3,19 @@
     height: 100vh;
  }
  .bg {
-    position: absolute;
+    display: block;
+    object-fit: cover;
     width: 100vw;
-    height: 100vh; 
-    justify-content: center;
-    align-items: center;
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
-    background-image: url("/assets/bg1.jpg");
-    background-color: #385E9F;
+    height: 100vh;
+    object-position: 50% 50%;
 }
+.overlay {
+    display: block;
+    position: absolute;
+    top: 0; bottom: 0; left: 0; right: 0;
+    background-color: black;
+    opacity: 0.4;
+ }
 .overlay {
     position: absolute;
     width: 100vw;

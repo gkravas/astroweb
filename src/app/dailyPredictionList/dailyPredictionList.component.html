@@ -5,7 +5,10 @@
                 <mat-card-header>
                     <mat-card-title><strong>{{formatDate(availableDate)}}</strong></mat-card-title>
                 </mat-card-header>
-                <img class="prediction-card-image" mat-card-image (click)="openPrediction(availableDate)" [src]="getDayImage(availableDate)" [alt]="getDayImageName(availableDate)">
+                <picture>
+                    <source type="image/webp" [srcset]="getDayImageWEBP(availableDate)">
+                    <img class="prediction-card-image" mat-card-image (click)="openPrediction(availableDate)" [src]="getDayImageJPG(availableDate)" [alt]="getDayImageName(availableDate)">
+                </picture>
                 <mat-card-actions>
                     <button mat-button [disabled]="availableDate == -1" (click)="openPrediction(availableDate)">{{getActionLemma(availableDate)}}</button>
                 </mat-card-actions>

@@ -31,6 +31,16 @@ export class DailyPredictionListComponent {
         'assets/7.jpg',
     ];
 
+    public dayImagesWebp: Array<string> = [
+        'assets/webp/1.webp',
+        'assets/webp/2.webp',
+        'assets/webp/3.webp',
+        'assets/webp/4.webp',
+        'assets/webp/5.webp',
+        'assets/webp/6.webp',
+        'assets/webp/7.webp',
+    ];
+
     public dayImageNames: Array<string> = [
         "Sun's image",
         "Moon's image",
@@ -87,11 +97,19 @@ export class DailyPredictionListComponent {
         }
     }
 
-    public getDayImage(timestamp: number): string {
+    public getDayImageJPG(timestamp: number): string {
         if (timestamp == DailyPredictionListComponent.ADVERTISING_ID) {
             return "assets/advertisement.jpg";
         } else {
             return this.dayImages[Number.parseInt(moment.unix(timestamp).format('d')) % 7];
+        }
+    }
+
+    public getDayImageWEBP(timestamp: number): string {
+        if (timestamp == DailyPredictionListComponent.ADVERTISING_ID) {
+            return "assets/advertisement.jpg";
+        } else {
+            return this.dayImagesWebp[Number.parseInt(moment.unix(timestamp).format('d')) % 7];
         }
     }
 
