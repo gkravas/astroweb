@@ -143,6 +143,8 @@ export class ProfileComponent {
         const dateMoment = moment(new Date(me.date).toISOString()).utcOffset(me.timezoneMinutesDifference / 60);
         this.formNatalDate.patchValue({birthDate: dateMoment.format('YYYY-MM-DD')});
         this.formNatalDate.patchValue({birthTime: dateMoment.format('HH:mm')});
+      } else {
+        this.formNatalDate.patchValue({birthTime: '12:00'});
       }
       //this is here because for each natal date fetch we fetch user's info too
       this.formNatalDate.patchValue({livingPlace: this.storageService.getUser().location});
