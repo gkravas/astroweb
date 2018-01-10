@@ -90,7 +90,11 @@ const routes: Routes = [
     component: ProfileComponent,
     canActivate: [LoggedInPolicy],
     data: { preload: true, delay: false }
-  }
+  },
+  {
+    path: '**',
+    redirectTo: ''
+  },
  ];
 
 @NgModule({
