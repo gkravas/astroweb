@@ -104,7 +104,7 @@
                         </mat-form-field>
 
                         <mat-form-field fxFlexFill>
-                            <input name="birthTime" type="number" matInput placeholder="Τι ώρα γεννήθηκα" formControlName="birthTime" [imask]="timeMask">
+                            <input name="birthTime" matInput placeholder="Τι ώρα γεννήθηκα" formControlName="birthTime" [imask]="timeMask">
                             <mat-hint align="start"><strong>Αν δεν γνωρίζεις την ώρα που γεννήθηκες μπορείς να το αφήσεις στις 12:00 το μεσημέρι</strong> </mat-hint>
                             <mat-error *ngIf="formNatalDate.get('birthTime').hasError('required')">
                                 Η ώρα γέννησης δεν μπορεί να είναι κενή
