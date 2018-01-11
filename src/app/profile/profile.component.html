@@ -95,14 +95,17 @@
                         </mat-form-field>
 
                         <mat-form-field fxFlexFill>
-                            <input name="birthDate" matInput type="date" placeholder="Πότε γεννήθηκα(ημέρα/μήνας/χρόνος)" formControlName="birthDate">
+                            <input name="birthDate" matInput [readonly]="true" [matDatepicker]="picker" (click)="picker.open()" (focus)="picker.open()" placeholder="Πότε γεννήθηκα(ημέρα/μήνας/χρόνος)" formControlName="birthDate">
+                            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                            <mat-datepicker #picker></mat-datepicker>
                             <mat-error *ngIf="formNatalDate.get('birthDate').hasError('required')">
                                 Η χρονολογία γέννησης δεν μπορεί να είναι κενή
                             </mat-error>
                         </mat-form-field>
 
                         <mat-form-field fxFlexFill>
-                            <input name="birthTime" matInput type="time" placeholder="Τι ώρα γεννήθηκα" formControlName="birthTime">
+                            <input name="birthTime" matInput type="time" placeholder="Τι ώρα γεννήθηκα" formControlName="birthTime"
+                            patterns="{'0': { pattern: new RegExp('^([01]\d|2[0-3]):?([0-5]\d)$')}}" mask="(00:00)">
                             <mat-hint align="start"><strong>Αν δεν γνωρίζεις την ώρα που γεννήθηκες μπορείς να το αφήσεις στις 12:00 το μεσημέρι</strong> </mat-hint>
                             <mat-error *ngIf="formNatalDate.get('birthTime').hasError('required')">
                                 Η ώρα γέννησης δεν μπορεί να είναι κενή

@@ -31,10 +31,6 @@ import { User } from '../models/user';
 import { NatalDate } from '../models/natalDate';
 import { checkIfMatchingPasswords } from '../validators/matchingValidator';
 
-
-const EMAIL_REGEX = /^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
-const DATE_REGEX = /^\d{4}\-\d{1,2}\-\d{1,2}$/;
-
 interface Type {
   id: string;
   name: string;
@@ -94,7 +90,7 @@ export class ProfileComponent {
     type:  new FormControl(''),
     livingPlace: new FormControl('', [Validators.required]),
     birthPlace: new FormControl('', [Validators.required]),
-    birthDate: new FormControl('', [Validators.required, Validators.pattern(DATE_REGEX)]),
+    birthDate: new FormControl('', [Validators.required]),
     birthTime: new FormControl('', [Validators.required])
   });
   
