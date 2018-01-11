@@ -6,6 +6,7 @@
                     <mat-card-title><strong>{{formatDate(availableDate)}}</strong></mat-card-title>
                 </mat-card-header>
                 <picture>
+                    <source type="image/jp2" [srcset]="getDayImageJP2(availableDate)">
                     <source type="image/webp" [srcset]="getDayImageWEBP(availableDate)">
                     <img class="prediction-card-image" mat-card-image (click)="openPrediction(availableDate)" [src]="getDayImageJPG(availableDate)" [alt]="getDayImageName(availableDate)">
                 </picture>

@@ -22,13 +22,13 @@ export class DailyPredictionListComponent {
     public cols: Observable<number>;
     public availableDates: Array<number> = [];
     public dayImages: Array<string> = [
-        'assets/1.jpg',
-        'assets/2.jpg',
-        'assets/3.jpg',
-        'assets/4.jpg',
-        'assets/5.jpg',
-        'assets/6.jpg',
-        'assets/7.jpg',
+        'assets/default/1.jpg',
+        'assets/default/2.jpg',
+        'assets/default/3.jpg',
+        'assets/default/4.jpg',
+        'assets/default/5.jpg',
+        'assets/default/6.jpg',
+        'assets/default/7.jpg',
     ];
 
     public dayImagesWebp: Array<string> = [
@@ -39,6 +39,16 @@ export class DailyPredictionListComponent {
         'assets/webp/5.webp',
         'assets/webp/6.webp',
         'assets/webp/7.webp',
+    ];
+
+    public dayImagesJp2: Array<string> = [
+        'assets/jp2/1.jp2',
+        'assets/jp2/2.jp2',
+        'assets/jp2/3.jp2',
+        'assets/jp2/4.jp2',
+        'assets/jp2/5.jp2',
+        'assets/jp2/6.jp2',
+        'assets/jp2/7.jp2',
     ];
 
     public dayImageNames: Array<string> = [
@@ -98,19 +108,15 @@ export class DailyPredictionListComponent {
     }
 
     public getDayImageJPG(timestamp: number): string {
-        if (timestamp == DailyPredictionListComponent.ADVERTISING_ID) {
-            return "assets/advertisement.jpg";
-        } else {
-            return this.dayImages[Number.parseInt(moment.unix(timestamp).format('d')) % 7];
-        }
+        return this.dayImages[Number.parseInt(moment.unix(timestamp).format('d')) % 7];
     }
 
     public getDayImageWEBP(timestamp: number): string {
-        if (timestamp == DailyPredictionListComponent.ADVERTISING_ID) {
-            return "assets/advertisement.jpg";
-        } else {
-            return this.dayImagesWebp[Number.parseInt(moment.unix(timestamp).format('d')) % 7];
-        }
+        return this.dayImagesWebp[Number.parseInt(moment.unix(timestamp).format('d')) % 7];
+    }
+
+    public getDayImageJP2(timestamp: number): string {
+        return this.dayImagesJp2[Number.parseInt(moment.unix(timestamp).format('d')) % 7];
     }
 
     public getDayImageName(timestamp: number): string {
