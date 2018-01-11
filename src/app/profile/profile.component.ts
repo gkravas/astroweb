@@ -31,6 +31,10 @@ import { User } from '../models/user';
 import { NatalDate } from '../models/natalDate';
 import { checkIfMatchingPasswords } from '../validators/matchingValidator';
 
+import IMask from 'imask';
+
+const TIME_REGEX = /^([01]\d|2[0-3]):?([0-5]\d)$/; 
+
 interface Type {
   id: string;
   name: string;
@@ -91,8 +95,26 @@ export class ProfileComponent {
     livingPlace: new FormControl('', [Validators.required]),
     birthPlace: new FormControl('', [Validators.required]),
     birthDate: new FormControl('', [Validators.required]),
-    birthTime: new FormControl('', [Validators.required])
+    birthTime: new FormControl('', [Validators.required, Validators.pattern(TIME_REGEX)])
   });
+  
+  timeMask: any = {
+    mask: Date,
+    pattern: 'HH:mm',
+    lazy: false,
+
+    format: function (date) {
+      return moment(date).format('HH:mm');
+    },
+    parse: function (str) {
+      return moment(str, 'HH:mm');
+    },
+
+    groups: {
+      HH: new IMask.MaskedPattern.Group.Range([0, 23]),
+      mm: new IMask.MaskedPattern.Group.Range([0, 59])
+    }
+  };
   
   checkOldEmail() {
     return (ac: AbstractControl) => {

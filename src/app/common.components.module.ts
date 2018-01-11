@@ -11,6 +11,8 @@ import { RouterModule } from '@angular/router';
 import { MaterialModule } from './material.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
+import {IMaskModule} from 'angular-imask';
+
 @NgModule({
     imports: [
         CommonModule,
@@ -18,7 +20,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
         RouterModule,
         MaterialModule,
         FormsModule,
-        ReactiveFormsModule
+        ReactiveFormsModule,
+        IMaskModule
     ],
     declarations: [
         BasePageComponent,
@@ -33,7 +36,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
         HeaderComponent,
         MaterialModule,
         FormsModule,
-        ReactiveFormsModule
+        ReactiveFormsModule,
+        IMaskModule
     ],
 })
 export class CommonComponentsModule {}

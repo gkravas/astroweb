@@ -103,8 +103,6 @@ export class LoginRegisterComponent {
       password: ['', [Validators.required, Validators.minLength(6)]],
       passwordRepeat: ['', [Validators.required, checkIfMatchingPasswords('password', 'passwordRepeat')]]
     });
-
-    this.form.patchValue({email: 'yoyoyyo@gmail.com'});
   }
 
   onToggleState() {
