@@ -115,7 +115,7 @@ export class ProfileComponent {
       mm: new IMask.MaskedPattern.Group.Range([0, 59])
     }
   };
-  
+
   checkOldEmail() {
     return (ac: AbstractControl) => {
       try {
@@ -274,7 +274,7 @@ export class ProfileComponent {
 
   updateNatalDate() {
     const fields = this.formNatalDate.value;
-    const date = fields['birthDate'] + "T" + fields['birthTime'] + ':00';
+    const date = moment(fields['birthDate']).format('YYYY-MM-DD') + "T" + fields['birthTime'] + ':00';
     const action = fields['id'] == 0
                       ?
       this.natalDatesService.createNatalDate(date, fields['name'], 
