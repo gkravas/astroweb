@@ -80,22 +80,22 @@
                         <input type="hidden" name="primary" formControlName="primary">
                         <input type="hidden" name="name" formControlName="name">
 
-                        <mat-form-field fxFlexFill>
+                        <mat-form-field class="gap" fxFlexFill>
                                 <input name="livingPlace" matInput placeholder="Που κατοικώ" formControlName="livingPlace">
-                                <mat-hint align="start"><strong>Μπορείς να εισάγεις οποιοδήποτε μέρος στον Κοσμο</strong> </mat-hint>
+                                <mat-hint align="start"><strong>Μπορείς να εισάγεις οποιοδήποτε μέρος στον κόσμο</strong> </mat-hint>
                                 <mat-error *ngIf="formNatalDate.get('livingPlace').hasError('required')">
                                     Ο τόπος κατοικίας είναι υποχρεωτικός
                                 </mat-error>
                             </mat-form-field>
 
-                        <mat-form-field fxFlexFill>
+                        <mat-form-field class="gap" fxFlexFill>
                             <input name="birthPlace" matInput placeholder="Που γεννήθηκα" formControlName="birthPlace">
                             <mat-error *ngIf="formNatalDate.get('birthPlace').hasError('required')">
                                 Ο τόπος γέννησης δεν μπορεί να είναι κενός
                             </mat-error>
                         </mat-form-field>
 
-                        <mat-form-field fxFlexFill>
+                        <mat-form-field class="gap" fxFlexFill>
                             <input name="birthDate" matInput [readonly]="true" [matDatepicker]="picker" (click)="picker.open()" (focus)="picker.open()" placeholder="Πότε γεννήθηκα(ημέρα/μήνας/χρόνος)" formControlName="birthDate">
                             <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
                             <mat-datepicker #picker></mat-datepicker>
@@ -104,7 +104,7 @@
                             </mat-error>
                         </mat-form-field>
 
-                        <mat-form-field fxFlexFill>
+                        <mat-form-field class="gap" fxFlexFill>
                             <input name="birthTime" matInput placeholder="Τι ώρα γεννήθηκα" formControlName="birthTime" [imask]="timeMask">
                             <mat-hint align="start"><strong>Αν δεν γνωρίζεις την ώρα που γεννήθηκες μπορείς να το αφήσεις στις 12:00 το μεσημέρι</strong> </mat-hint>
                             <mat-error *ngIf="formNatalDate.get('birthTime').hasError('required')">
@@ -112,7 +112,7 @@
                             </mat-error>
                         </mat-form-field>
 
-                        <mat-form-field class="selectType" [style.width]="'auto'" fxFlexFill>
+                        <mat-form-field class="gap" [style.width]="'auto'" fxFlexFill>
                             <mat-select placeholder="Είμαι" formControlName="type">
                                 <mat-option *ngFor="let type of types" [value]="type.id">{{type.name}}</mat-option>
                             </mat-select>

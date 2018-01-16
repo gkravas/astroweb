@@ -19,6 +19,10 @@
 .clickable {
     cursor: pointer;
 }
+.gap {
+    padding-top: 12px;
+}
+
 @media (max-width: 500px) {
     .container {
         min-width: 100%;
