@@ -82,6 +82,7 @@
 
                         <mat-form-field fxFlexFill>
                                 <input name="livingPlace" matInput placeholder="Που κατοικώ" formControlName="livingPlace">
+                                <mat-hint align="start"><strong>Μπορείς να εισάγεις οποιοδήποτε μέρος στον Κοσμο</strong> </mat-hint>
                                 <mat-error *ngIf="formNatalDate.get('livingPlace').hasError('required')">
                                     Ο τόπος κατοικίας είναι υποχρεωτικός
                                 </mat-error>

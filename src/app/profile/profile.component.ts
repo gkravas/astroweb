@@ -35,6 +35,9 @@ import IMask from 'imask';
 
 const TIME_REGEX = /^([01]\d|2[0-3]):?([0-5]\d)$/; 
 
+const GREECE: String = "Ελλάδα";
+const DEFAULT_TIME: String = "12:00";
+
 interface Type {
   id: string;
   name: string;
@@ -162,10 +165,11 @@ export class ProfileComponent {
         this.formNatalDate.patchValue({birthDate: dateMoment.format('YYYY-MM-DD')});
         this.formNatalDate.patchValue({birthTime: dateMoment.format('HH:mm')});
       } else {
-        this.formNatalDate.patchValue({birthTime: '12:00'});
+        this.formNatalDate.patchValue({birthTime: DEFAULT_TIME});
       }
       //this is here because for each natal date fetch we fetch user's info too
-      this.formNatalDate.patchValue({livingPlace: this.storageService.getUser().location});
+      const livingPlace: String = this.storageService.getUser().location || GREECE;
+      this.formNatalDate.patchValue({livingPlace: livingPlace});
       this.formChangeEmail.patchValue({email: this.storageService.getUser().email});
     });
   }
