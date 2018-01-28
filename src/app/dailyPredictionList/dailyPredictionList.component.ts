@@ -18,6 +18,7 @@ export class DailyPredictionListComponent {
 
     private static readonly MAX_DAYS_FORWARD: number = 30;
     private static readonly ADVERTISING_ID: number = -1;
+    private static readonly AD_PER_PREDICTION: number = 5;
 
     public cols: Observable<number>;
     public availableDates: Array<number> = [];
@@ -93,7 +94,7 @@ export class DailyPredictionListComponent {
         for(var i: number = 1; i < DailyPredictionListComponent.MAX_DAYS_FORWARD; i++) {
             now.add(1, 'days');
             this.availableDates.push(now.unix())
-            if (i % 8 == 0) {
+            if (i % DailyPredictionListComponent.AD_PER_PREDICTION == 0) {
                 this.availableDates.push(DailyPredictionListComponent.ADVERTISING_ID);
             }
         }
