@@ -1,5 +1,5 @@
 export const environment = {
   production: true,
-  baseUrl: "https://astrolucis.gr:3579",
+  baseUrl: "http://localhost:3597",
   fbAppId: "1741917992498773"
 };
