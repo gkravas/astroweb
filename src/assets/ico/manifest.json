@@ -1,6 +1,11 @@
 {
  "name": "Astro Luics",
  "short_name": "Astro Luics",
+ "related_applications": [{
+    "platform": "play",
+    "id": "com.astrolucis",
+    "url": "https://play.google.com/store/apps/details?id=com.astrolucis"
+  }],
  "icons": [
   {
    "src": "\/android-icon-36x36.png",
