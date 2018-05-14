@@ -1,6 +1,7 @@
 {
  "name": "Astro Luics",
  "short_name": "Astro Luics",
+ "prefer_related_applications": true,
  "related_applications": [{
     "platform": "play",
     "id": "com.astrolucis",
