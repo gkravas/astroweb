@@ -37,6 +37,8 @@ mutation CreateNatalDate($date: String!, $name: String!, $location: String!, $pr
     location
     primary
     type
+    chart
+    timezoneMinutesDifference
   }
 }
 `;
@@ -50,6 +52,8 @@ mutation UpdateNatalDate($id: Int, $date: String!, $name: String!, $location: St
     location
     primary
     type
+    chart
+    timezoneMinutesDifference
   }
 }
 `;
