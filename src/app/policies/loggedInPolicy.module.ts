@@ -29,45 +29,50 @@ export class LoggedInPolicy implements CanActivate {
     return of(this.authorizationService.isAuthenticated())
       .flatMap((isAuthenticated: boolean) => {
         if (!isAuthenticated) {
-          if (path != 'login') {
-            that.apollo.getClient().cache.reset();
-            that.router.navigate(['/login']);
-            return of(false);
-          } else {
+          // if (path != 'login') {
+          //   that.apollo.getClient().cache.reset();
+          //   that.router.navigate(['/login']);
+          //   return of(false);
+          // } else {
             return of(true);
-          }
+          // }
         } else {
           return Observable.create(observer => {
-            if (that.storageService.getNatalDates().length == 0) {
-              that.natalDatesService.getAll()
-                .subscribe((natalDates: Array<NatalDate>) => {
-                  that.storageService.setNatalDates(natalDates);
-                  observer.next(natalDates);
-                  observer.complete();
-                });
-            } else {
-              observer.next(that.storageService.getNatalDates());
-              observer.complete();
-            }
-          })
-          .flatMap((natalDates: Array<NatalDate>) => {
-            if ((natalDates == null || natalDates.length == 0)) {
-              if (path != 'profile') {
-                that.router.navigate(['/profile']);
-                return of(false);
-              } else {
-                return of(true);
-              }
-            } else {
-              that.storageService.setNatalDates(natalDates);
-              if (path == 'login') {
-                that.router.navigate(['/daily/me']);
-                return of(false);
-              } else {
-                return of(true);
-              }
-            }
-          })
+            that.storageService.clear();
+            that.router.navigate(['']);
+            return of(false);
+          });
+          // return Observable.create(observer => {
+          //   if (that.storageService.getNatalDates().length == 0) {
+          //     that.natalDatesService.getAll()
+          //       .subscribe((natalDates: Array<NatalDate>) => {
+          //         that.storageService.setNatalDates(natalDates);
+          //         observer.next(natalDates);
+          //         observer.complete();
+          //       });
+          //   } else {
+          //     observer.next(that.storageService.getNatalDates());
+          //     observer.complete();
+          //   }
+          // })
+          // .flatMap((natalDates: Array<NatalDate>) => {
+          //   if ((natalDates == null || natalDates.length == 0)) {
+          //     if (path != 'profile') {
+          //       that.router.navigate(['/profile']);
+          //       return of(false);
+          //     } else {
+          //       return of(true);
+          //     }
+          //   } else {
+          //     that.storageService.setNatalDates(natalDates);
+          //     if (path == 'login') {
+          //       that.router.navigate(['/daily/me']);
+          //       return of(false);
+          //     } else {
+          //       return of(true);
+          //     }
+          //   }
+          // })
         }
       });
   }

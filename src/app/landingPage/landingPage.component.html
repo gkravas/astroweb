@@ -19,10 +19,14 @@
             <p></p>
             <h1 class="text"><strong>Δωρεάν</strong> προσωπικές αστρολογικές προβλέψεις</h1>
             <p></p>
-            <h3 class="text"><a class="text" [routerLink]="['/login']" [queryParams]="{register : 1}">
+            <h3 class="text"><a class="text" href="https://play.google.com/store/apps/details?id=com.astrolucis&referrer=utm_source%3DwebApp" rel="noopener" target="_blank">
                 <strong style="text-decoration: none; color: #4154B2;">Γίνε μέλος</strong></a> και δες τι σου επιφυλάσσουν τα άστρα για το μέλλον σου!</h3>
             <p></p>
-            <a mat-raised-button class="register-button" [routerLink]="['/login']" [queryParams]="{register : 1}">Ξεκίνα εδώ</a>
+            <!-- <a mat-raised-button class="register-button" [routerLink]="['/login']" [queryParams]="{register : 1}">Ξεκίνα εδώ</a> -->
+            <button mat-raised-button class="register-button" href="https://play.google.com/store/apps/details?id=com.astrolucis&referrer=utm_source%3DwebApp" rel="noopener" target="_blank">
+                <mat-icon>android</mat-icon>
+                <span>Κατέβασε εδώ το App</span>
+            </button>
         </div>
         <footer>
             <footer-landing></footer-landing>
