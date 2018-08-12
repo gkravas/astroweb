@@ -26,6 +26,7 @@ export class LoggedInPolicy implements CanActivate {
     const path: string = route.url[route.url.length - 1].path;
 
     const that =  this;
+    that.storageService.clear();
     return of(this.authorizationService.isAuthenticated())
       .flatMap((isAuthenticated: boolean) => {
         if (!isAuthenticated) {
